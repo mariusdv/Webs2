@@ -8,7 +8,8 @@
  */
 class TimeSheetController
 {
-    public function Run() {
+    public function Run()
+    {
 
         $rows = array();
         $rows[] = new TimeSheetRow("03/02/2016", "Marius", "OO php leren", 0.5);
@@ -22,13 +23,12 @@ class TimeSheetController
 
         $totalMarius = 0;
         $totalPatrick = 0;
-        foreach ($rows as $value)
-        {
-            if($value->Name == "Marius")
+        foreach ($rows as $value) {
+            if ($value->Name == "Marius")
                 $totalMarius += $value->Time;
             else
                 $totalPatrick += $value->Time;
         }
-        render("timesheet.php" , ["title" => "Time Sheet", "rows" => $rows, "Marius" => $totalMarius, "Patrick" => $totalPatrick]);
+        render("timesheet.php", ["title" => "Time Sheet", "rows" => $rows, "Marius" => $totalMarius, "Patrick" => $totalPatrick]);
     }
 }
