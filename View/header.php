@@ -1,5 +1,3 @@
-
-
 <!DOCTYPE html >
 <html lang = "en" >
 <head >
@@ -11,11 +9,11 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="../CSS/Style.css">
 
-    <?php if (isset($title)): ?>
+    {if isset($title)}
         <title>Webshop: {htmlspecialchars($title)}</title>
-    <?php else: ?>
+    {else}
         <title>Webshop</title>
-    <?php endif ?>
+    {/if}
 
 
 </head >
