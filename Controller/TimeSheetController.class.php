@@ -10,7 +10,7 @@ class TimeSheetController
 {
     public function Run()
     {
-
+        // COMMENT
         $rows = array();
         $rows[] = new TimeSheetRow("03/02/2016", "Marius", "OO php leren", 0.5);
         $rows[] = new TimeSheetRow("03/02/2016", "Marius", "IDE opzetten met MySQL & Apache", 1);
