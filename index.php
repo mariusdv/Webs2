@@ -22,6 +22,9 @@ switch ($page)
     case "index.php":
         (new HomeController())->Run();
         break;
+    case "timesheet":
+        (new TimeSheetController())->Run();
+        break;
     default:
         apologize("Sorry. Pagina bestaat niet");
         break;
