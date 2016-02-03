@@ -2,5 +2,5 @@
     ERROR VIEW!
 </h1>
 <p>
-    <?= $message ?>
+    {htmlspecialchars($message)}
 </p>

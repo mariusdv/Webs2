@@ -7,7 +7,7 @@
      */
     function apologize($message)
     {
-       $err = new ErrorMessage();
+       $err = new ErrorController();
         $err->message = $message;
         $err->render();
         exit;
@@ -136,16 +136,17 @@
         if (file_exists("View/$template"))
         {
             // extract variables into local scope
-            extract($values);
+            $smarty = new Smarty;
+            $smarty->assign($values);
 
             // render header
-            require("View/header.php");
+            $smarty->display("View/header.php");
 
             // render template
-            require("View/$template");
+            $smarty->display("View/$template");
 
             // render footer
-            require("View/footer.php");
+            $smarty->display("View/footer.php");
         }
 
         // else err

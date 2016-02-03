@@ -1,6 +1,5 @@
 <?php
 
-include_once("Includes/config.php");
 
 class HomeController
 {

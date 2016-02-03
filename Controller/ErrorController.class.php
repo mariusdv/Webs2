@@ -1,10 +1,10 @@
 <?php
 
-class ErrorMessage
+class ErrorController
 {
     public $message = "ERROR MESSGAGE!!!";
 
-    function render() {
+    public function render() {
         render("error_view.php" , ["title" => "ErrorMessage",
             "message" => $this->message ]);
     }

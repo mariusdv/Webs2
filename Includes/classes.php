@@ -1,8 +1,13 @@
 <?php
 
 include_once("Model/Product.php");
-include_once("Model/Error.php");
-include_once("Controller/HomeController.php");
-include_once("Controller/SearchController.php");
-include_once("Controller/AccountController.php");
+include_once("Model/User.php");
+include_once("Model/CartEntry.php");
+include_once("Model/Database.php");
+
+include_once("Controller/HomeController.class.php");
+include_once("Controller/SearchController.class.php");
+include_once("Controller/AccountController.class.php");
+include_once("Controller/ErrorController.class.php");
+include_once("Controller/AdminController.class.php");
 

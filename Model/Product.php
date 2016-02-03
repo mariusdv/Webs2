@@ -8,5 +8,6 @@
  */
 class Product
 {
-
+    public $Category;
+    //...
 }

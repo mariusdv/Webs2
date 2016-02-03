@@ -16,6 +16,9 @@ switch ($page)
     case "account":
         (new AccountController())->Run();
         break;
+    case "admin":
+        (new AdminController())->Run();
+        break;
     case "index.php":
         (new HomeController())->Run();
         break;
