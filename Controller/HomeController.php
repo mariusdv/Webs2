@@ -2,7 +2,7 @@
 
 include_once("Includes/config.php");
 
-class MainController
+class HomeController
 {
 
     private function Example()
@@ -16,9 +16,9 @@ class MainController
         //apologize("The redirecting and rendering en shit werkt!");
     }
 
-    function Run()
+    public function Run()
     {
-        $this->Example();
+        echo "Home";
     }
 
 }
