@@ -18,7 +18,13 @@
 
 </head >
 <body >
-
+<nav class="navbar navbar-default navbar-fixed-top" style="background-color: #337ab7">
+    <div class="container">
+        <div class="navbar-header" >
+            <a class="navbar-brand" href="#" style="color: #eeeeee">PokeMart</a>
+        </div>
+    </div>
+</nav>
 <!--
 Menu
 Breadcrumbs
