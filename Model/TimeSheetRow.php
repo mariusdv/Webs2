@@ -17,4 +17,6 @@ class TimeSheetRow
         $this->Task = $Task;
         $this->Time = $Time;
     }
+
+    //
 }

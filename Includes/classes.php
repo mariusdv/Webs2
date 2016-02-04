@@ -5,6 +5,7 @@ include_once("Model/User.php");
 include_once("Model/CartEntry.php");
 include_once("Model/Database.php");
 include_once("Model/TimeSheetRow.php");
+include_once("Model/TimeSheet.php");
 
 include_once("Controller/HomeController.class.php");
 include_once("Controller/SearchController.class.php");
