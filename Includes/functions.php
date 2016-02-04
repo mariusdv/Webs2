@@ -136,7 +136,7 @@
         if (file_exists("View/$template"))
         {
             // extract variables into local scope
-            $smarty = new Smarty;
+            $smarty = new Smarty();
             $smarty->assign($values);
 
             // render header

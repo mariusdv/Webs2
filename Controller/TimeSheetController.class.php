@@ -23,8 +23,8 @@ class TimeSheetController
         $rows[] = new TimeSheetRow("03/02/2016", "Marius", "Opzetten Structuur", 2.5);
         $rows[] = new TimeSheetRow("03/02/2016", "Marius", ".htaccess mooi maken", 1);
         $rows[] = new TimeSheetRow("03/02/2016", "Marius", "Smarty geimplementeerd", 0.5);
-        $rows[] = new TimeSheetRow("04/02/2016", "Marius", "Database model gemaakt en geimplementeerd", 2.5);
-        $rows[] = new TimeSheetRow("04/02/2016", "Patrick", "Database model gemaakt en geimplementeerd", 2.5);
+        $rows[] = new TimeSheetRow("04/02/2016", "Marius", "Database model gemaakt en geimplementeerd", 3);
+        $rows[] = new TimeSheetRow("04/02/2016", "Patrick", "Database model gemaakt en geimplementeerd", 3);
         $rows[] = new TimeSheetRow("04/02/2016", "Marius", "Database Klasse (PDO)", 2);
 
 
