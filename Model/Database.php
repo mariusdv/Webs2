@@ -3,58 +3,91 @@
 /**
  * Created by PhpStorm.
  * User: Marius
- * Date: 3-2-2016
- * Time: 19:19
+ * Date: 4-2-2016
+ * Time: 11:39
  */
 class Database
 {
+    private $conn, $result, $rows;
 
-    private $conn, $result;
-
-    public function  __construct()
+    public function __construct()
     {
-        $this->conn = new mysqli('localhost', 'root', '', 'php06');
-        if ($this->conn->connect_errno != 0) //er gaat iets fout ...
-        {
-            die("Probleem bij het leggen van connectie of selecteren van database");
-        }
+        // connect to database
+        $this->conn = new PDO("mysql:dbname=" . DATABASE . ";host=" . SERVER, USERNAME, PASSWORD);
 
+        // ensure that PDO::prepare returns false when passed invalid SQL
+        $this->conn->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
     }
 
-    public function Query()
+    public function __destruct()
     {
-        // SQL statement
-        $sql = func_get_arg(0);
+        // close connection as referenced by: http://php.net/manual/en/pdo.connections.php
+        $this->conn = null;
+    }
 
-        // parameters, if any
-        $parameters = array_slice(func_get_args(), 1);
+    public function query($sql)
+    {
+        try {
+            $this->result = $this->conn->query($sql)->fetchAll(PDO::FETCH_ASSOC);
 
+            $this->rows = new ArrayObject($this->result);
+            $this->result = $this->rows->getIterator();
 
-        $count = count($parameters);
-        $stmt = $this->conn->prepare($sql);
+            return true;
 
-        $a_params[] = & $param_type;
+        } catch (PDOException $e) {
+            printError($e);
+        }
+        return false;
+    }
 
-        if($count != 0)
-        {
-            // set array to references
-            for($i = 0; $i < $count; $i++) {
-                /* with call_user_func_array, array params must be passed by reference */
-                $ref_params[] = & $parameters[$i];
+    public function query_safe($sql, $parameters)
+    {
+        try {
+            $statement = $this->conn->prepare($sql);
+
+            // execute SQL statement
+            $result = $statement->execute($parameters);
+
+            if ($result !== false) {
+                $this->result = $statement->fetchAll(PDO::FETCH_ASSOC);
+
+                $obj = new ArrayObject($this->result);
+                $this->result = $obj->getIterator();
+
+                return true;
+            } else {
+                return false;
             }
 
-            call_user_func_array(array($stmt, "bind_param"), array_merge(array($type), $params));
+        } catch (PDOException $e) {
+            printError($e);
+        }
+    }
+
+    public function printError($e)
+    {
+        echo '<pre>';
+        echo 'Regel: ' . $e->getLine() . '<br>';
+        echo 'Bestand: ' . $e->getFile() . '<br>';
+        echo 'Foutmelding: ' . $e->getMessage();
+        echo '</pre>';
+        exit(1);
+    }
+
+    public function getRow()
+    {
+        if ($this->result->valid()) {
+            $tmp = $this->result->current();
+            $this->result->next();
+            return $tmp;
 
         }
-
-        $stmt->execute();
-
-
+        return null;
     }
 
-    public function GetRow()
+    public function getRows()
     {
-
+        return $this->rows;
     }
-
 }

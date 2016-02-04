@@ -1,7 +1,7 @@
 <?php
 
 // your database's name
-define("DATABASE", "Webshop");
+define("DATABASE", "pokebase");
 
 // your database's password
 define("PASSWORD", "");

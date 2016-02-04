@@ -1,4 +1,14 @@
 <?php
+
+/*
+ * Notes.
+ *
+ * Tabel: ip String, datetime DATE, isFinal Boolean
+ *
+ * Variable aan users:  RecoveryHash String(80)
+ *
+ *
+ */
 include_once("Includes/config.php");
 
 if(Empty($_GET["page"]) )
