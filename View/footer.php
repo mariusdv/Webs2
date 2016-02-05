@@ -3,7 +3,7 @@
     bottom: 0;
     width: 100%;
     height: 30px;
-    background: #337ab7;">
+    background: #589FDE;">
 
 </footer>
     </body>

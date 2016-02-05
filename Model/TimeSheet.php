@@ -13,12 +13,14 @@ class TimeSheet
         $rows = array();
 
         $db = new Database();
-        $db->query("SELECT * FROM `timesheet`");
+        $db->query("SELECT * FROM `timesheet` ORDER BY `date` ASC");
         $res = $db->getRows();
 
-        foreach($res as $val)
-        {
-            $rows[] = new TimeSheetRow($val['Date'], $val['Name'], $val['Task'], $val['Time']);
+        setlocale(LC_TIME, 'Dutch');
+
+        foreach ($res as $val) {
+            $formatted_time = strftime("%#d %B %Y", strtotime($val['Date']));
+            $rows[] = new TimeSheetRow($formatted_time, $val['Name'], $val['Task'], $val['Time']);
         }
 
         return $rows;
@@ -40,4 +42,13 @@ class TimeSheet
         $tmp = array("Marius" => $totalMarius, "Patrick" => $totalPatrick);
         return $tmp;
     }
+
+    public function submitEntree($name, $task, $hours)
+    {
+        if (filter_var($hours, FILTER_VALIDATE_INT)) {
+            $db = new Database();
+            $db->query_safe("INSERT INTO `timesheet`(`Name`, `Task`, `Time`) VALUES (?,?,?);", array($name, $task, $hours));
+        }
+    }
+
 }

@@ -8,12 +8,19 @@
  */
 class TimeSheetController
 {
+    public $ts;
+
+    public function __construct()
+    {
+        $this->ts = new TimeSheet();
+    }
+
     public function Run()
     {
+        $this->CheckInsert();
 
-        $ts = new TimeSheet();
-        $rows = $ts->getEntrees();
-        $totals = $ts->getTotals();
+        $rows = $this->ts->getEntrees();
+        $totals = $this->ts->getTotals();
         $totalMarius = $totals["Marius"];
         $totalPatrick = $totals["Patrick"];
 
@@ -28,8 +35,21 @@ class TimeSheetController
         $rows[] = new TimeSheetRow("04/02/2016", "Patrick", "Database model gemaakt en geimplementeerd", 3);
         $rows[] = new TimeSheetRow("04/02/2016", "Patrick", "Veel research gedaan naar veel Bootstrap mogelijkheden. Timesheet pagina aangepast om een gevoel te krijgen voor IDE en Bootstrap research toe te passen.", 2);
         $rows[] = new TimeSheetRow("04/02/2016", "Marius", "Database Klasse (PDO)", 2);
+        $rows[] = new TimeSheetRow("05/02/2016", "Patrick", "Datum parsing + insert method voor timesheet gemaakt.", 2);
+        $rows[] = new TimeSheetRow("05/02/2016", "Marius", "Datum parsing + uitleg gegeven (aan Patrick).", 2);
+        $rows[] = new TimeSheetRow("05/02/2016", "Patrick", "Draggable panels gemaakt + layout improvements", 1.5);
 
 
         render("timesheet.php", ["title" => "Time Sheet", "rows" => $rows, "Marius" => $totalMarius, "Patrick" => $totalPatrick]);
+    }
+
+    public function CheckInsert()
+    {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+
+            if (!Empty($_POST["name"]) && !Empty($_POST["task"]) && !Empty($_POST["hours"])) {
+                $this->ts->submitEntree($_POST["name"], $_POST["task"], $_POST["hours"]);
+            }
+        }
     }
 }
