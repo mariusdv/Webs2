@@ -30,6 +30,10 @@ class Database
         try {
             $this->result = $this->conn->query($sql)->fetchAll(PDO::FETCH_ASSOC);
 
+            if ($this->result === false) {
+                return false;
+            }
+
             $this->rows = new ArrayObject($this->result);
             $this->result = $this->rows->getIterator();
 
