@@ -10,7 +10,7 @@ class AccountController
 {
     public function Run()
     {
-        if (Empty($_GET["action"]) || !empty($_SESSION["user"])) {
+        if (Empty($_GET["action"])) {
             $this->pagepicker();
         } else {
             switch (strtolower($_GET["action"])) {
@@ -254,6 +254,11 @@ class AccountController
         exit();
     }
 
+    /**
+     * Logs out current user, if any.  Based on Example #1 at
+     * http://us.php.net/manual/en/function.session-destroy.php.
+     */
+
     private function logout()
     {
         // unset any session variables?
@@ -269,5 +274,6 @@ class AccountController
         session_destroy();
 
         // redirect to main page
+        redirect("/");
     }
 }

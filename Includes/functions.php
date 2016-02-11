@@ -14,24 +14,6 @@
     }
 
 
-    /**
-     * Logs out current user, if any.  Based on Example #1 at
-     * http://us.php.net/manual/en/function.session-destroy.php.
-     */
-    function logout()
-    {
-        // unset any session variables
-        $_SESSION = [];
-
-        // expire cookie
-        if (!empty($_COOKIE[session_name()]))
-        {
-            setcookie(session_name(), "", time() - 42000);
-        }
-
-        // destroy session
-        session_destroy();
-    }
 
     /**
      * Redirects user to destination, which can be
@@ -81,6 +63,11 @@
             // extract variables into local scope
             $smarty = new Smarty();
             $smarty->assign($values);
+
+            if(!empty($_SESSION["user"]))
+                $smarty->assign("user", $_SESSION["user"]);
+
+            $smarty->assign("cartSize", "15");
 
             // render header
             $smarty->display("View/header.php");

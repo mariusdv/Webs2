@@ -1,6 +1,3 @@
-body{
-    padding-top: 70px;
-}
 
 .footer {
     position: absolute;
@@ -26,4 +23,8 @@ body{
 .btn-primary {
     background-color: #589FDE;
     border-color: #589FDE;
+}
+
+.cart{
+    font-size: large;
 }
