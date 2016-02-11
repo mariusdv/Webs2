@@ -62,20 +62,15 @@ class AccountController
                 $username = $this->checkRecoveryToken($_POST["token"]);
                 $userModel = new User();
                 if ((Empty($_POST["username"]) || !$userModel->validateUsername($_POST["username"]))) {
-                    $err = new ErrorController();
-                    $err->message = "Invalid form.";
-                    $err->render();
+                    apologize("Invalid form.");
                 }
                 if ($username != $_POST["username"]) {
-                    $err = new ErrorController();
-                    $err->message = "Invalid form.";
-                    $err->render();
+                    apologize("Invalid form.");
                 }
                 // check passwords
                 if (Empty($_POST["password1"]) || Empty($_POST["password2"])) {
-                    $err = new ErrorController();
-                    $err->message = "Invalid form.";
-                    $err->render();
+                    render("newPassword.php", ["error" => "Niet alles ingevuld", "title" => "nieuw wachtwoord", "username" => $username, "token" => $_POST["token"]]);
+                    exit(1);
                 }
                 if ($_POST["password1"] != $_POST["password2"]) {
                     render("newPassword.php", ["error" => "Wachtwoorden komen niet overeen.", "title" => "nieuw wachtwoord", "username" => $username, "token" => $_POST["token"]]);
@@ -132,11 +127,7 @@ class AccountController
         $username = $userModel->validateToken($token);
         if ($username === false) {
             $userModel->logRecovery();
-
-            $err = new ErrorController();
-            $err->message = "niet geldige token.";
-            $err->render();
-
+            apologize("niet geldige token.");
         }
         return $username;
     }
@@ -148,10 +139,7 @@ class AccountController
         // validate email-link
         $username = $userModel->validateActivateToken($token);
         if ($username === false) {
-            $userModel->logRecovery();
-            $err = new ErrorController();
-            $err->message = "niet geldige token.";
-            $err->render();
+            apologize("niet geldige token.");
 
         }
         return $username;
@@ -160,9 +148,7 @@ class AccountController
     private function canRecover($userModel)
     {
         if (!$userModel->CanRecover()) {
-            $err = new ErrorController();
-            $err->message = "Er is afgelopen 24 uur te veel (verkeerde) activiteit van dit IP adress gekomen. Wacht 24 uur voordat u opnieuw een recovery probeert.";
-            $err->render();
+            apologize("Er is afgelopen 24 uur te veel (verkeerde) activiteit van dit IP adress gekomen. Wacht 24 uur voordat u opnieuw een recovery probeert.");
         }
     }
 
