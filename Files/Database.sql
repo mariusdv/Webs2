@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 04, 2016 at 12:07 AM
+-- Generation Time: Feb 11, 2016 at 05:02 PM
 -- Server version: 10.1.9-MariaDB
 -- PHP Version: 5.6.15
 
@@ -13,24 +13,29 @@ SET time_zone = "+00:00";
 --
 -- Database: `pokebase`
 --
-CREATE DATABASE IF NOT EXISTS `pokebase` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
-USE `pokebase`;
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `adres`
+-- Table structure for table `address`
 --
 
-DROP TABLE IF EXISTS `adres`;
-CREATE TABLE `adres` (
+CREATE TABLE `address` (
   `Id` int(11) NOT NULL,
   `Zipcode` varchar(6) NOT NULL,
   `Address` varchar(100) NOT NULL,
+  `City` varchar(85) NOT NULL,
   `Province` varchar(45) NOT NULL,
   `Country` varchar(45) NOT NULL,
   `Users_Email` varchar(45) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `address`
+--
+
+INSERT INTO `address` (`Id`, `Zipcode`, `Address`, `City`, `Province`, `Country`, `Users_Email`) VALUES
+  (1, '5237EW', 'Venetiekade 16', 'Den Bosch', 'Noord-Brabant', 'Nederland', 'Mariodv@hotmail.nl');
 
 -- --------------------------------------------------------
 
@@ -38,7 +43,6 @@ CREATE TABLE `adres` (
 -- Table structure for table `categories`
 --
 
-DROP TABLE IF EXISTS `categories`;
 CREATE TABLE `categories` (
   `Name` varchar(45) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -49,7 +53,6 @@ CREATE TABLE `categories` (
 -- Table structure for table `itemhistory`
 --
 
-DROP TABLE IF EXISTS `itemhistory`;
 CREATE TABLE `itemhistory` (
   `Id` int(11) NOT NULL,
   `Price` decimal(20,2) NOT NULL,
@@ -63,7 +66,6 @@ CREATE TABLE `itemhistory` (
 -- Table structure for table `items`
 --
 
-DROP TABLE IF EXISTS `items`;
 CREATE TABLE `items` (
   `Id` int(10) UNSIGNED NOT NULL,
   `Naam` varchar(45) NOT NULL,
@@ -79,17 +81,15 @@ CREATE TABLE `items` (
 --
 -- Triggers `items`
 --
-DROP TRIGGER IF EXISTS `AFTER_INSERT_ITEMS`;
 DELIMITER $$
 CREATE TRIGGER `AFTER_INSERT_ITEMS` AFTER INSERT ON `items` FOR EACH ROW INSERT INTO itemhistory ( Price, Date, Items_Id)
-	VALUES ( NEW.Price, Now(), New.Id )
+VALUES ( NEW.Price, Now(), New.Id )
 $$
 DELIMITER ;
-DROP TRIGGER IF EXISTS `AFTER_UPDATE_ITEMS`;
 DELIMITER $$
 CREATE TRIGGER `AFTER_UPDATE_ITEMS` AFTER UPDATE ON `items` FOR EACH ROW IF (NEW.Price <> OLD.Price) THEN
-INSERT INTO itemhistory ( Price, Date, Items_Id)
-	VALUES ( NEW.Price, Now(), New.Id );
+  INSERT INTO itemhistory ( Price, Date, Items_Id)
+  VALUES ( NEW.Price, Now(), New.Id );
 END IF
 $$
 DELIMITER ;
@@ -100,7 +100,6 @@ DELIMITER ;
 -- Table structure for table `items_has_orders`
 --
 
-DROP TABLE IF EXISTS `items_has_orders`;
 CREATE TABLE `items_has_orders` (
   `Items_Id` int(10) UNSIGNED NOT NULL,
   `Orders_Id` int(11) NOT NULL,
@@ -114,7 +113,6 @@ CREATE TABLE `items_has_orders` (
 -- Table structure for table `orders`
 --
 
-DROP TABLE IF EXISTS `orders`;
 CREATE TABLE `orders` (
   `Id` int(11) NOT NULL,
   `Users_Email` varchar(45) NOT NULL
@@ -123,10 +121,20 @@ CREATE TABLE `orders` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `recoverylog`
+--
+
+CREATE TABLE `recoverylog` (
+  `IP` varchar(45) NOT NULL,
+  `Date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `subcategories`
 --
 
-DROP TABLE IF EXISTS `subcategories`;
 CREATE TABLE `subcategories` (
   `Name` varchar(45) NOT NULL,
   `Categories_Name` varchar(45) NOT NULL
@@ -138,7 +146,6 @@ CREATE TABLE `subcategories` (
 -- Table structure for table `timesheet`
 --
 
-DROP TABLE IF EXISTS `timesheet`;
 CREATE TABLE `timesheet` (
   `Name` varchar(45) NOT NULL,
   `Task` varchar(45) NOT NULL,
@@ -146,20 +153,35 @@ CREATE TABLE `timesheet` (
   `Date` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Dumping data for table `timesheet`
+--
+
+INSERT INTO `timesheet` (`Name`, `Task`, `Time`, `Date`) VALUES
+  ('Marius', 'Database Klasse (PDO)', 2, '2016-02-04 10:00:00');
+
 -- --------------------------------------------------------
 
 --
 -- Table structure for table `users`
 --
 
-DROP TABLE IF EXISTS `users`;
 CREATE TABLE `users` (
   `Email` varchar(45) NOT NULL,
-  `IsAdmin` tinyint(1) NOT NULL,
-  `Password` varchar(45) NOT NULL,
+  `Password` varchar(60) NOT NULL,
   `Name` varchar(45) NOT NULL,
-  `Surname` varchar(45) NOT NULL
+  `Surname` varchar(45) NOT NULL,
+  `RecoveryHash` varchar(32) DEFAULT NULL,
+  `RecoveryDate` datetime DEFAULT NULL,
+  `ValidationHash` varchar(32) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `users`
+--
+
+INSERT INTO `users` (`Email`, `Password`, `Name`, `Surname`, `RecoveryHash`, `RecoveryDate`, `ValidationHash`) VALUES
+  ('Mariodv@hotmail.nl', '$2y$10$KpdhEX517I6Ph1Nh8Ln90Of6QYQyKMyhTer6iD.qQ2OKZbQ677go6', 'Marius', 'de Vogel', NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -167,7 +189,6 @@ CREATE TABLE `users` (
 -- Table structure for table `wishlist`
 --
 
-DROP TABLE IF EXISTS `wishlist`;
 CREATE TABLE `wishlist` (
   `Items_Id` int(10) UNSIGNED NOT NULL,
   `Users_Email` varchar(45) NOT NULL
@@ -178,143 +199,149 @@ CREATE TABLE `wishlist` (
 --
 
 --
--- Indexes for table `adres`
+-- Indexes for table `address`
 --
-ALTER TABLE `adres`
-  ADD PRIMARY KEY (`Id`),
-  ADD KEY `fk_Adres_Users1_idx` (`Users_Email`);
+ALTER TABLE `address`
+ADD PRIMARY KEY (`Id`),
+ADD KEY `fk_Adres_Users1_idx` (`Users_Email`);
 
 --
 -- Indexes for table `categories`
 --
 ALTER TABLE `categories`
-  ADD PRIMARY KEY (`Name`);
+ADD PRIMARY KEY (`Name`);
 
 --
 -- Indexes for table `itemhistory`
 --
 ALTER TABLE `itemhistory`
-  ADD PRIMARY KEY (`Id`),
-  ADD KEY `fk_ItemHistory_Items1_idx` (`Items_Id`);
+ADD PRIMARY KEY (`Id`),
+ADD KEY `fk_ItemHistory_Items1_idx` (`Items_Id`);
 
 --
 -- Indexes for table `items`
 --
 ALTER TABLE `items`
-  ADD PRIMARY KEY (`Id`),
-  ADD UNIQUE KEY `Id_UNIQUE` (`Id`),
-  ADD KEY `fk_Items_Subcategories1_idx` (`Subcategories_Name`);
+ADD PRIMARY KEY (`Id`),
+ADD UNIQUE KEY `Id_UNIQUE` (`Id`),
+ADD KEY `fk_Items_Subcategories1_idx` (`Subcategories_Name`);
 
 --
 -- Indexes for table `items_has_orders`
 --
 ALTER TABLE `items_has_orders`
-  ADD PRIMARY KEY (`Items_Id`,`Orders_Id`),
-  ADD KEY `fk_Items_has_Orders_Orders1_idx` (`Orders_Id`),
-  ADD KEY `fk_Items_has_Orders_Items1_idx` (`Items_Id`);
+ADD PRIMARY KEY (`Items_Id`,`Orders_Id`),
+ADD KEY `fk_Items_has_Orders_Orders1_idx` (`Orders_Id`),
+ADD KEY `fk_Items_has_Orders_Items1_idx` (`Items_Id`);
 
 --
 -- Indexes for table `orders`
 --
 ALTER TABLE `orders`
-  ADD PRIMARY KEY (`Id`),
-  ADD KEY `fk_Orders_Users1_idx` (`Users_Email`);
+ADD PRIMARY KEY (`Id`),
+ADD KEY `fk_Orders_Users1_idx` (`Users_Email`);
+
+--
+-- Indexes for table `recoverylog`
+--
+ALTER TABLE `recoverylog`
+ADD PRIMARY KEY (`IP`,`Date`);
 
 --
 -- Indexes for table `subcategories`
 --
 ALTER TABLE `subcategories`
-  ADD PRIMARY KEY (`Name`),
-  ADD KEY `fk_Subcategories_Categories_idx` (`Categories_Name`);
+ADD PRIMARY KEY (`Name`),
+ADD KEY `fk_Subcategories_Categories_idx` (`Categories_Name`);
 
 --
 -- Indexes for table `timesheet`
 --
 ALTER TABLE `timesheet`
-  ADD PRIMARY KEY (`Name`,`Task`,`Time`,`Date`);
+ADD PRIMARY KEY (`Name`,`Task`,`Time`,`Date`);
 
 --
 -- Indexes for table `users`
 --
 ALTER TABLE `users`
-  ADD PRIMARY KEY (`Email`);
+ADD PRIMARY KEY (`Email`);
 
 --
 -- Indexes for table `wishlist`
 --
 ALTER TABLE `wishlist`
-  ADD PRIMARY KEY (`Items_Id`,`Users_Email`),
-  ADD KEY `fk_Items_has_Users_Users1_idx` (`Users_Email`),
-  ADD KEY `fk_Items_has_Users_Items1_idx` (`Items_Id`);
+ADD PRIMARY KEY (`Items_Id`,`Users_Email`),
+ADD KEY `fk_Items_has_Users_Users1_idx` (`Users_Email`),
+ADD KEY `fk_Items_has_Users_Items1_idx` (`Items_Id`);
 
 --
 -- AUTO_INCREMENT for dumped tables
 --
 
 --
--- AUTO_INCREMENT for table `adres`
+-- AUTO_INCREMENT for table `address`
 --
-ALTER TABLE `adres`
-  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+ALTER TABLE `address`
+MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 --
 -- AUTO_INCREMENT for table `itemhistory`
 --
 ALTER TABLE `itemhistory`
-  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `items`
 --
 ALTER TABLE `items`
-  MODIFY `Id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+MODIFY `Id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT;
+MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- Constraints for dumped tables
 --
 
 --
--- Constraints for table `adres`
+-- Constraints for table `address`
 --
-ALTER TABLE `adres`
-  ADD CONSTRAINT `fk_Adres_Users1` FOREIGN KEY (`Users_Email`) REFERENCES `users` (`Email`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+ALTER TABLE `address`
+ADD CONSTRAINT `fk_Adres_Users1` FOREIGN KEY (`Users_Email`) REFERENCES `users` (`Email`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Constraints for table `itemhistory`
 --
 ALTER TABLE `itemhistory`
-  ADD CONSTRAINT `fk_ItemHistory_Items1` FOREIGN KEY (`Items_Id`) REFERENCES `items` (`Id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+ADD CONSTRAINT `fk_ItemHistory_Items1` FOREIGN KEY (`Items_Id`) REFERENCES `items` (`Id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Constraints for table `items`
 --
 ALTER TABLE `items`
-  ADD CONSTRAINT `fk_Items_Subcategories1` FOREIGN KEY (`Subcategories_Name`) REFERENCES `subcategories` (`Name`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+ADD CONSTRAINT `fk_Items_Subcategories1` FOREIGN KEY (`Subcategories_Name`) REFERENCES `subcategories` (`Name`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Constraints for table `items_has_orders`
 --
 ALTER TABLE `items_has_orders`
-  ADD CONSTRAINT `fk_Items_has_Orders_Items1` FOREIGN KEY (`Items_Id`) REFERENCES `items` (`Id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_Items_has_Orders_Orders1` FOREIGN KEY (`Orders_Id`) REFERENCES `orders` (`Id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+ADD CONSTRAINT `fk_Items_has_Orders_Items1` FOREIGN KEY (`Items_Id`) REFERENCES `items` (`Id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+ADD CONSTRAINT `fk_Items_has_Orders_Orders1` FOREIGN KEY (`Orders_Id`) REFERENCES `orders` (`Id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Constraints for table `orders`
 --
 ALTER TABLE `orders`
-  ADD CONSTRAINT `fk_Orders_Users1` FOREIGN KEY (`Users_Email`) REFERENCES `users` (`Email`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+ADD CONSTRAINT `fk_Orders_Users1` FOREIGN KEY (`Users_Email`) REFERENCES `users` (`Email`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Constraints for table `subcategories`
 --
 ALTER TABLE `subcategories`
-  ADD CONSTRAINT `fk_Subcategories_Categories` FOREIGN KEY (`Categories_Name`) REFERENCES `categories` (`Name`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+ADD CONSTRAINT `fk_Subcategories_Categories` FOREIGN KEY (`Categories_Name`) REFERENCES `categories` (`Name`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Constraints for table `wishlist`
 --
 ALTER TABLE `wishlist`
-  ADD CONSTRAINT `fk_Items_has_Users_Items1` FOREIGN KEY (`Items_Id`) REFERENCES `items` (`Id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_Items_has_Users_Users1` FOREIGN KEY (`Users_Email`) REFERENCES `users` (`Email`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+ADD CONSTRAINT `fk_Items_has_Users_Items1` FOREIGN KEY (`Items_Id`) REFERENCES `items` (`Id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+ADD CONSTRAINT `fk_Items_has_Users_Users1` FOREIGN KEY (`Users_Email`) REFERENCES `users` (`Email`) ON DELETE NO ACTION ON UPDATE NO ACTION;

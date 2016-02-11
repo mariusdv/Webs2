@@ -5,9 +5,11 @@
  *
  * Tabel: ip String, datetime DATE, isFinal Boolean
  *
- * Variable aan users:  RecoveryHash String(80)
+ * Variable aan users:  RecoveryHash String(32) & recoveryDate -> datetime
  *
+ * IsAdmin is niet nodig. er is maar 1 admin account.
  *
+ * mijn PhpMyAdmin ff exporten & saven
  */
 include_once("Includes/config.php");
 

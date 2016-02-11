@@ -28,6 +28,11 @@ class TimeSheetController
         $rows[] = new TimeSheetRow("04/02/2016", "Marius", "Database Klasse (PDO)", 2);
 
 
+
+
+
+        $rows[] = new TimeSheetRow("6/02/2016", "Marius", "Login gemaakt + begin van account recovery", 3);
+        $rows[] = new TimeSheetRow("11/02/2016", "Marius", "account Recovery + Mailsysteem + Brute force afvanger + registreren", 4);
         render("timesheet.php", ["title" => "Time Sheet", "rows" => $rows, "Marius" => $totalMarius, "Patrick" => $totalPatrick]);
     }
 }

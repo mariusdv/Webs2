@@ -14,3 +14,8 @@ define("USERNAME", "root");
 
 // your database's username
 define("DEVELOPMENT", true);
+
+define("EMAILADRESS", "WebshopWebs@gmail.com");
+
+define("EMAILWACHTWOORD", "webs2eindopdracht!");
+

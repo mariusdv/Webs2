@@ -2,7 +2,8 @@
 
 
 // requirements
-require_once('Libs/Smarty.class.php');
+require_once('Libs/Smarty/Smarty.class.php');
+require_once('Libs/PHPMailer/PHPMailerAutoload.php');
 require("classes.php");
 require("constants.php");
 require("functions.php");

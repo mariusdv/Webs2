@@ -46,6 +46,8 @@ class Database
         try {
             $statement = $this->conn->prepare($sql);
 
+            if($statement === false)
+                return false;
             // execute SQL statement
             $result = $statement->execute($parameters);
 
