@@ -1,8 +1,5 @@
 <div class="container-fluid">
     <div class="row">
-        <div style="height: 30px; background-color: #337ab7; margin-bottom: 30px;"></div>
-    </div>
-    <div class="row">
         <!-- Bootstrap 3 panel list. -->
         <div id="draggablePanelList">
             <div class="col-md-2">

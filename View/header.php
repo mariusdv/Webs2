@@ -18,7 +18,6 @@
 
 
 </head >
-<body >
 <nav class="navbar navbar-default navbar-fixed-top" style="background-color: #589FDE;">
     <div class="container">
         <div class="navbar-header" >
@@ -26,6 +25,7 @@
         </div>
     </div>
 </nav>
+<body>
 <!--
 Menu
 Breadcrumbs
