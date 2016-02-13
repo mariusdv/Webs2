@@ -17,7 +17,7 @@ class HomeController
 
     public function Run()
     {
-        echo "Home";
+        render("Index.php");
     }
 
 }

@@ -8,6 +8,7 @@
     <script type="text/javascript" src="//code.jquery.com/ui/1.10.1/jquery-ui.js"></script>
 
     <link rel="stylesheet" href="https://bootswatch.com/paper/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="../CSS/shop-homepage.css">
     <link rel="stylesheet" type="text/css" href="../CSS/Style.css">
 
     {if isset($title)}
