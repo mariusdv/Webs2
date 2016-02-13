@@ -2,7 +2,7 @@
 
         <div class="row">
 
-            <div class="col-md-3">
+            <div class="col-sm-3 col-lg-3">
                 <p class="lead"><strong>Categories</strong></p>
                 <div class="list-group">
                     <a href="#" class="list-group-item">Pokeballs</a>
@@ -11,13 +11,13 @@
                 </div>
             </div>
 
-            <div class="col-md-9">
+            <div class="col-sm-9 col-lg-9">
 
                 <div class="row">
                     <div class="header">Pokeballs</div>
                     <div class="col-sm-4 col-lg-4 col-md-4">
                         <div class="thumbnail">
-                            <img src="/Resources/Images/Pokeballs/pokeball.png" height="150" width="auto" alt="Pokeball">
+                            <img src="/Resources/Images/Pokeballs/pokeball.png" alt="Pokeball">
                             <div class="caption">
                                 <h4 class="pull-right">$9.99</h4>
                                 <h4><a href="#">Pokeball</a>
@@ -39,7 +39,7 @@
 
                     <div class="col-sm-4 col-lg-4 col-md-4">
                         <div class="thumbnail">
-                            <img src="/Resources/Images/Pokeballs/greatball.png" height="150" width="auto" alt="Greatball">
+                            <img src="/Resources/Images/Pokeballs/greatball.png" alt="Greatball">
                             <div class="caption">
                                 <h4 class="pull-right">$14.99</h4>
                                 <h4><a href="#">Greatball</a>
@@ -60,7 +60,7 @@
 
                     <div class="col-sm-4 col-lg-4 col-md-4">
                         <div class="thumbnail">
-                            <img src="/Resources/Images/Pokeballs/ultraball.png" height="150" width="auto" alt="Ultraball">
+                            <img src="/Resources/Images/Pokeballs/ultraball.png" alt="Ultraball">
                             <div class="caption">
                                 <h4 class="pull-right">$24.99</h4>
                                 <h4><a href="#">Ultraball</a>
@@ -82,7 +82,7 @@
 
                     <div class="col-sm-4 col-lg-4 col-md-4">
                         <div class="thumbnail">
-                            <img src="/Resources/Images/Pokeballs/safariball.png" height="150" width="auto" alt="Safariball">
+                            <img src="/Resources/Images/Pokeballs/safariball.png" alt="Safariball">
                             <div class="caption">
                                 <h4 class="pull-right">$12.49</h4>
                                 <h4><a href="#">Safariball</a>
@@ -102,7 +102,7 @@
 
                     <div class="col-sm-4 col-lg-4 col-md-4">
                         <div class="thumbnail">
-                            <img src="/Resources/Images/Pokeballs/loveball.png" height="150" width="auto" alt="Loveball">
+                            <img src="/Resources/Images/Pokeballs/loveball.png" alt="Loveball">
                             <div class="caption">
                                 <h4 class="pull-right">$19.99</h4>
                                 <h4><a href="#">Loveball</a>
@@ -123,7 +123,7 @@
 
                     <div class="col-sm-4 col-lg-4 col-md-4">
                         <div class="thumbnail">
-                            <img src="/Resources/Images/Pokeballs/masterball.png" height="150" width="auto" alt="Masterball">
+                            <img src="/Resources/Images/Pokeballs/masterball.png" alt="Masterball">
                             <div class="caption">
                                 <h4 class="pull-right">$2749.99</h4>
                                 <h4><a href="#">Masterball</a>
