@@ -39,7 +39,28 @@
 
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-left">
+                <li class="dropdown">
+                    <a id="dLabel" role="menu" data-toggle="dropdown" data-target="#"
+                       href="/page.html">
+                        Products<span class="caret"></span>
+                    </a>
 
+                    <ul class="dropdown-menu multi-level" role="menu" aria-labelledby="dropdownMenu">
+                        {foreach from=$categories item=row}
+                        <li class="dropdown-submenu">
+                            <a tabindex="-1" href="#">{$row->Category}</a>
+                            <ul class="dropdown-menu">
+                                {foreach from=$row->SubCategories item=sub}
+                                <li><a tabindex="-1" href="#">{$sub}</a></li>
+                                {/foreach}
+                            </ul>
+                        </li>
+                        {/foreach}
+                    </ul>
+
+                </li>
+            </ul>
             <ul class="nav navbar-nav navbar-right">
                 <li><a href="#"><span class="glyphicon glyphicon-shopping-cart cart"></span> {$cartSize} </a></li>
                 {if isset($user)}

@@ -69,6 +69,10 @@
 
             $smarty->assign("cartSize", "15");
 
+            $c = new Catalogue();
+            $smarty->assign("categories", $c->getCategories());
+
+
             // render header
             $smarty->display("View/header.php");
 

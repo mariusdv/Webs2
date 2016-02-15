@@ -1,13 +1,26 @@
 <?php
-
 /**
  * Created by PhpStorm.
- * User: Marius
- * Date: 3-2-2016
- * Time: 14:23
+ * User: patri
+ * Date: 2/15/2016
+ * Time: 3:15 PM
  */
+
 class Product
 {
-    public $Category;
-    //...
+    public $Id, $Name, $DescriptionLong, $DescriptionShort, $Price, $ImgUrl, $Subcategory, $Active;
+
+    public function  __construct($Id, $Name, $DescriptionLong, $DescriptionShort, $Price, $ImgUrl, $Subcategory, $Active)
+    {
+        $this->Id = $Id;
+        $this->Name = $Name;
+        $this->DescriptionLong = $DescriptionLong;
+        $this->DescriptionShort = $DescriptionShort;
+        $this->Price = $Price;
+        $this->ImgUrl = $ImgUrl;
+        $this->Subcategory = $Subcategory;
+        $this->Active = $Active;
+    }
+
+    //
 }

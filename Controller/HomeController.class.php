@@ -17,7 +17,7 @@ class HomeController
 
     public function Run()
     {
-        render("Index.php");
+        render("catalogue.php");
     }
 
 }
