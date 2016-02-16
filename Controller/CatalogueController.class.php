@@ -26,6 +26,6 @@ class CatalogueController
         }
 
         $rows = $this->catalogue->getEntrees($this->cat);
-        render("catalogue.php", ["title" => "$this->cat", "rows" => $rows]);
+        render("catalogue.php", ["title" => $this->catalogue->getTitle($this->cat), "rows" => $rows]);
     }
 }

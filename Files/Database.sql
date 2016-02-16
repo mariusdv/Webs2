@@ -3,12 +3,18 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 11, 2016 at 05:02 PM
+-- Generation Time: Feb 16, 2016 at 08:19 PM
 -- Server version: 10.1.9-MariaDB
 -- PHP Version: 5.6.15
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
+
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8mb4 */;
 
 --
 -- Database: `pokebase`
@@ -35,7 +41,8 @@ CREATE TABLE `address` (
 --
 
 INSERT INTO `address` (`Id`, `Zipcode`, `Address`, `City`, `Province`, `Country`, `Users_Email`) VALUES
-  (1, '5237EW', 'Venetiekade 16', 'Den Bosch', 'Noord-Brabant', 'Nederland', 'Mariodv@hotmail.nl');
+  (1, '5237EW', 'Venetiekade 16', 'Den Bosch', 'Noord-Brabant', 'Nederland', 'Mariodv@hotmail.nl'),
+  (2, '4102JA', 'Heimanslaan 26', 'Culemborg', 'Gelderland', 'Nederland', 'patrick.nobbe@hotmail.com');
 
 -- --------------------------------------------------------
 
@@ -46,6 +53,16 @@ INSERT INTO `address` (`Id`, `Zipcode`, `Address`, `City`, `Province`, `Country`
 CREATE TABLE `categories` (
   `Name` varchar(45) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `categories`
+--
+
+INSERT INTO `categories` (`Name`) VALUES
+  ('Berries'),
+  ('Held Items'),
+  ('Poke Balls'),
+  ('TMs & HMs');
 
 -- --------------------------------------------------------
 
@@ -60,6 +77,13 @@ CREATE TABLE `itemhistory` (
   `Items_Id` int(10) UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Dumping data for table `itemhistory`
+--
+
+INSERT INTO `itemhistory` (`Id`, `Price`, `Date`, `Items_Id`) VALUES
+  (1, '9.99', '2016-02-16 20:00:20', 1);
+
 -- --------------------------------------------------------
 
 --
@@ -68,15 +92,21 @@ CREATE TABLE `itemhistory` (
 
 CREATE TABLE `items` (
   `Id` int(10) UNSIGNED NOT NULL,
-  `Naam` varchar(45) NOT NULL,
+  `Name` varchar(45) NOT NULL,
   `DescriptionLong` longtext NOT NULL,
   `DescriptionShort` varchar(200) NOT NULL,
   `Price` decimal(20,2) NOT NULL,
-  `ImgUrlBig` varchar(45) NOT NULL,
-  `ImgUrlSmall` varchar(45) NOT NULL,
+  `ImgUrl` varchar(45) NOT NULL,
   `Subcategories_Name` varchar(45) NOT NULL,
   `Active` tinyint(1) NOT NULL DEFAULT '1'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `items`
+--
+
+INSERT INTO `items` (`Id`, `Name`, `DescriptionLong`, `DescriptionShort`, `Price`, `ImgUrl`, `Subcategories_Name`, `Active`) VALUES
+  (1, 'Pokeball', '', 'A device for catching wild Pokémon. It''s thrown like a ball at a Pokémon, comfortably encapsulating its target.', '9.99', '/Resources/Images/Pokeballs/pokeball.png', 'Normal', 1);
 
 --
 -- Triggers `items`
@@ -140,6 +170,18 @@ CREATE TABLE `subcategories` (
   `Categories_Name` varchar(45) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Dumping data for table `subcategories`
+--
+
+INSERT INTO `subcategories` (`Name`, `Categories_Name`) VALUES
+  ('Oran', 'Berries'),
+  ('Evolution Items', 'Held Items'),
+  ('Normal', 'Poke Balls'),
+  ('Special Effect', 'Poke Balls'),
+  ('Type Specific', 'Poke Balls'),
+  ('Fire', 'TMs & HMs');
+
 -- --------------------------------------------------------
 
 --
@@ -181,7 +223,8 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`Email`, `Password`, `Name`, `Surname`, `RecoveryHash`, `RecoveryDate`, `ValidationHash`) VALUES
-  ('Mariodv@hotmail.nl', '$2y$10$KpdhEX517I6Ph1Nh8Ln90Of6QYQyKMyhTer6iD.qQ2OKZbQ677go6', 'Marius', 'de Vogel', NULL, NULL, NULL);
+  ('Mariodv@hotmail.nl', '$2y$10$KpdhEX517I6Ph1Nh8Ln90Of6QYQyKMyhTer6iD.qQ2OKZbQ677go6', 'Marius', 'de Vogel', NULL, NULL, NULL),
+  ('patrick.nobbe@hotmail.com', '$2y$10$mVCwDMdo2Sk/cQz9vQc6RuJ96oFoydLq.CfDZOEMyH4I6O2ftHXRC', 'Patrick Nobbe', 'Nobbe', NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -282,17 +325,17 @@ ADD KEY `fk_Items_has_Users_Items1_idx` (`Items_Id`);
 -- AUTO_INCREMENT for table `address`
 --
 ALTER TABLE `address`
-MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT for table `itemhistory`
 --
 ALTER TABLE `itemhistory`
-MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT;
+MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT for table `items`
 --
 ALTER TABLE `items`
-MODIFY `Id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+MODIFY `Id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT for table `orders`
 --
@@ -345,3 +388,7 @@ ADD CONSTRAINT `fk_Subcategories_Categories` FOREIGN KEY (`Categories_Name`) REF
 ALTER TABLE `wishlist`
 ADD CONSTRAINT `fk_Items_has_Users_Items1` FOREIGN KEY (`Items_Id`) REFERENCES `items` (`Id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
 ADD CONSTRAINT `fk_Items_has_Users_Users1` FOREIGN KEY (`Users_Email`) REFERENCES `users` (`Email`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

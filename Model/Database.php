@@ -17,6 +17,7 @@ class Database
 
         // ensure that PDO::prepare returns false when passed invalid SQL
         $this->conn->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
+        $this->query("SET NAMES 'utf8'");
     }
 
     public function __destruct()

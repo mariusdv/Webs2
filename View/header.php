@@ -49,10 +49,10 @@
                     <ul class="dropdown-menu multi-level" role="menu" aria-labelledby="dropdownMenu">
                         {foreach from=$categories item=row}
                         <li class="dropdown-submenu">
-                            <a tabindex="-1" href="#">{$row->Category}</a>
+                            <a tabindex="-1" disabl>{$row->Category}</a>
                             <ul class="dropdown-menu">
                                 {foreach from=$row->SubCategories item=sub}
-                                <li><a tabindex="-1" href="#">{$sub}</a></li>
+                                <li><a tabindex="-1" href="/catalogue/cat={$sub}">{$sub}</a></li>
                                 {/foreach}
                             </ul>
                         </li>

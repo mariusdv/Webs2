@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Created by PhpStorm.
  * User: Marius
@@ -17,7 +16,7 @@ class Catalogue
         $res = $db->getRows();
 
         if (!$res) {
-            apologize("Zoekcriteria heeft geen resultaten teruggegeven.");
+            apologize("Zoekcriteria heeft geen resultaten geretourneerd.");
         }
         else {
             foreach ($res as $val) {
@@ -26,6 +25,17 @@ class Catalogue
         }
 
         return $rows;
+    }
+
+    public function getTitle($cat) {
+        $rows = $this->getCategories();
+        foreach ($rows as $val) {
+            if (in_array($cat, $val->SubCategories)) {
+                $res = "$val->Category - $cat";
+                return $res;
+            }
+        }
+        return $cat;
     }
 
     public function getCategories()
