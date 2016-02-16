@@ -37,9 +37,9 @@
                             </p>
                         </div>
                         <button class="button btn-default" style="display: block; width: 100%;">
-                            <div style="margin-top: 5px;">
+                            <div style="vertical-align: center;">
                                 <span class="glyphicon glyphicon-shopping-cart cart"></span>
-                                <label style="margin-left: 10px;">Add to cart</label>
+                                Add to cart
                             </div>
                         </button>
                     </div>
