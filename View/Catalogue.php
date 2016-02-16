@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container" xmlns="http://www.w3.org/1999/html">
 
     <div class="row">
 
@@ -36,12 +36,13 @@
                                 <span class="glyphicon glyphicon-star"></span>
                             </p>
                         </div>
-                        <button class="button btn-default" style="display: block; width: 100%;">
-                            <div style="margin-top: 5px;">
-                                <span class="glyphicon glyphicon-shopping-cart cart"></span>
-                                <label style="margin-left: 10px;">Add to cart</label>
-                            </div>
-                        </button>
+                        <form action="/Catalogue" method="post">
+                            <input type="hidden" name="item" value="{$row->Id}"/>
+                            <button type="submit" class="btn btn-default addbutton">
+                                    <span type="submit" class="glyphicon glyphicon-shopping-cart cart"></span>
+                                    <span class="text" type="submit" >Add to cart</span>
+                            </button>
+                        </form>
                     </div>
                 </div>
                 {/foreach}

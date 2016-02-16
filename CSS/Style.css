@@ -93,3 +93,11 @@
     text-decoration: none;
 
 }
+
+.addbutton{
+    display: block;
+    width: 100%;
+}
+.addbutton>.text{
+    padding-left: 10px;
+}
