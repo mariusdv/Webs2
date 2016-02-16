@@ -34,6 +34,9 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
+            <a class="navbar-toggle navbar-nav smallcart" href="#"><span
+                    class="glyphicon glyphicon-shopping-cart cart"></span> {$cartSize} </a>
+
             <a class="navbar-brand" href="#">PokeMart</a>
         </div>
 
@@ -62,7 +65,8 @@
                 </li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
-                <li><a href="#"><span class="glyphicon glyphicon-shopping-cart cart"></span> {$cartSize} </a></li>
+                <li><a href="#" class="hidden-xs"><span class="glyphicon glyphicon-shopping-cart cart"></span>
+                        {$cartSize} </a></li>
                 {if isset($user)}
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
@@ -85,8 +89,8 @@
     </div><!-- /.container-fluid -->
 </nav>
 <body>
-<!--
-Menu
-Breadcrumbs
--->
+            <!--
+            Menu
+            Breadcrumbs
+            -->
 
