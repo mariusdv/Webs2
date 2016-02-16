@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Created by PhpStorm.
  * User: Marius
@@ -17,8 +18,7 @@ class Catalogue
 
         if (!$res) {
             apologize("Zoekcriteria heeft geen resultaten geretourneerd.");
-        }
-        else {
+        } else {
             foreach ($res as $val) {
                 $rows[] = new Product($val['Id'], $val['Name'], $val['DescriptionLong'], $val['DescriptionShort'], $val['Price'], $val['ImgUrl'], $val['Subcategories_Name'], $val['Active']);
             }
@@ -27,7 +27,8 @@ class Catalogue
         return $rows;
     }
 
-    public function getTitle($cat) {
+    public function getTitle($cat)
+    {
         $rows = $this->getCategories();
         foreach ($rows as $val) {
             if (in_array($cat, $val->SubCategories)) {
@@ -56,8 +57,8 @@ class Catalogue
 
             $subcategories = array();
 
-            if (!$res2) { }
-            else {
+            if (!$res2) {
+            } else {
                 foreach ($res2 as $val2) {
                     $subcategories[] = $val2['Name'];
                 }
@@ -68,4 +69,16 @@ class Catalogue
         return $rows;
     }
 
+    public function getItem($id)
+    {
+        $db = new Database();
+        $db->query_safe("SELECT * FROM `items` WHERE `Id` = ? AND `Active` = TRUE", array($id));
+        $res = $db->getRow();
+
+        if ($res == null) {
+            return false;
+        } else {
+            return (new Product($res['Id'], $res['Name'], $res['DescriptionLong'], $res['DescriptionShort'], $res['Price'], $res['ImgUrl'], $res['Subcategories_Name'], $res['Active']));
+        }
+    }
 }

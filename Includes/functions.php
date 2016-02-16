@@ -67,7 +67,13 @@
             if(!empty($_SESSION["user"]))
                 $smarty->assign("user", $_SESSION["user"]);
 
-            $smarty->assign("cartSize", "15");
+            $cart = new Cart();
+            $cart->ItemCount();
+            $smarty->assign("cartSize", $cart->ItemCount());
+            //$smarty->assign("cart", $cart->getCart());
+
+
+
 
             $c = new Catalogue();
             $smarty->assign("categories", $c->getCategories());

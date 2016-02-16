@@ -19,13 +19,36 @@ class CatalogueController
 
     public function Run()
     {
-        if (Empty($_GET["cat"])) {
-            $this->cat = "%";
-        } else {
-            $this->cat = $_GET["cat"];
+
+
+        // if post
+        //
+        if ($_SERVER["REQUEST_METHOD"] == "POST") {
+
+            // Add to cart
+            if(!Empty($_POST["item"]))
+            {
+                $cart = new Cart();
+                $cart->AddCart($_POST["item"]);
+
+            }
+
+            // Stops F5 -> want to submit again
+            header("HTTP/1.1 303 See Other");
+            header("Location: http://" . $_SERVER['HTTP_HOST'] . $_SERVER[REQUEST_URI]);
+            exit(0);
+        }
+        else
+        {
+            if (Empty($_GET["cat"])) {
+                $this->cat = "%";
+            } else {
+                $this->cat = $_GET["cat"];
+            }
+            $rows = $this->catalogue->getEntrees($this->cat);
+            render("catalogue.php", ["title" => $this->catalogue->getTitle($this->cat), "rows" => $rows, "cat" => $this->cat]);
         }
 
-        $rows = $this->catalogue->getEntrees($this->cat);
-        render("catalogue.php", ["title" => $this->catalogue->getTitle($this->cat), "rows" => $rows]);
+
     }
 }

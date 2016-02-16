@@ -36,7 +36,7 @@
                                 <span class="glyphicon glyphicon-star"></span>
                             </p>
                         </div>
-                        <form action="/Catalogue" method="post">
+                        <form action="/Catalogue/cat={$cat}" method="post">
                             <input type="hidden" name="item" value="{$row->Id}"/>
                             <button type="submit" class="btn btn-default addbutton">
                                     <span type="submit" class="glyphicon glyphicon-shopping-cart cart"></span>
