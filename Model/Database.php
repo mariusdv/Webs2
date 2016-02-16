@@ -58,8 +58,8 @@ class Database
             if ($result !== false) {
                 $this->result = $statement->fetchAll(PDO::FETCH_ASSOC);
 
-                $obj = new ArrayObject($this->result);
-                $this->result = $obj->getIterator();
+                $this->rows = new ArrayObject($this->result);
+                $this->result = $this->rows->getIterator();
 
                 return true;
             } else {

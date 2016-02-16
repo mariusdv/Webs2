@@ -24,7 +24,7 @@ class TimeSheetController
         $totalMarius = $totals["Marius"];
         $totalPatrick = $totals["Patrick"];
 
-        // depricated. gebruik database
+        // deprecated. gebruik database
         $rows[] = new TimeSheetRow("03/02/2016", "Marius", "OO php leren", 0.5);
         $rows[] = new TimeSheetRow("03/02/2016", "Marius", "IDE opzetten met MySQL & Apache", 1);
         $rows[] = new TimeSheetRow("03/02/2016", "Marius", "Opzetten Structuur", 2.5);

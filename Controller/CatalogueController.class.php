@@ -10,15 +10,22 @@ class CatalogueController
 {
 
     public $catalogue;
+    public $cat;
 
     public function __construct()
     {
         $this->catalogue = new Catalogue();
     }
 
-    public function Run($filter)
+    public function Run()
     {
-        $rows = $this->catalogue->getEntrees($filter);
-        render("catalogue.php", ["title" => "$filter", "rows" => $rows]);
+        if (Empty($_GET["cat"])) {
+            $this->cat = "%";
+        } else {
+            $this->cat = $_GET["cat"];
+        }
+
+        $rows = $this->catalogue->getEntrees($this->cat);
+        render("catalogue.php", ["title" => "$this->cat", "rows" => $rows]);
     }
 }

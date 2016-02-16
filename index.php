@@ -13,14 +13,12 @@
  */
 include_once("Includes/config.php");
 
-if(Empty($_GET["page"]) )
-{
+if (Empty($_GET["page"])) {
     (new HomeController())->Run();
 }
 
 $page = strtolower(htmlspecialchars($_GET["page"]));
-switch ($page)
-{
+switch ($page) {
     // no parameters
     case "search":
         (new SearchController())->Run();
@@ -36,6 +34,9 @@ switch ($page)
         break;
     case "timesheet":
         (new TimeSheetController())->Run();
+        break;
+    case "catalogue":
+        (new CatalogueController())->Run();
         break;
     default:
         apologize("Sorry. Pagina bestaat niet");
