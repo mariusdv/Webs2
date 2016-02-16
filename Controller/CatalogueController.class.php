@@ -29,7 +29,11 @@ class CatalogueController
             if(!Empty($_POST["item"]))
             {
                 $cart = new Cart();
-                $cart->AddCart($_POST["item"]);
+                if(!$cart->AddCart($_POST["item"]))
+                {
+                    apologize("Artikel kan niet worden toegoegd aan winkelmandje.");
+                    exit(1);
+                }
 
             }
 

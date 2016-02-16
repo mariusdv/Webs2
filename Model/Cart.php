@@ -20,7 +20,7 @@ class Cart
     {
 
         if (filter_var($id, FILTER_VALIDATE_INT) === false)
-            return;
+            return false;
 
         $c = count($_SESSION["cart"]);
         for($i = 0; $i < $c; $i++)
@@ -30,7 +30,7 @@ class Cart
                 if($_SESSION["cart"][$i]->Product == $id)
                 {
                     $_SESSION["cart"][$i]->Quantity++;
-                    return;
+                    return true;
                 }
             }
         }
@@ -42,8 +42,9 @@ class Cart
             $new->Product = $id;
             $new->Quantity = 1;
             $_SESSION["cart"][] = $new;
-            return;
+            return true;
         }
+        return false;
 
     }
 
