@@ -93,7 +93,7 @@
                                 <td><img src="{$row->Product->ImgUrl}" alt="{$row->Product->Name}" /> </td>
                                 <td>{$row->Product->Name}</td>
                                 <td>{$row->Quantity}</td>
-                                <td>{$row->Product->Price * $row->Quantity}</td>
+                                <td>{$row->Product->Price}</td>
                             </tr>
                             {/foreach}
                             <tr>
