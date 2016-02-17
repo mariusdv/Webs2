@@ -14,6 +14,12 @@
                     </div>
                     <div id="collapse{$row->Id}" class="panel-collapse collapse">
                         <div class="panel-body category">
+                            <a href="/catalogue/cat=#">
+                                <div class="subcategory">
+                                    All
+                                </div>
+                            </a>
+                            <hr class="small">
                             {foreach from=$row->SubCategories item=subcat}
                             <a href="/catalogue/cat={$subcat}">
                                 <div class="subcategory">

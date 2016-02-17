@@ -145,3 +145,7 @@ a:hover {
 .category {
     padding: 0px;
 }
+
+.small {
+    margin: 0px !important;
+}
