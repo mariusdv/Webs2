@@ -4,7 +4,7 @@
 class HomeController
 {
 
-    private function Example()
+    private function example()
     {
         // Voorbeeld hoe je shit rendered
         $err = new ErrorMessage();
@@ -15,7 +15,7 @@ class HomeController
         //apologize("The redirecting and rendering en shit werkt!");
     }
 
-    public function Run()
+    public function run()
     {
         render("catalogue.php");
     }

@@ -14,29 +14,29 @@
 include_once("Includes/config.php");
 
 if (Empty($_GET["page"])) {
-    (new HomeController())->Run();
+    (new HomeController())->run();
 }
 
 $page = strtolower(htmlspecialchars($_GET["page"]));
 switch ($page) {
     // no parameters
     case "search":
-        (new SearchController())->Run();
+        (new SearchController())->run();
         break;
     case "account":
-        (new AccountController())->Run();
+        (new AccountController())->run();
         break;
     case "admin":
-        (new AdminController())->Run();
+        (new AdminController())->run();
         break;
     case "index.php":
-        (new HomeController())->Run();
+        (new HomeController())->run();
         break;
     case "timesheet":
-        (new TimeSheetController())->Run();
+        (new TimeSheetController())->run();
         break;
     case "catalogue":
-        (new CatalogueController())->Run();
+        (new CatalogueController())->run();
         break;
     default:
         apologize("Sorry. Pagina bestaat niet");

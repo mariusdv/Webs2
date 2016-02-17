@@ -15,7 +15,7 @@ class TimeSheetController
         $this->ts = new TimeSheet();
     }
 
-    public function Run()
+    public function run()
     {
         $this->CheckInsert();
 

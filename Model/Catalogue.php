@@ -23,7 +23,7 @@ class Catalogue
         $db->query_safe("SELECT * FROM `items` WHERE `Name` LIKE ? AND `Active` = TRUE", array($val));
         $res = $db->getRows();
 
-        if (!$res) {
+        if ($res == null) {
             return "Zoekcriteria heeft geen resultaten geretourneerd.";
         } else {
             foreach ($res as $val) {

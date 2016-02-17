@@ -8,7 +8,7 @@
  */
 class AccountController
 {
-    public function Run()
+    public function run()
     {
         if (Empty($_GET["action"])) {
             $this->pagepicker();

@@ -16,6 +16,9 @@
             <div class="row">
                 <div class="header">{$title}</div>
 
+                {if !isset($rows)}
+                    Nope.
+                {else}
                 {foreach from=$rows item=row}
                 <div class="col-sm-4 col-lg-4 col-md-4">
                     <div class="thumbnail">
@@ -39,13 +42,14 @@
                         <form action="/Catalogue/cat={$cat}" method="post">
                             <input type="hidden" name="item" value="{$row->Id}"/>
                             <button type="submit" class="btn btn-default addbutton">
-                                    <span type="submit" class="glyphicon glyphicon-shopping-cart cart"></span>
-                                    <span class="text" type="submit" >Add to cart</span>
+                                <span type="submit" class="glyphicon glyphicon-shopping-cart cart"></span>
+                                <span class="text" type="submit">Add to cart</span>
                             </button>
                         </form>
                     </div>
                 </div>
                 {/foreach}
+                {/if}
             </div>
 
         </div>

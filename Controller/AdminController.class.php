@@ -8,7 +8,7 @@
  */
 class AdminController
 {
-    public function Run()
+    public function run()
     {
         echo "Admin";
     }

@@ -8,7 +8,7 @@
  */
 class SearchController
 {
-    public function Run()
+    public function run()
     {
         echo "search shit";
     }

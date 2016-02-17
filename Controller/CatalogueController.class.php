@@ -17,18 +17,16 @@ class CatalogueController
         $this->catalogue = new Catalogue();
     }
 
-    public function Run()
+    public function run()
     {
 
         // if post
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
             // Add to cart
-            if(!Empty($_POST["item"]))
-            {
+            if(!Empty($_POST["item"])) {
                 $cart = new Cart();
-                if(!$cart->AddCart($_POST["item"]))
-                {
+                if (!$cart->AddCart($_POST["item"])) {
                     apologize("Artikel kan niet worden toegoegd aan winkelmandje.");
                     exit(1);
                 }
@@ -38,23 +36,30 @@ class CatalogueController
                 header("Location: http://" . $_SERVER['HTTP_HOST'] . $_SERVER[REQUEST_URI]);
                 exit(0);
             }
-            else if(!Empty($_POST["search"]))
+
+        }
+        else
+        {
+            if(!Empty($_GET["search"]))
             {
-                $rows = $this->catalogue->getSearchResults($_POST["search"]);
+                $rows = $this->catalogue->getSearchResults($_GET["search"]);
                 if(is_string($rows))
                 {
                     apologize($rows);
                     exit(1);
                 }
-                render("catalogue.php", ["title" => "Search - " . $_POST["search"], "rows" => $rows, "cat" => $this->cat]);
+                if(count($rows) == 0)
+                {
+                    render("catalogue.php", ["title" => "Search - " . $_GET["search"], "cat" => $this->cat]);
+                    exit(0);
+                }
+                render("catalogue.php", ["title" => "Search - " . $_GET["search"], "rows" => $rows, "cat" => $this->cat]);
+                ezit(0);
             }
-
-        }
-        else
-        {
-            if (Empty($_GET["cat"])) {
+            else if (Empty($_GET["cat"])) {
                 $this->cat = "%";
-            } else {
+            }
+            else{
                 $this->cat = $_GET["cat"];
             }
             $rows = $this->catalogue->getEntrees($this->cat);
