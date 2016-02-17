@@ -3,21 +3,39 @@
     <div class="row">
 
         <div class="col-sm-3 col-lg-3">
-            <p class="lead"><strong>Categories</strong></p>
-            <div class="list-group">
-                <a href="#" class="list-group-item">Pokeballs</a>
-                <a href="#" class="list-group-item">Move Machines</a>
-                <a href="#" class="list-group-item">Held Items</a>
+            <div class="header">Categories</div>
+            <div class="panel-group" id="accordion">
+                {foreach from=$categories item=row}
+                <div class="panel">
+                    <div class="panel-heading">
+                        <h4 class="panel-title">
+                            <a data-toggle="collapse" data-parent="#accordion" href="#collapse{$row->Id}">{$row->Category}</a>
+                        </h4>
+                    </div>
+                    <div id="collapse{$row->Id}" class="panel-collapse collapse">
+                        <div class="panel-body category">
+                            {foreach from=$row->SubCategories item=subcat}
+                            <a href="/catalogue/cat={$subcat}">
+                                <div class="subcategory">
+                                    {$subcat}
+                                </div>
+                            </a>
+                            {/foreach}
+                        </div>
+                    </div>
+                </div>
+                {/foreach}
+
             </div>
         </div>
 
         <div class="col-sm-9 col-lg-9">
 
             <div class="row">
-                <div class="header">{$title}</div>
+                <div class="header col-sm-12 col-lg-12">{$title}</div>
 
                 {if !isset($rows)}
-                    Nope.
+                Nope.
                 {else}
                 {foreach from=$rows item=row}
                 <div class="col-sm-4 col-lg-4 col-md-4">
@@ -29,16 +47,7 @@
                             </h4>
                             <p>{$row->DescriptionShort}</p>
                         </div>
-                        <div class="ratings">
-                            <p class="pull-right">48 reviews</p>
-                            <p>
-                                <span class="glyphicon glyphicon-star"></span>
-                                <span class="glyphicon glyphicon-star"></span>
-                                <span class="glyphicon glyphicon-star"></span>
-                                <span class="glyphicon glyphicon-star"></span>
-                                <span class="glyphicon glyphicon-star"></span>
-                            </p>
-                        </div>
+
                         <form action="/Catalogue/cat={$cat}" method="post">
                             <input type="hidden" name="item" value="{$row->Id}"/>
                             <button type="submit" class="btn btn-default addbutton">

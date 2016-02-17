@@ -10,9 +10,11 @@ class Category
 {
     public $Category;
     public $SubCategories;
+    public $Id;
 
-    public function  __construct($Category, $Subcategories)
+    public function  __construct($Category, $Subcategories, $Id)
     {
+        $this->Id = $Id;
         $this->Category = $Category;
         $this->SubCategories = $Subcategories;
     }

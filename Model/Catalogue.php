@@ -80,10 +80,9 @@ class Catalogue
         $db->query("SELECT * FROM `categories` ORDER BY 'Name' DESC");
         $res = $db->getRows();
 
-
+        $Id = 0;
         foreach ($res as $val) {
             $name = $val['Name'];
-
             $db2 = new Database();
             $db2->query_safe("SELECT * FROM `subcategories` WHERE `Categories_Name` LIKE ?", array($name));
             $res2 = $db2->getRows();
@@ -96,7 +95,8 @@ class Catalogue
                     $subcategories[] = $val2['Name'];
                 }
             }
-            $rows[] = new Category($val['Name'], $subcategories);
+            $Id++;
+            $rows[] = new Category($val['Name'], $subcategories, $Id);
         }
 
         return $rows;

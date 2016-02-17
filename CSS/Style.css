@@ -30,7 +30,6 @@
 }
 
 .header {
-    margin-left: 20px;
     font-size: 35px;
 }
 
@@ -129,4 +128,20 @@
 .cartTable img
 {
     width: 50px;
+}
+.subcategory {
+    padding: 10px;
+    color: #666666;
+}
+
+a:hover {
+    text-decoration: none !important;
+}
+
+.subcategory:hover {
+    background-color: #E0E0E0;
+}
+
+.category {
+    padding: 0px;
 }
