@@ -70,10 +70,7 @@
             $cart = new Cart();
             $cart->ItemCount();
             $smarty->assign("cartSize", $cart->ItemCount());
-            //$smarty->assign("cart", $cart->getCart());
-
-
-
+            $smarty->assign("cart", $cart->getCart());
 
             $c = new Catalogue();
             $smarty->assign("categories", $c->getCategories());

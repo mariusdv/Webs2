@@ -101,3 +101,28 @@
 .addbutton>.text{
     padding-left: 10px;
 }
+
+.padleft{
+    padding-left: 20%;
+}
+
+
+.dropdown-cart-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+}
+
+.dropdown-cart-content span {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+
+.dropdown-cart:hover .dropdown-cart-content {
+    display: block;
+}

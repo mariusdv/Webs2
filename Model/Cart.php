@@ -50,9 +50,21 @@ class Cart
 
     public function getCart()
     {
-        echo "TODO";
-        exit();
-        return null;
+        $items = [];
+        $cat = new Catalogue();
+        $c = count($_SESSION["cart"]);
+        for($i = 0; $i < $c; $i++)
+        {
+            if(!empty($_SESSION["cart"][$i]))
+            {
+                $new = new CartEntry();
+                $new->Quantity = $_SESSION["cart"][$i]->Quantity;
+                $new->Product = $cat->getItem($_SESSION["cart"][$i]->Product);
+                $items[] = $new;
+            }
+        }
+
+        return $items;
     }
     public function ItemCount()
     {

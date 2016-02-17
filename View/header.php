@@ -23,6 +23,8 @@
 
 
 </head>
+
+
 <nav class="navbar navbar-default">
     <div class="container-fluid">
         <!-- Brand and toggle get grouped for better mobile display -->
@@ -37,7 +39,7 @@
             <a class="navbar-toggle navbar-nav smallcart" href="#"><span
                     class="glyphicon glyphicon-shopping-cart cart"></span> {$cartSize} </a>
 
-            <a class="navbar-brand" href="#">PokeMart</a>
+            <a class="navbar-brand" href="/">PokeMart</a>
         </div>
 
         <!-- Collect the nav links, forms, and other content for toggling -->
@@ -64,9 +66,28 @@
 
                 </li>
             </ul>
+
+
+            <form class="navbar-form navbar-left" role="search" action="/Catalogue/action=search" method="post">
+                <div class="form-group">
+                    <input name="search" id="search" type="text" class="form-control" placeholder="Search">
+                </div>
+                <button type="submit" class="btn btn-default">Submit</button>
+            </form>
+
             <ul class="nav navbar-nav navbar-right">
-                <li><a href="#" class="hidden-xs"><span class="glyphicon glyphicon-shopping-cart cart"></span>
-                        {$cartSize} </a></li>
+
+                <li class="dropdown-cart">
+                    <a href="#" class="hidden-xs"><span class="glyphicon glyphicon-shopping-cart cart"></span>
+                            {$cartSize} </a>
+                    <div class="dropdown-cart-content">
+                        {foreach from=$cart item=row}
+                        <span>{$row->Product->Name}  |  {$row->Quantity}</span>
+                        {/foreach}
+                    </div>
+                </li>
+
+
                 {if isset($user)}
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
@@ -89,8 +110,8 @@
     </div><!-- /.container-fluid -->
 </nav>
 <body>
-            <!--
-            Menu
-            Breadcrumbs
-            -->
+<!--
+Menu
+Breadcrumbs
+-->
 

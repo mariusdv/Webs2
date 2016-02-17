@@ -8,6 +8,32 @@
  */
 class Catalogue
 {
+
+    public function getSearchResults($criteria)
+    {
+        $pos = strrpos($criteria, "%");
+        if ($pos !== false)
+        {
+            return "Geen geldige zoekstring.";
+        }
+        $rows = array();
+        $val = "%" . $criteria . "%";
+
+        $db = new Database();
+        $db->query_safe("SELECT * FROM `items` WHERE `Name` LIKE ? AND `Active` = TRUE", array($val));
+        $res = $db->getRows();
+
+        if (!$res) {
+            return "Zoekcriteria heeft geen resultaten geretourneerd.";
+        } else {
+            foreach ($res as $val) {
+                $rows[] = new Product($val['Id'], $val['Name'], $val['DescriptionLong'], $val['DescriptionShort'], $val['Price'], $val['ImgUrl'], $val['Subcategories_Name'], $val['Active']);
+            }
+        }
+
+        return $rows;
+    }
+
     public function getEntrees($cat)
     {
         $rows = array();
