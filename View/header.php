@@ -72,7 +72,7 @@
                 <div class="form-group">
                     <input name="search" id="search" type="text" class="form-control" placeholder="Search">
                 </div>
-                <button type="submit" class="btn btn-default">Submit</button>
+                <button type="submit" class="btn btn-default"><span class="glyphicon glyphicon-search search"></button>
             </form>
 
             <ul class="nav navbar-nav navbar-right">
