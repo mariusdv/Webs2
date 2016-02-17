@@ -54,10 +54,10 @@ class CatalogueController
                     exit(0);
                 }
                 render("catalogue.php", ["title" => "Search - " . $_GET["search"], "rows" => $rows, "cat" => $this->cat]);
-                ezit(0);
+                exit(0);
             }
             else if (Empty($_GET["cat"])) {
-                $this->cat = "%";
+                $this->cat = "All";
             }
             else{
                 $this->cat = $_GET["cat"];

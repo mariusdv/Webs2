@@ -18,6 +18,9 @@ class Catalogue
         ) {
             return "Geen geldige zoekstring.";
         }
+
+
+
         $rows = array();
         $val = "%" . $criteria . "%";
 
@@ -36,6 +39,10 @@ class Catalogue
 
     public function getEntrees($cat)
     {
+
+        if($cat == "All")
+            $cat = "%";
+
         $rows = array();
 
         $db = new Database();
