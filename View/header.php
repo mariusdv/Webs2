@@ -68,7 +68,7 @@
             </ul>
 
 
-            <form class="navbar-form navbar-left" role="search" action="/Catalogue/action=search" method="post">
+            <form class="navbar-form navbar-left" role="search" action="/Catalogue" method="get">
                 <div class="form-group">
                     <input name="search" id="search" type="text" class="form-control" placeholder="Search">
                 </div>

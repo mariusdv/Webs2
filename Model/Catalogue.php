@@ -11,9 +11,11 @@ class Catalogue
 
     public function getSearchResults($criteria)
     {
-        $pos = strrpos($criteria, "%");
-        if ($pos !== false)
-        {
+        if (strrpos($criteria, "%") !== false
+            || strrpos($criteria, "_") !== false
+            || strrpos($criteria, "[") !== false
+            || strrpos($criteria, "]") !== false
+        ) {
             return "Geen geldige zoekstring.";
         }
         $rows = array();
@@ -23,13 +25,11 @@ class Catalogue
         $db->query_safe("SELECT * FROM `items` WHERE `Name` LIKE ? AND `Active` = TRUE", array($val));
         $res = $db->getRows();
 
-        if ($res == null) {
-            return "Zoekcriteria heeft geen resultaten geretourneerd.";
-        } else {
-            foreach ($res as $val) {
-                $rows[] = new Product($val['Id'], $val['Name'], $val['DescriptionLong'], $val['DescriptionShort'], $val['Price'], $val['ImgUrl'], $val['Subcategories_Name'], $val['Active']);
-            }
+
+        foreach ($res as $val) {
+            $rows[] = new Product($val['Id'], $val['Name'], $val['DescriptionLong'], $val['DescriptionShort'], $val['Price'], $val['ImgUrl'], $val['Subcategories_Name'], $val['Active']);
         }
+
 
         return $rows;
     }
