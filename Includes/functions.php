@@ -71,6 +71,7 @@
             $cart->ItemCount();
             $smarty->assign("cartSize", $cart->ItemCount());
             $smarty->assign("cart", $cart->getCart());
+            $smarty->assign("totalPrice", $cart->getTotal());
 
             $c = new Catalogue();
             $smarty->assign("categories", $c->getCategories());

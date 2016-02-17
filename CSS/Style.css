@@ -108,21 +108,25 @@
 
 
 .dropdown-cart-content {
+
     display: none;
     position: absolute;
     background-color: #f9f9f9;
     min-width: 160px;
     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    left: -100px;
 }
 
-.dropdown-cart-content span {
-    color: black;
-    padding: 12px 16px;
-    text-decoration: none;
-    display: block;
-}
 
 
 .dropdown-cart:hover .dropdown-cart-content {
     display: block;
+}
+.dropdown-cart-content{
+    z-index: 9001;
+
+}
+.cartTable img
+{
+    width: 50px;
 }

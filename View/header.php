@@ -79,11 +79,28 @@
 
                 <li class="dropdown-cart">
                     <a href="#" class="hidden-xs"><span class="glyphicon glyphicon-shopping-cart cart"></span>
-                            {$cartSize} </a>
+                        {$cartSize} </a>
                     <div class="dropdown-cart-content">
-                        {foreach from=$cart item=row}
-                        <span>{$row->Product->Name}  |  {$row->Quantity}</span>
-                        {/foreach}
+                        <table class="table table-bordered table-striped table-condensed cartTable">
+                            <tr>
+                                <td/>
+                                <td>Name</td>
+                                <td>Amount</td>
+                                <td>Price</td>
+                            </tr>
+                            {foreach from=$cart item=row}
+                            <tr>
+                                <td><img src="{$row->Product->ImgUrl}" alt="{$row->Product->Name}" /> </td>
+                                <td>{$row->Product->Name}</td>
+                                <td>{$row->Quantity}</td>
+                                <td>{$row->Product->Price * $row->Quantity}</td>
+                            </tr>
+                            {/foreach}
+                            <tr>
+                                <td colspan="3"> Total:</td>
+                                <td>{$totalPrice}</td>
+                            </tr>
+                        </table>
                     </div>
                 </li>
 

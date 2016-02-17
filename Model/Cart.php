@@ -66,6 +66,18 @@ class Cart
 
         return $items;
     }
+
+    public function getTotal()
+    {
+        $c =  $this->getCart();
+        $len = count($c);
+        $total = 0;
+        for($i = 0; $i < $len; $i++)
+        {
+            $total += ($c[$i]->Quantity *  $c[$i]->Product->Price);
+        }
+        return $total;
+    }
     public function ItemCount()
     {
         $c = count($_SESSION["cart"]);

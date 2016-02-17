@@ -30,7 +30,7 @@ switch ($page) {
         (new AdminController())->run();
         break;
     case "index.php":
-        (new HomeController())->run();
+        (new CatalogueController())->run();
         break;
     case "timesheet":
         (new TimeSheetController())->run();
