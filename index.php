@@ -13,6 +13,9 @@
  */
 include_once("Includes/config.php");
 
+$val = Database::query_safe("SELECT * FROM `items` WHERE `Name` LIKE ? AND `Active` = TRUE", array("%%%"));
+print_r($val);
+
 if (Empty($_GET["page"])) {
     (new HomeController())->run();
 }
