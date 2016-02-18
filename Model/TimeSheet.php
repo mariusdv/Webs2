@@ -13,8 +13,7 @@ class TimeSheet
         $rows = array();
 
         $db = new Database();
-        $db->query("SELECT * FROM `timesheet` ORDER BY `date` ASC");
-        $res = $db->getRows();
+        $res = Database::query("SELECT * FROM `timesheet` ORDER BY `date` ASC");
 
         setlocale(LC_TIME, 'Dutch');
 
@@ -46,8 +45,7 @@ class TimeSheet
     public function submitEntree($name, $task, $hours)
     {
         if (filter_var($hours, FILTER_VALIDATE_INT)) {
-            $db = new Database();
-            $db->query_safe("INSERT INTO `timesheet`(`Name`, `Task`, `Time`) VALUES (?,?,?);", array($name, $task, $hours));
+            $res = Database::query_safe("INSERT INTO `timesheet`(`Name`, `Task`, `Time`) VALUES (?,?,?);", array($name, $task, $hours));
         }
     }
 

@@ -34,9 +34,7 @@ class User
     public function getAdresses($username)
     {
         $username = strtolower(filter_var($username, FILTER_SANITIZE_EMAIL));
-        $db = new Database();
-        $db->query_safe("SELECT * FROM `users` WHERE `Email` = ?", array($username));
-        $res = $db->getRow();
+        $res = Database::query_safe("SELECT * FROM `users` WHERE `Email` = ?", array($username));
         return $res;
     }
 
@@ -48,9 +46,7 @@ class User
         if (!filter_var($username, FILTER_VALIDATE_EMAIL) === false) {
 
 
-            $db = new Database();
-            $db->query_safe("SELECT * FROM `users` WHERE `Email` = ? AND `ValidationHash` IS NULL", array($username));
-            $res = $db->getRow();
+            $res = Database::query_safe("SELECT * FROM `users` WHERE `Email` = ? AND `ValidationHash` IS NULL", array($username));
             if ($res == null)
                 return false;
             return true;
@@ -62,9 +58,7 @@ class User
     private function getUser($username)
     {
         $username = strtolower(filter_var($username, FILTER_SANITIZE_EMAIL));
-        $db = new Database();
-        $db->query_safe("SELECT * FROM `users` WHERE `Email` = ?", array($username));
-        $res = $db->getRow();
+        $res = Database::query_safe("SELECT * FROM `users` WHERE `Email` = ?", array($username));
         if ($res == null) {
             return false;
         }
@@ -83,8 +77,7 @@ class User
 
             // save password
             $hashed = password_hash($password, PASSWORD_DEFAULT);
-            $db = new Database();
-            if (!$db->query_safe("UPDATE `users` SET `Password` = ?  WHERE `Email` = ?", array($hashed, $username))) {
+            if (!Database::query_safe("UPDATE `users` SET `Password` = ?  WHERE `Email` = ?", array($hashed, $username))) {
                 echo "Query error: \"UPDATE `users` SET `Password` = '$hashed'  WHERE `Email` = '$username'\"";
                 exit();
             }
@@ -145,9 +138,8 @@ class User
         // SQL
         $hashed = password_hash($array["password"], PASSWORD_DEFAULT);
         $this->token = bin2hex(openssl_random_pseudo_bytes(16));
-        $db = new Database();
 
-        if (!$db->query_safe("INSERT INTO `users` (`Email`, `Password`, `Name`, `Surname`, `RecoveryHash`, `RecoveryDate`, `ValidationHash`) VALUES (?, ?, ?,?, NULL, NULL, ?)"
+        if (!Database::query_safe("INSERT INTO `users` (`Email`, `Password`, `Name`, `Surname`, `RecoveryHash`, `RecoveryDate`, `ValidationHash`) VALUES (?, ?, ?,?, NULL, NULL, ?)"
             , array($array["username"], $hashed, $array["name"], $array["surname"], $this->token))
         ) {
             echo "Query error:\"INSERT INTO `users` (`Email`, `Password`, `Name`, `Surname`, `RecoveryHash`, `RecoveryDate`, `ValidationHash`)
@@ -155,7 +147,7 @@ class User
             exit();
         }
 
-        if (!$db->query_safe("INSERT INTO `address` (`Id`, `Zipcode`, `Address`, `City`, `Province`, `Country`, `Users_Email`) VALUES (NULL, ?, ?, ?,?, ?, ?)",
+        if (!Database::query_safe("INSERT INTO `address` (`Id`, `Zipcode`, `Address`, `City`, `Province`, `Country`, `Users_Email`) VALUES (NULL, ?, ?, ?,?, ?, ?)",
             array($array["postalcode"], $array["address"], $array["city"], $array["province"], $array["country"], $array["username"]))
         ) {
             echo "Query error: ADDRESS ADD";
@@ -177,8 +169,7 @@ class User
                 return false;
 
             if ($res["RecoveryHash"] == null || $this->hoursPassed($res["RecoveryDate"]) >= 24) {
-                $db = new Database();
-                if (!$db->query_safe("UPDATE `users` SET `RecoveryHash` = ?, `RecoveryDate` = ? WHERE `Email` = ?", array($this->token, date('Y-m-d H:i:s'), $username))) {
+                if (!Database::query_safe("UPDATE `users` SET `RecoveryHash` = ?, `RecoveryDate` = ? WHERE `Email` = ?", array($this->token, date('Y-m-d H:i:s'), $username))) {
                     echo "Query error: \"UPDATE `users` SET `RecoveryHash` = '$this->token', `RecoveryDate` = '" . date('Y-m-d H:i:s') . "' WHERE `Email` = '$username'\"";
                     exit();
                 }
@@ -192,9 +183,8 @@ class User
     public function resetHash($username)
     {
         if ($this->validateUsername($username)) {
-            $db = new Database();
             $username = strtolower(filter_var($username, FILTER_SANITIZE_EMAIL));
-            if (!$db->query_safe("UPDATE `users` SET `RecoveryHash` = NULL, `RecoveryDate` = NULL WHERE `Email` = ?", array($username))) {
+            if (!Database::query_safe("UPDATE `users` SET `RecoveryHash` = NULL, `RecoveryDate` = NULL WHERE `Email` = ?", array($username))) {
                 echo "Query error: \"UPDATE `users` SET `RecoveryHash` = NULL, `RecoveryDate` = NULL WHERE `Email` = '$username'";
                 exit();
             }
@@ -204,9 +194,7 @@ class User
     public function CanRecover()
     {
         $dayAgo = date('Y-m-d H:i:s', (strtotime('-1 day', strtotime(date('Y-m-d H:i:s')))));
-        $db = new Database();
-        $db->query_safe("SELECT count(*) AS Counter FROM `recoveryLog` WHERE IP = ? AND `Date` BETWEEN ? AND ?", array($_SERVER['REMOTE_ADDR'], $dayAgo, date('Y-m-d H:i:s')));
-        $res = $db->getRow();
+        $res = Database::query_safe("SELECT count(*) AS Counter FROM `recoveryLog` WHERE IP = ? AND `Date` BETWEEN ? AND ?", array($_SERVER['REMOTE_ADDR'], $dayAgo, date('Y-m-d H:i:s')));
         if ($res["Counter"] > 4)
             return false;
         return true;
@@ -214,15 +202,12 @@ class User
 
     public function logRecovery()
     {
-        $db = new Database();
-        $db->query_safe("INSERT INTO `recoveryLog` (`IP`, `Date`) VALUES (?, ?)", array($_SERVER['REMOTE_ADDR'], date('Y-m-d H:i:s')));
+        Database::query_safe("INSERT INTO `recoveryLog` (`IP`, `Date`) VALUES (?, ?)", array($_SERVER['REMOTE_ADDR'], date('Y-m-d H:i:s')));
     }
 
     public function validateToken($token)
     {
-        $db = new Database();
-        $db->query_safe("SELECT * FROM `users` WHERE `RecoveryHash` = ?", array($token));
-        $res = $db->getRow();
+        $res = Database::query_safe("SELECT * FROM `users` WHERE `RecoveryHash` = ?", array($token));
 
         if ($res == null)
             return false;
@@ -234,15 +219,13 @@ class User
 
     public function validateActivateToken($token)
     {
-        $db = new Database();
-        $db->query_safe("SELECT * FROM `users` WHERE `ValidationHash` = ?", array($token));
-        $res = $db->getRow();
+        $res = Database::query_safe("SELECT * FROM `users` WHERE `ValidationHash` = ?", array($token));
 
         if ($res == null)
             return false;
 
         // Clear
-        if (!$db->query_safe("UPDATE `users` SET `ValidationHash` = NULL WHERE `Email` = ?", array($res["Email"]))) {
+        if (!Database::query_safe("UPDATE `users` SET `ValidationHash` = NULL WHERE `Email` = ?", array($res["Email"]))) {
             echo "Query error: UPDATE `users` SET `ValidationHash` = NULL WHERE `Email` = " . $res["Email"];
             exit();
         }
