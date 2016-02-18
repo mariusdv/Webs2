@@ -24,7 +24,7 @@ class CatalogueController
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
             // Add to cart
-            if(!Empty($_POST["item"])) {
+            if (!Empty($_POST["item"])) {
                 $cart = new Cart();
                 if (!$cart->AddCart($_POST["item"])) {
                     apologize("Artikel kan niet worden toegoegd aan winkelmandje.");
@@ -37,31 +37,29 @@ class CatalogueController
                 exit(0);
             }
 
-        }
-        else
-        {
-            if(!Empty($_GET["search"]))
-            {
+        } else {
+            if (!Empty($_GET["search"])) {
                 $rows = $this->catalogue->getSearchResults($_GET["search"]);
-                if(is_string($rows))
-                {
+                if (is_string($rows)) {
                     apologize($rows);
                     exit(1);
                 }
-                if(count($rows) == 0)
-                {
+                if (count($rows) == 0) {
                     render("catalogue.php", ["title" => "Search - " . $_GET["search"], "cat" => $this->cat]);
                     exit(0);
                 }
                 render("catalogue.php", ["title" => "Search - " . $_GET["search"], "rows" => $rows, "cat" => $this->cat]);
                 exit(0);
-            }
-            else if (Empty($_GET["cat"])) {
-                $this->cat = "All";
-            }
-            else{
-                $this->cat = $_GET["cat"];
-            }
+            } else if (!Empty($GET_["product"])
+            ) {
+                
+
+            } else
+                if (Empty($_GET["cat"])) {
+                    $this->cat = "All";
+                } else {
+                    $this->cat = $_GET["cat"];
+                }
             $rows = $this->catalogue->getEntrees($this->cat);
             render("catalogue.php", ["title" => $this->catalogue->getTitle($this->cat), "rows" => $rows, "cat" => $this->cat, "categories" => $this->catalogue->getCategories()]);
         }

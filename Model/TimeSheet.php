@@ -12,7 +12,6 @@ class TimeSheet
     {
         $rows = array();
 
-        $db = new Database();
         $res = Database::query("SELECT * FROM `timesheet` ORDER BY `date` ASC");
 
         setlocale(LC_TIME, 'Dutch');

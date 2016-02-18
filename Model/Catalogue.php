@@ -24,10 +24,7 @@ class Catalogue
         $rows = array();
         $val = "%" . $criteria . "%";
 
-        $db = new Database();
-        $db->query_safe("SELECT * FROM `items` WHERE `Name` LIKE ? AND `Active` = TRUE", array($val));
-        $res = $db->getRows();
-
+        $res = Database::query_safe("SELECT * FROM `items` WHERE `Name` LIKE ? AND `Active` = TRUE", array($val));
 
         foreach ($res as $val) {
             $rows[] = new Product($val['Id'], $val['Name'], $val['DescriptionLong'], $val['DescriptionShort'], $val['Price'], $val['ImgUrl'], $val['Subcategories_Name'], $val['Active']);
@@ -45,9 +42,7 @@ class Catalogue
 
         $rows = array();
 
-        $db = new Database();
-        $db->query_safe("SELECT * FROM `items` WHERE `Subcategories_Name` LIKE ? AND `Active` = TRUE", array($cat));
-        $res = $db->getRows();
+        $res = Database::query_safe("SELECT * FROM `items` WHERE `Subcategories_Name` LIKE ? AND `Active` = TRUE", array($cat));
 
         if (!$res) {
             apologize("Zoekcriteria heeft geen resultaten geretourneerd.");
@@ -76,16 +71,12 @@ class Catalogue
     {
         $rows = array();
 
-        $db = new Database();
-        $db->query("SELECT * FROM `categories` ORDER BY 'Name' DESC");
-        $res = $db->getRows();
+        $res = Database::query("SELECT * FROM `categories` ORDER BY 'Name' DESC");
 
         $Id = 0;
         foreach ($res as $val) {
             $name = $val['Name'];
-            $db2 = new Database();
-            $db2->query_safe("SELECT * FROM `subcategories` WHERE `Categories_Name` LIKE ?", array($name));
-            $res2 = $db2->getRows();
+            $res2 = Database::query_safe("SELECT * FROM `subcategories` WHERE `Categories_Name` LIKE ?", array($name));
 
             $subcategories = array();
 
@@ -104,9 +95,7 @@ class Catalogue
 
     public function getItem($id)
     {
-        $db = new Database();
-        $db->query_safe("SELECT * FROM `items` WHERE `Id` = ? AND `Active` = TRUE", array($id));
-        $res = $db->getRow();
+        $res = Database::query_safe("SELECT * FROM `items` WHERE `Id` = ? AND `Active` = TRUE", array($id));
 
         if ($res == null) {
             return false;
