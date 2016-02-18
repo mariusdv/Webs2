@@ -62,6 +62,7 @@ class User
         if ($res == null) {
             return false;
         }
+        $res = $res[0];
         return $res;
     }
 
@@ -195,6 +196,7 @@ class User
     {
         $dayAgo = date('Y-m-d H:i:s', (strtotime('-1 day', strtotime(date('Y-m-d H:i:s')))));
         $res = Database::query_safe("SELECT count(*) AS Counter FROM `recoveryLog` WHERE IP = ? AND `Date` BETWEEN ? AND ?", array($_SERVER['REMOTE_ADDR'], $dayAgo, date('Y-m-d H:i:s')));
+        $res = $res[0];
         if ($res["Counter"] > 4)
             return false;
         return true;
@@ -211,16 +213,16 @@ class User
 
         if ($res == null)
             return false;
-        if ($this->hoursPassed($res["RecoveryDate"]) >= 24)
+        if ($this->hoursPassed($res[0]["RecoveryDate"]) >= 24)
             return false;
 
-        return $res["Email"];
+        return $res[0]["Email"];
     }
 
     public function validateActivateToken($token)
     {
         $res = Database::query_safe("SELECT * FROM `users` WHERE `ValidationHash` = ?", array($token));
-
+        $res= $res[0];
         if ($res == null)
             return false;
 
