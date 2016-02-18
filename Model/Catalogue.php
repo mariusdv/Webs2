@@ -20,7 +20,6 @@ class Catalogue
         }
 
 
-
         $rows = array();
         $val = "%" . $criteria . "%";
 
@@ -37,7 +36,7 @@ class Catalogue
     public function getEntrees($cat)
     {
 
-        if($cat == "All")
+        if ($cat == "All")
             $cat = "%";
 
         $rows = array();
@@ -95,9 +94,10 @@ class Catalogue
 
     public function getItem($id)
     {
-        $res = Database::query_safe("SELECT * FROM `items` WHERE `Id` = ? AND `Active` = TRUE", array($id));
 
-        if ($res == null) {
+        $res = Database::query_safe("SELECT * FROM `items` WHERE `Id` = ? AND `Active` = TRUE", array($id));
+        $res = $res[0];
+        if ($res == null || $res === false) {
             return false;
         } else {
             return (new Product($res['Id'], $res['Name'], $res['DescriptionLong'], $res['DescriptionShort'], $res['Price'], $res['ImgUrl'], $res['Subcategories_Name'], $res['Active']));
