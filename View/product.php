@@ -3,93 +3,79 @@
 
     <div class="row">
 
-        <div class="col-md-3">
-            <p class="lead">Shop Name</p>
-            <div class="list-group">
-                <a href="#" class="list-group-item active">Category 1</a>
-                <a href="#" class="list-group-item">Category 2</a>
-                <a href="#" class="list-group-item">Category 3</a>
+        <div class="col-sm-3 col-lg-3">
+            <div class="header">Categories</div>
+            <div class="panel-group" id="accordion">
+                {foreach from=$categories item=row}
+                <div class="panel">
+                    <div class="panel-heading">
+                        <h4 class="panel-title">
+                            <a data-toggle="collapse" data-parent="#accordion" href="#collapse{$row->Id}">{$row->Category}</a>
+                        </h4>
+                    </div>
+                    <div id="collapse{$row->Id}" class="panel-collapse collapse">
+                        <div class="panel-body category">
+                            <a href="/catalogue/cat=#">
+                                <div class="subcategory">
+                                    All
+                                </div>
+                            </a>
+                            <hr class="small">
+                            {foreach from=$row->SubCategories item=subcat}
+                            <a href="/catalogue/cat={$subcat}">
+                                <div class="subcategory">
+                                    {$subcat}
+                                </div>
+                            </a>
+                            {/foreach}
+                        </div>
+                    </div>
+                </div>
+                {/foreach}
+
             </div>
         </div>
 
         <div class="col-md-9">
 
             <div class="thumbnail">
-                <img class="img-responsive" src="http://placehold.it/800x300" alt="">
+                <img class="img-responsive" src="{$product->ImgUrl}" alt="">
                 <div class="caption-full">
-                    <h4 class="pull-right">$24.99</h4>
-                    <h4><a href="#">Product Name</a>
+                    <h4 class="pull-right">${$product->Price}</h4>
+                    <h4><a>{$product->Name}</a>
+                        {if !($stock)}
+                        <span class="label label-danger">Not In Stock!</span>
+                        {else}
+                        <span class="label label-success">In Stock!</span>
+                        {/if}
                     </h4>
-                    <p>See more snippets like these online store reviews at <a target="_blank" href="http://bootsnipp.com">Bootsnipp - http://bootsnipp.com</a>.</p>
-                    <p>Want to make these reviews work? Check out
-                        <strong><a href="http://maxoffsky.com/code-blog/laravel-shop-tutorial-1-building-a-review-system/">this building a review system tutorial</a>
-                        </strong>over at maxoffsky.com!</p>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum</p>
-                </div>
-                <div class="ratings">
-                    <p class="pull-right">3 reviews</p>
-                    <p>
-                        <span class="glyphicon glyphicon-star"></span>
-                        <span class="glyphicon glyphicon-star"></span>
-                        <span class="glyphicon glyphicon-star"></span>
-                        <span class="glyphicon glyphicon-star"></span>
-                        <span class="glyphicon glyphicon-star-empty"></span>
-                        4.0 stars
-                    </p>
-                </div>
-            </div>
-
-            <div class="well">
-
-                <div class="text-right">
-                    <a class="btn btn-success">Leave a Review</a>
-                </div>
-
-                <hr>
-
-                <div class="row">
-                    <div class="col-md-12">
-                        <span class="glyphicon glyphicon-star"></span>
-                        <span class="glyphicon glyphicon-star"></span>
-                        <span class="glyphicon glyphicon-star"></span>
-                        <span class="glyphicon glyphicon-star"></span>
-                        <span class="glyphicon glyphicon-star-empty"></span>
-                        Anonymous
-                        <span class="pull-right">10 days ago</span>
-                        <p>This product was great in terms of quality. I would definitely buy another!</p>
+                    <p>{$product->DescriptionLong}</p>
+                    {if {$stock}}
+                    <form action="/Catalogue/cat={$cat}" method="post">
+                        <input type="hidden" name="item" value="{$row->Id}"/>
+                        <button type="submit" class="btn btn-default addbutton">
+                            <span type="submit" class="glyphicon glyphicon-shopping-cart cart"></span>
+                            <span class="text" type="submit">Add to cart</span>
+                        </button>
+                    </form>
+                    {/if}
+                    <div class="addToWishlist">
+                        <p>
+                        <form action="/Catalogue/cat={$cat}" method="post">
+                            <input type="hidden" name="item" value="{$row->Id}"/>
+                            {if !($stock)}
+                            <span>This <strong>{$product->Name}</strong> is currently not in stock. Add it to your wishlist instead!</span>
+                            {else}
+                            <span>Don't want to buy this <strong>{$product->Name}</strong> yet? Add it to your wishlist!</span>
+                            {/if}
+                            <button type="submit" class="btn btn-warning">
+                                <span type="submit" class="glyphicon glyphicon-list-alt"></span>
+                                <span class="text" type="submit">Add to wishlist</span>
+                            </button>
+                        </form>
+                        </p>
                     </div>
                 </div>
-
-                <hr>
-
-                <div class="row">
-                    <div class="col-md-12">
-                        <span class="glyphicon glyphicon-star"></span>
-                        <span class="glyphicon glyphicon-star"></span>
-                        <span class="glyphicon glyphicon-star"></span>
-                        <span class="glyphicon glyphicon-star"></span>
-                        <span class="glyphicon glyphicon-star-empty"></span>
-                        Anonymous
-                        <span class="pull-right">12 days ago</span>
-                        <p>I've already ordered another one!</p>
-                    </div>
-                </div>
-
-                <hr>
-
-                <div class="row">
-                    <div class="col-md-12">
-                        <span class="glyphicon glyphicon-star"></span>
-                        <span class="glyphicon glyphicon-star"></span>
-                        <span class="glyphicon glyphicon-star"></span>
-                        <span class="glyphicon glyphicon-star"></span>
-                        <span class="glyphicon glyphicon-star-empty"></span>
-                        Anonymous
-                        <span class="pull-right">15 days ago</span>
-                        <p>I've seen some better than this, but not at this price. I definitely recommend this item.</p>
-                    </div>
-                </div>
-
             </div>
 
         </div>
