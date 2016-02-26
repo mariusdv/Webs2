@@ -1,8 +1,28 @@
 De volgende design principes hebben wij afgesproken om toe te passen:
 
+TABEL:
+    p-GebruikerID
+    p-ProductID
+    timestamp
+    rating
+    text
+
+
+TODO
+Productpagina = Patrick
+breadcrumb = patrick
+profiel beheren (adressen enzz) = PAtrick
+Betalen = Marius
+Winkelwagen beheer = marius
+Vergelijken = Patrick
+Kenmerken = Marius
+CMS = Marius
+About pagina = Patrick
+Home = Patrick
+TODO
 
 *---Security---*
-- Data validation word toegepast zowel server-side als client-side (gebruikende PHP en JavaScript)
+Alles valideert met PHP
 
 *---Style---*
 - Functies met een kleine letters
