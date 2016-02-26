@@ -263,8 +263,11 @@ class AccountController
     {
         // unset any session variables?
         // TODO: Keep the shopping cart
-        $_SESSION = [];
+        $cart = new Cart();
+        $val = $cart->cartObject();
 
+        $_SESSION = [];
+        $cart->setObject($val);
         // expire cookie
         if (!empty($_COOKIE[session_name()])) {
             setcookie(session_name(), "", time() - 42000);

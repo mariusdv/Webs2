@@ -12,8 +12,8 @@
     <script type="text/javascript" src="//code.jquery.com/ui/1.10.1/jquery-ui.js"></script>
 
     <link rel="stylesheet" href="https://bootswatch.com/paper/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="../CSS/shop-homepage.css">
-    <link rel="stylesheet" type="text/css" href="../CSS/Style.css">
+    <link rel="stylesheet" type="text/css" href="/CSS/shop-homepage.css">
+    <link rel="stylesheet" type="text/css" href="/CSS/Style.css">
 
     {if isset($title)}
     <title>Webshop: {htmlspecialchars($title)}</title>
@@ -24,7 +24,7 @@
 
 </head>
 
-
+<body>
 <nav class="navbar navbar-default">
     <div class="container-fluid">
         <!-- Brand and toggle get grouped for better mobile display -->
@@ -85,7 +85,7 @@
                     <div class="dropdown-cart-content">
                         <table class="table table-bordered table-striped table-condensed cartTable">
                             <tr>
-                                <td/>
+                                <td></td>
                                 <td>Name</td>
                                 <td>Amount</td>
                                 <td>Price</td>
@@ -128,7 +128,6 @@
         </div><!-- /.navbar-collapse -->
     </div><!-- /.container-fluid -->
 </nav>
-<body>
 <!--
 Menu
 Breadcrumbs

@@ -10,8 +10,7 @@ class Cart
 {
     public function __construct()
     {
-        if(empty($_SESSION["cart"]))
-        {
+        if (empty($_SESSION["cart"])) {
             $_SESSION["cart"] = [];
         }
     }
@@ -23,12 +22,9 @@ class Cart
             return false;
 
         $c = count($_SESSION["cart"]);
-        for($i = 0; $i < $c; $i++)
-        {
-            if(!empty($_SESSION["cart"][$i]))
-            {
-                if($_SESSION["cart"][$i]->Product == $id)
-                {
+        for ($i = 0; $i < $c; $i++) {
+            if (!empty($_SESSION["cart"][$i])) {
+                if ($_SESSION["cart"][$i]->Product == $id) {
                     $_SESSION["cart"][$i]->Quantity++;
                     return true;
                 }
@@ -37,8 +33,7 @@ class Cart
         $new = new CartEntry();
         $cat = new Catalogue();
 
-        if($cat->getItem($id) !== false)
-        {
+        if ($cat->getItem($id) !== false) {
             $new->Product = $id;
             $new->Quantity = 1;
             $_SESSION["cart"][] = $new;
@@ -48,15 +43,23 @@ class Cart
 
     }
 
+    public function setObject($val)
+    {
+        $_SESSION["cart"] = $val;
+    }
+
+    public function cartObject()
+    {
+        return $_SESSION["cart"];
+    }
+
     public function getCart()
     {
         $items = [];
         $cat = new Catalogue();
         $c = count($_SESSION["cart"]);
-        for($i = 0; $i < $c; $i++)
-        {
-            if(!empty($_SESSION["cart"][$i]))
-            {
+        for ($i = 0; $i < $c; $i++) {
+            if (!empty($_SESSION["cart"][$i])) {
                 $new = new CartEntry();
                 $new->Quantity = $_SESSION["cart"][$i]->Quantity;
                 $new->Product = $cat->getItem($_SESSION["cart"][$i]->Product);
@@ -69,23 +72,21 @@ class Cart
 
     public function getTotal()
     {
-        $c =  $this->getCart();
+        $c = $this->getCart();
         $len = count($c);
         $total = 0;
-        for($i = 0; $i < $len; $i++)
-        {
-            $total += ($c[$i]->Quantity *  $c[$i]->Product->Price);
+        for ($i = 0; $i < $len; $i++) {
+            $total += ($c[$i]->Quantity * $c[$i]->Product->Price);
         }
         return $total;
     }
+
     public function ItemCount()
     {
         $c = count($_SESSION["cart"]);
         $total = 0;
-        for($i = 0; $i < $c; $i++)
-        {
-            if(!empty($_SESSION["cart"][$i]))
-            {
+        for ($i = 0; $i < $c; $i++) {
+            if (!empty($_SESSION["cart"][$i])) {
                 $total += $_SESSION["cart"][$i]->Quantity;
 
             }

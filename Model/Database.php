@@ -24,8 +24,6 @@ class Database
 
     public static function query($sql)
     {
-
-
         try {
             $conn = Database::open();
             $result = $conn->query($sql)->fetchAll(PDO::FETCH_ASSOC);
