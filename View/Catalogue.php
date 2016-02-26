@@ -49,11 +49,10 @@
                         <img src="{$row->ImgUrl}" alt="{$row->Name}">
                         <div class="caption">
                             <h4 class="pull-right">${$row->Price}</h4>
-                            <h4><a href="#">{$row->Name}</a>
+                            <h4><a href="/catalogue/product={$row->Id}">{$row->Name}</a>
                             </h4>
                             <p>{$row->DescriptionShort}</p>
                         </div>
-
                         <form action="/Catalogue/cat={$cat}" method="post">
                             <input type="hidden" name="item" value="{$row->Id}"/>
                             <button type="submit" class="btn btn-default addbutton">

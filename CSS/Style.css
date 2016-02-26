@@ -85,12 +85,10 @@
 .smallcart{
     color: black;
     margin-right: 10px;
-
 }
 
 .smallcart:hover{
     text-decoration: none;
-
 }
 
 .addbutton{
@@ -105,7 +103,6 @@
     padding-left: 20%;
 }
 
-
 .dropdown-cart-content {
 
     display: none;
@@ -115,8 +112,6 @@
     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
     left: -100px;
 }
-
-
 
 .dropdown-cart:hover .dropdown-cart-content {
     display: block;
@@ -148,4 +143,18 @@ a:hover {
 
 .small {
     margin: 0px !important;
+}
+
+.addToWishlist {
+    margin-top: 5px;
+    font-size: 13px !important;
+    float: right;
+}
+.addToWishlist button {
+    margin: 0 10px 0 10px;
+    font-size: 13px;
+}
+
+.titanic {
+    float: none;
 }

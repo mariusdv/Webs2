@@ -50,9 +50,15 @@ class CatalogueController
                 }
                 render("catalogue.php", ["title" => "Search - " . $_GET["search"], "rows" => $rows, "cat" => $this->cat]);
                 exit(0);
-            } else if (!Empty($GET_["product"])
-            ) {
-                
+            } else if (!Empty($_GET["product"])) {
+                $product = $this->catalogue->getItem($_GET["product"]);
+                if (!Empty($product)) {
+                    render("product.php", ["product" => $product, "stock" => $this->catalogue->IsInStock($product->Id), "categories" => $this->catalogue->getCategories()]);
+                    exit(0);
+                } else {
+                    aplogize("Could not find product " + $_GET["product"]);
+                    exit(1);
+                }
 
             } else
                 if (Empty($_GET["cat"])) {
