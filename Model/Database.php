@@ -26,11 +26,15 @@ class Database
     {
         try {
             $conn = Database::open();
-            $result = $conn->query($sql)->fetchAll(PDO::FETCH_ASSOC);
+            $result = $conn->query($sql);
 
             if ($result === false) {
                 return false;
             }
+
+            $result = $result->fetchAll(PDO::FETCH_ASSOC);
+            if($result == null)
+                return false;
 
             $rows = new ArrayObject($result);
             return $rows;

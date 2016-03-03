@@ -14,14 +14,14 @@
                     </div>
                     <div id="collapse{$row->Id}" class="panel-collapse collapse">
                         <div class="panel-body category">
-                            <a href="/catalogue/cat=#">
+                            <a href="/catalogue/cat={$row->Category}">
                                 <div class="subcategory">
                                     All
                                 </div>
                             </a>
                             <hr class="small">
                             {foreach from=$row->SubCategories item=subcat}
-                            <a href="/catalogue/cat={$subcat}">
+                            <a href="/catalogue/subcat={$subcat}">
                                 <div class="subcategory">
                                     {$subcat}
                                 </div>
@@ -41,10 +41,10 @@
                 <div class="header col-sm-12 col-lg-12">{$title}</div>
 
                 {if !isset($rows)}
-                Nope.
+                No items found.
                 {else}
                 {foreach from=$rows item=row}
-                <div class="col-sm-4 col-lg-4 col-md-4">
+                <div class="col-xs-12 col-sm-12 col-lg-4 col-md-6">
                     <div class="thumbnail">
                         <img src="{$row->ImgUrl}" alt="{$row->Name}">
                         <div class="caption">

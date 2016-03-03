@@ -8,7 +8,7 @@
  */
 class User
 {
-    public $email, $isAdmin, $name, $surname, $token, $adresses;
+    public $email, $isAdmin, $name, $surname, $token, $addresses;
 
     public function validate($username, $password)
     {
@@ -23,7 +23,7 @@ class User
                 $this->isAdmin = $res["IsAdmin"];
                 $this->name = $res["Name"];
                 $this->surname = $res["Surname"];
-                $this->adresses = $this->getAdresses($username);
+                $this->addresses = $this->getAddresses($username);
                 $_SESSION["user"] = $this;
                 return true;
             }
@@ -31,7 +31,7 @@ class User
         return false;
     }
 
-    public function getAdresses($username)
+    public function getAddresses($username)
     {
         $username = strtolower(filter_var($username, FILTER_SANITIZE_EMAIL));
         $res = Database::query_safe("SELECT * FROM `users` WHERE `Email` = ?", array($username));
@@ -59,9 +59,12 @@ class User
     {
         $username = strtolower(filter_var($username, FILTER_SANITIZE_EMAIL));
         $res = Database::query_safe("SELECT * FROM `users` WHERE `Email` = ?", array($username));
-        if ($res == null) {
+        if ($res == null || $res === false) {
             return false;
         }
+        if(count($res) == 0)
+            return false;
+
         $res = $res[0];
         return $res;
     }
