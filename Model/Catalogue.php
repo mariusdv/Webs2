@@ -41,8 +41,7 @@ class Catalogue
     }
 
     /** Get all products from the database filtered by a given category. Returns products as an array of Product models. **/
-    public
-    function getEntrees($cat, $isSub)
+    public function getEntrees($cat, $isSub)
     {
         if ($cat == "All")
             $cat = " % ";

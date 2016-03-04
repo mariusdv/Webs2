@@ -63,20 +63,23 @@ class CatalogueController
                     }
                 }
             } else {
-                if (Empty($_GET["cat"] && Empty($_GET["subcat"]))) {
+                if (Empty($_GET["cat"]) && Empty($_GET["subcat"])) {
                     $this->cat = "All";
                 }
                 if (!Empty($_GET["cat"])) {
                     $this->cat = $_GET["cat"];
                     $rows = $this->catalogue->getEntrees($this->cat, false);
                     render("catalogue.php", ["title" => $this->catalogue->getTitle($this->cat), "rows" => $rows, "cat" => $this->cat, "categories" => $this->catalogue->getCategories()]);
+                    exit(0);
                 } else if (!Empty($_GET["subcat"])) {
                     $this->cat = $_GET["subcat"];
                     $rows = $this->catalogue->getEntrees($this->cat, true);
                     render("catalogue.php", ["title" => $this->catalogue->getTitle($this->cat), "rows" => $rows, "cat" => $this->cat, "categories" => $this->catalogue->getCategories()]);
+                    exit(0);
                 }
                 $rows = $this->catalogue->getAllEntrees();
                 render("catalogue.php", ["title" => $this->catalogue->getTitle($this->cat), "rows" => $rows, "cat" => $this->cat, "categories" => $this->catalogue->getCategories()]);
+                exit(0);
             }
 
         }
