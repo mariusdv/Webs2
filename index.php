@@ -30,6 +30,9 @@ switch ($page) {
     case "admin":
         (new AdminController())->run();
         break;
+    case "order":
+        (new OrderController())->run();
+        break;
     case "index.php":
         (new CatalogueController())->run();
         break;

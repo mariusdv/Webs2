@@ -60,10 +60,13 @@ class Cart
         $c = count($_SESSION["cart"]);
         for ($i = 0; $i < $c; $i++) {
             if (!empty($_SESSION["cart"][$i])) {
-                $new = new CartEntry();
-                $new->Quantity = $_SESSION["cart"][$i]->Quantity;
-                $new->Product = $cat->getItem($_SESSION["cart"][$i]->Product);
-                $items[] = $new;
+                if($_SESSION["cart"][$i]->Quantity > 0)
+                {
+                    $new = new CartEntry();
+                    $new->Quantity = $_SESSION["cart"][$i]->Quantity;
+                    $new->Product = $cat->getItem($_SESSION["cart"][$i]->Product);
+                    $items[] = $new;
+                }
             }
         }
 

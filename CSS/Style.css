@@ -120,6 +120,15 @@
     z-index: 9001;
 
 }
+
+.bigCart{
+    min-width: 400px;
+}
+
+.smallInput{
+    margin-left: 10px;
+    width: 50px;
+}
 .cartTable img
 {
     width: 50px;
