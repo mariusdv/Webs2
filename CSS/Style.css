@@ -167,3 +167,7 @@ a:hover {
 .titanic {
     float: none;
 }
+
+form {
+    margin-bottom: 0px !important;
+}
