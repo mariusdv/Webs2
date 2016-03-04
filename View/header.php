@@ -56,10 +56,10 @@
                         <li class="dropdown-submenu">
                             <a tabindex="-1">{$row->Category}</a>
                             <ul class="dropdown-menu">
-                                <li><a tabindex="-1" href="/catalogue/cat=#">All</a></li>
+                                <li><a tabindex="-1" href="/catalogue/cat={$row->Category}">All</a></li>
                                 <li role="separator" class="divider small"></li>
                                 {foreach from=$row->SubCategories item=sub}
-                                <li><a tabindex="-1" href="/catalogue/cat={$sub}">{$sub}</a></li>
+                                <li><a tabindex="-1" href="/catalogue/subcat={$sub}">{$sub}</a></li>
                                 {/foreach}
                             </ul>
                         </li>
