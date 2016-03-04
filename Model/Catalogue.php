@@ -43,6 +43,7 @@ class Catalogue
     /** Get all products from the database filtered by a given category. Returns products as an array of Product models. **/
     public function getEntrees($cat, $isSub)
     {
+        $res = false;
         if ($cat == "All")
             $cat = " % ";
         $rows = array();
@@ -61,6 +62,7 @@ class Catalogue
             foreach ($res as $val) {
                 $rows[] = new Product($val['Id'], $val['Name'], $val['DescriptionLong'], $val['DescriptionShort'], $val['Price'], $val['ImgUrl'], $val['Subcategories_Name'], $val['Active']);
             }
+
         }
         return $rows;
     }
