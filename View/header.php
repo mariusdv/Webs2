@@ -36,7 +36,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-toggle navbar-nav smallcart" href="#"><span
+            <a class="navbar-toggle navbar-nav smallcart" href="/Order"><span
                     class="glyphicon glyphicon-shopping-cart cart"></span> {$cartSize} </a>
 
             <a class="navbar-brand" href="/">PokeMart</a>
@@ -74,13 +74,13 @@
                 <div class="form-group">
                     <input name="search" id="search" type="text" class="form-control" placeholder="Search">
                 </div>
-                <button type="submit" class="btn btn-default"><span class="glyphicon glyphicon-search search"></button>
+                <button type="submit" class="btn btn-default"><span class="glyphicon glyphicon-search search"/></button>
             </form>
 
             <ul class="nav navbar-nav navbar-right">
 
                 <li class="dropdown-cart">
-                    <a href="#" class="hidden-xs"><span class="glyphicon glyphicon-shopping-cart cart"></span>
+                    <a href="/Order" class="hidden-xs"><span class="glyphicon glyphicon-shopping-cart cart"></span>
                         {$cartSize} </a>
                     <div class="dropdown-cart-content">
                         <table class="table table-bordered table-striped table-condensed cartTable">
