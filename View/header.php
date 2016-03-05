@@ -92,7 +92,7 @@
                             </tr>
                             {foreach from=$cart item=row}
                             <tr>
-                                <td><img src="{$row->Product->ImgUrl}" alt="{$row->Product->Name}" /> </td>
+                                <td><img src="{$row->Product->ImgUrl}" alt="{$row->Product->Name}"/></td>
                                 <td>{$row->Product->Name}</td>
                                 <td>{$row->Quantity}</td>
                                 <td>{$row->Product->Price}</td>
@@ -128,8 +128,22 @@
         </div><!-- /.navbar-collapse -->
     </div><!-- /.container-fluid -->
 </nav>
-<!--
-Menu
-Breadcrumbs
--->
+<!--Breadcrumbs-->
+{if isset($breadcrumbs)}
+{assign var="counter" value="count($breadcrumbs)"}
+{assign var="i" value="0"}
+<ol class="breadcrumb">
+    {foreach from=$breadcrumbs item=breadcrumb}
+    {$i++}
+    {if $i == $count}
+    <li class="active">{$breadcrumb->label}</li>
+    {else}
+    <li><a href="{$breadcrumb->link}">{$breadcrumb->label}</a></li>
+    {/if}
+    {/foreach}
+</ol>
+{else}
+<br>
+{/if}
+
 
