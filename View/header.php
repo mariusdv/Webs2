@@ -129,21 +129,19 @@
     </div><!-- /.container-fluid -->
 </nav>
 <!--Breadcrumbs-->
-{if isset($breadcrumbs)}
-{assign var="counter" value="count($breadcrumbs)"}
+{if isset($breadcrumbTrial)}
+{assign var="counter" value=count($breadcrumbTrial)}
 {assign var="i" value="0"}
 <ol class="breadcrumb">
-    {foreach from=$breadcrumbs item=breadcrumb}
-    {$i++}
-    {if $i == $count}
-    <li class="active">{$breadcrumb->label}</li>
+    {foreach from=$breadcrumbTrial item=breadcrumb}
+    {assign var="i" value=$i+1}
+    {if $i == $counter}
+    <li class="active">{$breadcrumb[0]}</li>
     {else}
-    <li><a href="{$breadcrumb->link}">{$breadcrumb->label}</a></li>
+    <li><a href="{$breadcrumb[1]}">{$breadcrumb[0]}</a></li>
     {/if}
     {/foreach}
 </ol>
 {else}
 <br>
 {/if}
-
-

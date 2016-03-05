@@ -56,8 +56,7 @@ function render($template, $values = [])
         $smarty->assign($values);
 
         // Breadcrumb generation
-        $smarty->assign("breadcrumbs", $_SESSION["breadcrumb"]);
-
+        $smarty->assign("breadcrumbTrial", $_SESSION["breadcrumbTrial"]->toArray());
         //
 
 

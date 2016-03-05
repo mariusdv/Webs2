@@ -19,7 +19,7 @@ class CatalogueController
 
     public function run()
     {
-
+        $_SESSION["breadcrumbTrial"]->add("Catalogue", "/catalogue");
         // if post
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
 

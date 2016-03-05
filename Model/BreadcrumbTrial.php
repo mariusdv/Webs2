@@ -19,4 +19,8 @@ class BreadcrumbTrial
     {
         return $this->breadcrumbs;
     }
+
+    public function disable() {
+        $this->breadcrumbs = null;
+    }
 }
