@@ -51,7 +51,7 @@
                     </h4>
                     <p>{$product->DescriptionLong}</p>
                     {if {$stock}}
-                    <form action="/Catalogue/cat={$cat}" method="post">
+                    <form action="/Catalogue/product={$row->Id}" method="post">
                         <input type="hidden" name="item" value="{$row->Id}"/>
                         <button type="submit" class="btn btn-default addbutton">
                             <span type="submit" class="glyphicon glyphicon-shopping-cart cart"></span>
@@ -61,7 +61,7 @@
                     {/if}
                     <div class="addToWishlist">
                         <p>
-                        <form action="/Catalogue/cat={$cat}" method="post">
+                        <form action="/Catalogue/product={$row->Id}" method="post">
                             <input type="hidden" name="item" value="{$row->Id}"/>
                             {if !($stock)}
                             <span>This <strong>{$product->Name}</strong> is currently not in stock. Add it to your wishlist instead!</span>
