@@ -168,6 +168,14 @@ a:hover {
     float: none;
 }
 
+.breadcrumb {
+    margin-bottom: 23px;
+}
+
+.navbar {
+    margin-bottom: 0px;
+}
+
 form {
     margin-bottom: 0px !important;
 }

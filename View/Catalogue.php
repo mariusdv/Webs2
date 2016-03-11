@@ -46,20 +46,24 @@
                 {foreach from=$rows item=row}
                 <div class="col-xs-12 col-sm-12 col-lg-4 col-md-6">
                     <div class="thumbnail">
+                        <div class="imageWrapper">
                         <img src="{$row->ImgUrl}" alt="{$row->Name}">
-                        <div class="caption">
-                            <h4 class="pull-right">${$row->Price}</h4>
-                            <h4><a href="/catalogue/product={$row->Id}">{$row->Name}</a>
-                            </h4>
-                            <p>{$row->DescriptionShort}</p>
                         </div>
-                        <form action="/Catalogue/cat={$cat}" method="post">
-                            <input type="hidden" name="item" value="{$row->Id}"/>
-                            <button type="submit" class="btn btn-default addbutton">
-                                <span type="submit" class="glyphicon glyphicon-shopping-cart cart"></span>
-                                <span class="text" type="submit">Add to cart</span>
-                            </button>
-                        </form>
+                        <div class="info">
+                            <div class="caption">
+                                <h4 class="pull-right">${$row->Price}</h4>
+                                <h4><a href="/catalogue/product={$row->Id}">{$row->Name}</a>
+                                </h4>
+                                <p>{$row->DescriptionShort}</p>
+                            </div>
+                            <form action="/Catalogue/subcat={$cat}" method="post">
+                                <input type="hidden" name="item" value="{$row->Id}"/>
+                                <button type="submit" class="btn btn-default addbutton">
+                                    <span type="submit" class="glyphicon glyphicon-shopping-cart cart"></span>
+                                    <span class="text" type="submit">Add to cart</span>
+                                </button>
+                            </form>
+                        </div>
                     </div>
                 </div>
                 {/foreach}

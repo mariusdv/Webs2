@@ -45,7 +45,7 @@ class Catalogue
     {
         $res = false;
         if ($cat == "All")
-            $cat = " % ";
+            $cat = "%";
         $rows = array();
         if ($isSub)
             $res = Database::query_safe("SELECT * FROM `items` WHERE `Subcategories_Name` LIKE ? AND `Active` = TRUE", array($cat));
@@ -53,7 +53,10 @@ class Catalogue
             $catres = Database::query_safe("SELECT * FROM `subcategories` WHERE `Categories_Name` LIKE ? ", array($cat));
 
             foreach ($catres as $val) {
-                $res[] = Database::query_safe("SELECT * FROM `items` WHERE `Subcategories_Name` LIKE ? AND `Active` = TRUE", array($val['Name']));
+                $res2 = Database::query_safe("SELECT * FROM `items` WHERE `Subcategories_Name` LIKE ? AND `Active` = TRUE", array($val['Name']));
+                foreach ($res2 as $val2) {
+                    $res[] = $val2;
+                }
             }
         }
         if (!$res) {

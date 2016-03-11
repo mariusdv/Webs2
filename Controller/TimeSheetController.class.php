@@ -17,6 +17,8 @@ class TimeSheetController
 
     public function run()
     {
+        $_SESSION["breadcrumbTrial"]->disable();
+
         $this->CheckInsert();
 
         $rows = $this->ts->getEntrees();
@@ -38,10 +40,6 @@ class TimeSheetController
         $rows[] = new TimeSheetRow("05/02/2016", "Patrick", "Datum parsing + insert method voor timesheet gemaakt.", 2);
         $rows[] = new TimeSheetRow("05/02/2016", "Marius", "Datum parsing + uitleg gegeven (aan Patrick).", 2);
         $rows[] = new TimeSheetRow("05/02/2016", "Patrick", "Draggable panels gemaakt + layout improvements", 1.5);
-
-
-
-
 
         $rows[] = new TimeSheetRow("6/02/2016", "Marius", "Login gemaakt + begin van account recovery", 3);
         $rows[] = new TimeSheetRow("11/02/2016", "Marius", "account Recovery + Mailsysteem + Brute force afvanger + registreren", 4);

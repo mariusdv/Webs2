@@ -19,6 +19,9 @@ if (Empty($_GET["page"])) {
 }
 
 $page = strtolower(htmlspecialchars($_GET["page"]));
+$_SESSION["breadcrumbTrial"] = new BreadcrumbTrial();
+$_SESSION["breadcrumbTrial"]->add("Home", "/");
+
 switch ($page) {
     // no parameters
     case "search":

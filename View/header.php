@@ -56,10 +56,10 @@
                         <li class="dropdown-submenu">
                             <a tabindex="-1">{$row->Category}</a>
                             <ul class="dropdown-menu">
-                                <li><a tabindex="-1" href="/catalogue/cat=#">All</a></li>
+                                <li><a tabindex="-1" href="/catalogue/cat={$row->Category}">All</a></li>
                                 <li role="separator" class="divider small"></li>
                                 {foreach from=$row->SubCategories item=sub}
-                                <li><a tabindex="-1" href="/catalogue/cat={$sub}">{$sub}</a></li>
+                                <li><a tabindex="-1" href="/catalogue/subcat={$sub}">{$sub}</a></li>
                                 {/foreach}
                             </ul>
                         </li>
@@ -92,7 +92,7 @@
                             </tr>
                             {foreach from=$cart item=row}
                             <tr>
-                                <td><img src="{$row->Product->ImgUrl}" alt="{$row->Product->Name}" /> </td>
+                                <td><img src="{$row->Product->ImgUrl}" alt="{$row->Product->Name}"/></td>
                                 <td>{$row->Product->Name}</td>
                                 <td>{$row->Quantity}</td>
                                 <td>{$row->Product->Price}</td>
@@ -128,8 +128,20 @@
         </div><!-- /.navbar-collapse -->
     </div><!-- /.container-fluid -->
 </nav>
-<!--
-Menu
-Breadcrumbs
--->
-
+<!--Breadcrumbs-->
+{if isset($breadcrumbTrial)}
+{assign var="counter" value=count($breadcrumbTrial)}
+{assign var="i" value="0"}
+<ol class="breadcrumb">
+    {foreach from=$breadcrumbTrial item=breadcrumb}
+    {assign var="i" value=$i+1}
+    {if $i == $counter}
+    <li class="active">{$breadcrumb[0]}</li>
+    {else}
+    <li><a href="{$breadcrumb[1]}">{$breadcrumb[0]}</a></li>
+    {/if}
+    {/foreach}
+</ol>
+{else}
+<br>
+{/if}

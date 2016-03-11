@@ -63,6 +63,13 @@ function render($template, $values = [])
 
         if (!empty($_SESSION["user"]))
             $smarty->assign("user", $_SESSION["user"]);
+        // Breadcrumb generation
+        $smarty->assign("breadcrumbTrial", $_SESSION["breadcrumbTrial"]->toArray());
+        //
+
+
+        if (!empty($_SESSION["user"]))
+            $smarty->assign("user", $_SESSION["user"]);
 
         $cart = new Cart();
         $cart->ItemCount();

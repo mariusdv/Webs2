@@ -26,9 +26,27 @@
     white-space: nowrap;
 }
 
-.thumbnail>img {
+.thumbnail {
+    height: 350px; !important
     width: auto;
-    height: 150px; !important
+    position: relative;
+}
+
+.info {
+    bottom: 0px;
+    position: absolute;
+}
+
+.imageWrapper {
+    position: relative;
+    height: 50%;
+}
+
+.imageWrapper > img {
+    position: absolute;
+    top: 0; bottom:0; left: 0; right:0;
+    margin: auto;
+    max-height: 150px; !important
 }
 
 .ratings {
