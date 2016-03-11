@@ -1,21 +1,21 @@
 <?php
 
 // your database's name
-define("DATABASE", "pcnobbe_db2");
+define("DATABASE", "pokemart_nl_pokebas");
 
 // your database's password
-define("PASSWORD", "Ab12345");
+    define("PASSWORD", "Patrius#3");
 
 // your database's server
-define("SERVER", "databases.aii.avans.nl");
+define("SERVER", "149.210.170.216");
 
 // your database's username
-define("USERNAME", "pcnobbe");
+define("USERNAME", "pokem_nl_pokebas");
 
 // your database's username
 define("DEVELOPMENT", true);
 
-define("EMAILADRESS", "WebshopWebs@gmail.com");
+define("EMAILADRESS", "noreply@pokemart.nl");
 
-define("EMAILWACHTWOORD", "webs2eindopdracht!");
+define("EMAILWACHTWOORD", "Patrius#2");
 

@@ -40,7 +40,7 @@ class Database
             return $rows;
 
         } catch (PDOException $e) {
-            printError($e);
+            apologize($e);
         }
         return false;
     }
@@ -67,7 +67,7 @@ class Database
             }
 
         } catch (PDOException $e) {
-            printError($e);
+            apologize($e);
         }
     }
 
