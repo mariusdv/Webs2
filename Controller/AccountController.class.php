@@ -13,6 +13,7 @@ class AccountController
         if (Empty($_GET["action"])) {
             $this->pagepicker();
         } else {
+            $_SESSION["Redirect"] = null;
             switch (strtolower($_GET["action"])) {
                 case "register":
                     $this->register();
@@ -31,6 +32,19 @@ class AccountController
                     break;
             }
         }
+    }
+
+    public function guaranteeLogin($s)
+    {
+        if (!Empty($_SESSION["user"])) {
+
+            return true;
+        } else {
+            $_SESSION["Redirect"] = $s;
+            $this->pagepicker();
+            exit(1);
+        }
+
     }
 
     private function pagepicker()
@@ -160,7 +174,11 @@ class AccountController
                 // htmlspecialchar
                 $userModel = new User();
                 if ($userModel->validate(htmlspecialchars($_POST["username"]), htmlspecialchars($_POST["password"]))) {
-                    // TODO: return to page before the loginbutton was pressed.
+                    if (!empty($_SESSION["Redirect"])) {
+                        redirect($_SESSION["Redirect"]);
+                        $_SESSION["Redirect"] = null;
+                        exit(0);
+                    }
                     redirect("/");
                     exit();
                 }
@@ -261,8 +279,10 @@ class AccountController
 
     private function logout()
     {
-        // unset any session variables?
-        // TODO: Keep the shopping cart
+
+        $cart = new Cart();
+        $cartArray = $cart->cartObject();
+
         $cart = new Cart();
         $val = $cart->cartObject();
 
@@ -275,7 +295,8 @@ class AccountController
 
         // destroy session
         session_destroy();
-
+        session_start();
+        $cart->setObject($cartArray);
         // redirect to main page
         redirect("/");
     }

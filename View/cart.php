@@ -35,7 +35,7 @@
         </table>
     </form>
     <td>
-        <button class="btn btn-primary">Bestel</button>
+        <a href="/Order/action=order" class="btn btn-primary">Bestel</a>
     </td>
 
 </div>

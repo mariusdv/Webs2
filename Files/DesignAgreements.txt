@@ -14,9 +14,14 @@ Winkelwagen beheer = marius
 Productpagina = Patrick
 profiel beheren (adressen enzz) = Patrick
 Betalen = Marius
-Vergelijken = Patrick
 Kenmerken = Marius
 CMS = Marius
+
+TODO
+breadcrumb = patrick
+Productpagina = Patrick
+profiel beheren (adressen enzz) = PAtrick
+Vergelijken = Patrick
 About pagina = Patrick
 Home = Patrick
 TODO

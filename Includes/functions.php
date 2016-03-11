@@ -44,6 +44,12 @@ function redirect($destination)
     exit;
 }
 
+function guaranteeLogin($page)
+{
+    $controller = new AccountController();
+    $controller->guaranteeLogin($page);
+}
+
 /**
  * Renders template, passing in values.
  */
@@ -55,6 +61,8 @@ function render($template, $values = [])
         $smarty = new Smarty();
         $smarty->assign($values);
 
+        if (!empty($_SESSION["user"]))
+            $smarty->assign("user", $_SESSION["user"]);
         // Breadcrumb generation
         $smarty->assign("breadcrumbTrial", $_SESSION["breadcrumbTrial"]->toArray());
         //
