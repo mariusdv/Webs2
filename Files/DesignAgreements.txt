@@ -14,10 +14,10 @@ profiel beheren (adressen enzz) = Patrick
 Betalen = Marius
 Kenmerken = Marius
 CMS = Marius
-breadcrumb = patrick
 Vergelijken = Patrick
 About pagina = Patrick
 Home = Patrick
+wishlist=Patrick
 TODO
 
 *---Security---*

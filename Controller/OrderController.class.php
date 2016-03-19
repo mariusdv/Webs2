@@ -9,6 +9,14 @@ class OrderController
 
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
+            if (!Empty($_GET["action"])) {
+                switch (strtolower($_GET["action"])) {
+                    case "submit":
+                        $this->saveorder();
+                        break;
+                }
+            }
+
             $cart = new Cart();
             $cartArray = $cart->cartObject();
             $i = 0;
@@ -46,6 +54,22 @@ class OrderController
 
     }
 
+    public function saveorder()
+    {
+        // SAVE ORDER
+        if(isset($_POST["delivery"]) && isset($_POST["payment"]))
+        {
+            $cart = new Cart();
+            if($cart->save($_POST["delivery"], $_POST["payment"]))
+            {
+                render("orderconformation.php", []);
+                exit(0);
+            }
+            apologize("Error saving cart.");
+
+        }
+
+    }
     public function showCart()
     {
         render("cart.php", ["title" => "Mijn Winkelmandje",
@@ -56,9 +80,14 @@ class OrderController
     {
 
         guaranteeLogin("/Order/action=order");
-
-        render("order.php", ["title" => "Mijn Winkelmandje2",
-           "user" => $_SESSION["user"]]);
+        $cart = new Cart();
+        if($cart->ItemCount() != 0)
+        {
+            render("order.php", ["title" => "Mijn Winkelmandje2",
+                "user" => $_SESSION["user"]]);
+            exit(0);
+        }
+        $this->showCart();
 
     }
 

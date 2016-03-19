@@ -60,8 +60,7 @@ class Cart
         $c = count($_SESSION["cart"]);
         for ($i = 0; $i < $c; $i++) {
             if (!empty($_SESSION["cart"][$i])) {
-                if($_SESSION["cart"][$i]->Quantity > 0)
-                {
+                if ($_SESSION["cart"][$i]->Quantity > 0) {
                     $new = new CartEntry();
                     $new->Quantity = $_SESSION["cart"][$i]->Quantity;
                     $new->Product = $cat->getItem($_SESSION["cart"][$i]->Product);
@@ -97,4 +96,39 @@ class Cart
         return $total;
     }
 
+    public function save($delivery, $payment)
+    {
+
+
+        if ($_SESSION["user"]->validateAddress($delivery) == true && $_SESSION["user"]->validateAddress($payment) == true) {
+
+
+            $pdo = DATABASE::getPDO();
+            $pdo->beginTransaction();
+            $itemNR = null;
+
+            // create order
+            DATABASE::transaction_action_safe($pdo, "INSERT INTO `orders` (`Users_Email`, `deliveryaddress`, `paymentaddress`) VALUES (?, ?, ?)", array($_SESSION["user"]->email, $delivery, $payment));
+
+            // get order ID
+            $itemNR = $pdo->lastInsertId();
+
+            // connect items to cart
+            $vals = $this->getCart();
+
+            foreach ($vals as $item) {
+                $item->Quantity;
+                $item->Product->Id;
+
+                DATABASE::transaction_action_safe($pdo, "INSERT INTO `items_has_orders` (`Items_Id`, `Orders_Id`, `Quantity`, `Price`) VALUES (?, ?, ?, ?)", array($item->Product->Id, $itemNR, $item->Quantity, $item->Product->Price));
+            }
+
+            $pdo->commit();
+
+            $_SESSION["cart"] = [];
+            return true;
+        }
+
+        return false;
+    }
 }
