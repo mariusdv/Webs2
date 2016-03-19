@@ -12,11 +12,11 @@ class Email
 
     public function __construct()
     {
-        $this->from = "webs2eindopdracht@gmail.com";
-        $this->fromName = "Webs2 Webshop";
-        $this->to = "webs2eindopdracht@gmail.com";
-        $this->toName = "Webs2 Webshop";
-        $this->subject = "not set.";
+        $this->from = "noreply@pokemart.nl";
+        $this->fromName = "Pokemart";
+        $this->to = "noreply@pokemart.nl";
+        $this->toName = "Gebruiker";
+        $this->subject = "Pokemart Activatie Mail";
         $this->message = "not set.";
 
     }
@@ -34,14 +34,16 @@ class Email
         //Set PHPMailer to use SMTP.
         $mail->isSMTP();
         //Set SMTP host name
-        $mail->Host = "smtp.gmail.com";
+        $mail->Host = "smtp.transip.email";
         //Set this to true if SMTP host requires authentication to send email
         $mail->SMTPAuth = true;
         //Provide username and password
         $mail->Username = EMAILADRESS;
         $mail->Password = EMAILWACHTWOORD;
+
         //If SMTP requires TLS encryption then set it
-        $mail->SMTPSecure = "tls";
+        //$mail->SMTPSecure = "tls";
+        $mail->SMTPSecure = "ssl";
         //Set TCP port to connect to
         $mail->Port = 465;
 

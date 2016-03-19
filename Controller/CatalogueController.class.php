@@ -11,6 +11,7 @@ class CatalogueController
 
     public $catalogue;
     public $cat;
+    public $success = false;
 
     public function __construct()
     {
@@ -29,6 +30,9 @@ class CatalogueController
                 if (!$cart->AddCart($_POST["item"])) {
                     apologize("Artikel kan niet worden toegoegd aan winkelmandje.");
                     exit(1);
+                }
+                else {
+                    $this->success = true;
                 }
 
                 // Stops F5 -> want to submit again
@@ -61,7 +65,7 @@ class CatalogueController
                         $_SESSION["breadcrumbTrial"]->add($maincat, "/catalogue/cat=$maincat");
                         $_SESSION["breadcrumbTrial"]->add("$product->Subcategory", "/catalogue/subcat=$product->Subcategory");
                         $_SESSION["breadcrumbTrial"]->add($product->Name, "/catalogue/product=$product->Id");
-                        render("product.php", ["product" => $product, "stock" => $this->catalogue->IsInStock($product->Id), "categories" => $this->catalogue->getCategories()]);
+                        render("product.php", ["product" => $product, "success" => $this->success, "stock" => $this->catalogue->IsInStock($product->Id), "categories" => $this->catalogue->getCategories()]);
                         exit(0);
                     } else {
                         apologize("Could not find product " + $id);
@@ -78,7 +82,7 @@ class CatalogueController
                     $this->cat = $_GET["cat"];
                     $rows = $this->catalogue->getEntrees($this->cat, false);
                     $_SESSION["breadcrumbTrial"]->add("$this->cat", "/catalogue/cat=$this->cat");
-                    render("catalogue.php", ["title" => $this->catalogue->getTitle($this->cat), "rows" => $rows, "cat" => $this->cat, "categories" => $this->catalogue->getCategories()]);
+                    render("catalogue.php", ["title" => $this->catalogue->getTitle($this->cat), "success" => $this->success,"rows" => $rows, "cat" => $this->cat, "categories" => $this->catalogue->getCategories()]);
                     exit(0);
                 } else if (!Empty($_GET["subcat"])) {
                     $this->cat = $_GET["subcat"];
@@ -86,11 +90,11 @@ class CatalogueController
                     $maincat = (new Category(null, null, null))->getMainCategory($this->cat);
                     $_SESSION["breadcrumbTrial"]->add($maincat, "/catalogue/cat=$maincat");
                     $_SESSION["breadcrumbTrial"]->add("$this->cat", "/catalogue/subcat=$this->cat");
-                    render("catalogue.php", ["title" => $this->catalogue->getTitle($this->cat), "rows" => $rows, "cat" => $this->cat, "categories" => $this->catalogue->getCategories()]);
+                    render("catalogue.php", ["title" => $this->catalogue->getTitle($this->cat), "success" => $this->success,"rows" => $rows, "cat" => $this->cat, "categories" => $this->catalogue->getCategories()]);
                     exit(0);
                 }
                 $rows = $this->catalogue->getAllEntrees();
-                render("catalogue.php", ["title" => $this->catalogue->getTitle($this->cat), "rows" => $rows, "cat" => $this->cat, "categories" => $this->catalogue->getCategories()]);
+                render("catalogue.php", ["title" => $this->catalogue->getTitle($this->cat), "success" => $this->success,"rows" => $rows, "cat" => $this->cat, "categories" => $this->catalogue->getCategories()]);
                 exit(0);
             }
 

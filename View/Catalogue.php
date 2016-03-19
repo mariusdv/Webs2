@@ -1,9 +1,16 @@
 <div class="container">
 
-    <div class="row">
-
-        <div class="col-sm-3 col-lg-3">
+    <div class="row flat-header">
+        <div class="col-sm-3 col-lg-3 ">
             <div class="header">Categories</div>
+        </div>
+        <div class="col-sm-9 col-lg-9">
+            <div class="header">{$title}</div>
+        </div>
+    </div>
+    <div class="row flat-lighterblue">
+        <br>
+        <div class="col-sm-3 col-lg-3">
             <div class="panel-group" id="accordion">
                 {foreach from=$categories item=row}
                 <div class="panel">
@@ -38,7 +45,6 @@
         <div class="col-sm-9 col-lg-9">
 
             <div class="row">
-                <div class="header col-sm-12 col-lg-12">{$title}</div>
 
                 {if !isset($rows)}
                 No items found.
@@ -47,18 +53,19 @@
                 <div class="col-xs-12 col-sm-12 col-lg-4 col-md-6">
                     <div class="thumbnail">
                         <div class="imageWrapper">
-                        <img src="{$row->ImgUrl}" alt="{$row->Name}">
+                            <img src="{$row->ImgUrl}" alt="{$row->Name}">
                         </div>
                         <div class="info">
-                            <div class="caption">
+                            <div class="caption flat-caption">
                                 <h4 class="pull-right">${$row->Price}</h4>
                                 <h4><a href="/catalogue/product={$row->Id}">{$row->Name}</a>
                                 </h4>
                                 <p>{$row->DescriptionShort}</p>
                             </div>
-                            <form action="/Catalogue/subcat={$cat}" method="post">
+                            <form class="addToCartForm" action="/Catalogue/subcat={$cat}" method="post">
                                 <input type="hidden" name="item" value="{$row->Id}"/>
-                                <button type="submit" class="btn btn-default addbutton">
+                                <input type="hidden" name="name" value="{$row->Name}"/>
+                                <button type="submit" class="btn btn-default addbutton flat-button flat-lightblue">
                                     <span type="submit" class="glyphicon glyphicon-shopping-cart cart"></span>
                                     <span class="text" type="submit">Add to cart</span>
                                 </button>
@@ -75,3 +82,17 @@
     </div>
 
 </div>
+
+
+{if $success}
+{literal}
+<script>
+    $(document).ready(function() {
+        toastr.options = {
+            "positionClass": "toast-bottom-right",
+        }
+        toastr.success('$row-Name added to cart!');
+    });
+</script>
+{/literal}
+{/if}

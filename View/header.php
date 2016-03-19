@@ -10,10 +10,15 @@
     <script src="https://code.jquery.com/jquery-latest.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="//code.jquery.com/ui/1.10.1/jquery-ui.js"></script>
+    <script src="../JS/toastr.min.js"></script>
+
+
 
     <link rel="stylesheet" href="https://bootswatch.com/paper/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="/CSS/shop-homepage.css">
     <link rel="stylesheet" type="text/css" href="/CSS/Style.css">
+    <link rel="stylesheet" type="text/css" href="/CSS/toastr.min.css">
+
 
     {if isset($title)}
     <title>Webshop: {htmlspecialchars($title)}</title>
@@ -39,8 +44,7 @@
             <a class="navbar-toggle navbar-nav smallcart" href="/Order"><span
                     class="glyphicon glyphicon-shopping-cart cart"></span> {$cartSize} </a>
 
-            <a class="navbar-brand" href="/">PokeMart</a>
-        </div>
+            <a class="navbar-brand" href="/"><img src="/Resources/Images/logo.png"></a></div>
 
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">

@@ -4,10 +4,10 @@
 define("DATABASE", "pokemart_nl_pokebas");
 
 // your database's password
-    define("PASSWORD", "Patrius#3");
+define("PASSWORD", "Patrius#3");
 
 // your database's server
-define("SERVER", "149.210.170.216");
+define("SERVER", "localhost");
 
 // your database's username
 define("USERNAME", "pokem_nl_pokebas");

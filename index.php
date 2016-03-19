@@ -24,9 +24,6 @@ $_SESSION["breadcrumbTrial"]->add("Home", "/");
 
 switch ($page) {
     // no parameters
-    case "search":
-        (new SearchController())->run();
-        break;
     case "account":
         (new AccountController())->run();
         break;
