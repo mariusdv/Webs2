@@ -84,7 +84,7 @@
             {if ! isset($admin)}
             <form class="navbar-form navbar-left" role="search" action="/Catalogue" method="get">
                 {else}
-                <form class="navbar-form navbar-left" role="search" action="/Admin" method="get">
+                <form class="navbar-form navbar-left" role="search" action="/Admin/p=cat" method="get">
                     {/if}
                     <div class="form-group">
                         <input name="search" id="search" type="text" class="form-control" placeholder="Search">
