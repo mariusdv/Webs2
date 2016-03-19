@@ -83,7 +83,7 @@ class OrderController
         $cart = new Cart();
         if($cart->ItemCount() != 0)
         {
-            render("order.php", ["title" => "Mijn Winkelmandje2",
+            render("order.php", ["title" => "Mijn Winkelmandje",
                 "user" => $_SESSION["user"]]);
             exit(0);
         }

@@ -34,7 +34,10 @@ switch ($page) {
         (new OrderController())->run();
         break;
     case "index.php":
-        (new CatalogueController())->run();
+        if (isset($_SESSION["admin"]))
+            (new AdminController())->run();
+        else
+            (new CatalogueController())->run();
         break;
     case "timesheet":
         (new TimeSheetController())->run();
