@@ -11,13 +11,11 @@ TABEL:
 TODO
 Productpagina = Patrick
 profiel beheren (adressen enzz) = Patrick
-Betalen = Marius
-Kenmerken = Marius
 CMS = Marius
 Vergelijken = Patrick
 About pagina = Patrick
 Home = Patrick
-wishlist=Patrick
+wishlist = Patrick
 TODO
 
 *---Security---*
