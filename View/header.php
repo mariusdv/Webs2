@@ -74,7 +74,7 @@
                 </li>
 
             {else}
-            <li><a href="">Home</a></li>
+            <li><a href="/">Home</a></li>
             <li><a href="/Admin/p=cat">Products</a></li>
             <li><a href="#">Orders</a></li>
             <li><a href="#">Categories</a></li>

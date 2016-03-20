@@ -49,8 +49,8 @@ class AdminController
 
     public function cat()
     {
+        $this->guarrenteeAdmin("/Admin/p=cat");
         if (!Empty($_GET["search"])) {
-            $this->guarrenteeAdmin("Admin/p=cat");
 
             $rows = $this->catalogue->getSearchResults($_GET["search"]);
             if (is_string($rows)) {
