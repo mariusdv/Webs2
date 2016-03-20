@@ -8,9 +8,9 @@
 
 class Product
 {
-    public $Id, $Name, $DescriptionLong, $DescriptionShort, $Price, $ImgUrl, $Subcategory, $Active;
+    public $Id, $Name, $DescriptionLong, $DescriptionShort, $Price, $ImgUrl, $SubcategoryId, $Active;
 
-    public function  __construct($Id, $Name, $DescriptionLong, $DescriptionShort, $Price, $ImgUrl, $Subcategory, $Active)
+    public function  __construct($Id, $Name, $DescriptionLong, $DescriptionShort, $Price, $ImgUrl, $SubcategoryId, $Active)
     {
         $this->Id = $Id;
         $this->Name = $Name;
@@ -18,9 +18,15 @@ class Product
         $this->DescriptionShort = $DescriptionShort;
         $this->Price = $Price;
         $this->ImgUrl = $ImgUrl;
-        $this->Subcategory = $Subcategory;
+        $this->SubcategoryId = $SubcategoryId;
         $this->Active = $Active;
     }
 
+
+    public function getProductCategory() {
+        $c = new Category(null, null, null);
+        $res = $c->getSubcategory($this->SubcategoryId);
+        return $res;
+    }
     //
 }

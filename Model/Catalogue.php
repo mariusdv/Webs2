@@ -23,7 +23,7 @@ class Catalogue
         $val = "%" . $criteria . "%";
         $res = Database::query_safe("SELECT * FROM `items` WHERE `Name` LIKE ? AND `Active` = TRUE", array($val));
         foreach ($res as $val) {
-            $rows[] = new Product($val['Id'], $val['Name'], $val['DescriptionLong'], $val['DescriptionShort'], $val['Price'], $val['ImgUrl'], $val['Subcategories_Name'], $val['Active']);
+            $rows[] = new Product($val['Id'], $val['Name'], $val['DescriptionLong'], $val['DescriptionShort'], $val['Price'], $val['ImgUrl'], $val['Subcategories_Id'], $val['Active']);
         }
         return $rows;
     }
@@ -35,11 +35,11 @@ class Catalogue
         $res = Database::query("SELECT * FROM `items` WHERE `Active` = TRUE");
 
         foreach ($res as $val) {
-            $rows[] = new Product($val['Id'], $val['Name'], $val['DescriptionLong'], $val['DescriptionShort'], $val['Price'], $val['ImgUrl'], $val['Subcategories_Name'], $val['Active']);
+            $rows[] = new Product($val['Id'], $val['Name'], $val['DescriptionLong'], $val['DescriptionShort'], $val['Price'], $val['ImgUrl'], $val['Subcategories_Id'], $val['Active']);
         }
         return $rows;
     }
-
+    // TODO
     /** Get all products from the database filtered by a given category. Returns products as an array of Product models. **/
     public function getEntrees($cat, $isSub)
     {
@@ -47,13 +47,19 @@ class Catalogue
         if ($cat == "All")
             $cat = "%";
         $rows = array();
-        if ($isSub)
-            $res = Database::query_safe("SELECT * FROM `items` WHERE `Subcategories_Name` LIKE ? AND `Active` = TRUE", array($cat));
+
+        if ($isSub) {
+            $id = Database::query_safe("SELECT * FROM `subcategories` WHERE `Name` LIKE ?", array($cat));
+            $id = $id[0]['Id'];
+            $res = Database::query_safe("SELECT * FROM `items` WHERE `Subcategories_Id` LIKE ? AND `Active` = TRUE", array($id));
+        }
         else {
-            $catres = Database::query_safe("SELECT * FROM `subcategories` WHERE `Categories_Name` LIKE ? ", array($cat));
+            $id = Database::query_safe("SELECT * FROM `categories` WHERE `Name` LIKE ?", array($cat));
+            $id = $id[0]['Id'];
+            $catres = Database::query_safe("SELECT * FROM `subcategories` WHERE `Categories_Id` LIKE ? ", array($id));
 
             foreach ($catres as $val) {
-                $res2 = Database::query_safe("SELECT * FROM `items` WHERE `Subcategories_Name` LIKE ? AND `Active` = TRUE", array($val['Name']));
+                $res2 = Database::query_safe("SELECT * FROM `items` WHERE `Subcategories_Id` LIKE ? AND `Active` = TRUE", array($val['Id']));
                 foreach ($res2 as $val2) {
                     $res[] = $val2;
                 }
@@ -63,7 +69,7 @@ class Catalogue
             apologize("Zoekcriteria heeft geen resultaten geretourneerd . ");
         } else {
             foreach ($res as $val) {
-                $rows[] = new Product($val['Id'], $val['Name'], $val['DescriptionLong'], $val['DescriptionShort'], $val['Price'], $val['ImgUrl'], $val['Subcategories_Name'], $val['Active']);
+                $rows[] = new Product($val['Id'], $val['Name'], $val['DescriptionLong'], $val['DescriptionShort'], $val['Price'], $val['ImgUrl'], $val['Subcategories_Id'], $val['Active']);
             }
 
         }
@@ -90,10 +96,9 @@ class Catalogue
     {
         $rows = array();
         $res = Database::query("SELECT * FROM `categories` ORDER BY 'Name' DESC");
-        $Id = 0;
         foreach ($res as $val) {
-            $name = $val['Name'];
-            $res2 = Database::query_safe("SELECT * FROM `subcategories` WHERE `Categories_Name` LIKE ? ", array($name));
+            $id = $val['Id'];
+            $res2 = Database::query_safe("SELECT * FROM `subcategories` WHERE `Categories_Id` LIKE ?", array($id));
             $subcategories = array();
             if (!$res2) {
             } else {
@@ -101,8 +106,7 @@ class Catalogue
                     $subcategories[] = $val2['Name'];
                 }
             }
-            $Id++;
-            $rows[] = new Category($val['Name'], $subcategories, $Id);
+            $rows[] = new Category($val['Name'], $subcategories);
         }
 
         return $rows;
@@ -124,7 +128,7 @@ class Catalogue
         if ($res == null || $res === false) {
             return false;
         } else {
-            return (new Product($res['Id'], $res['Name'], $res['DescriptionLong'], $res['DescriptionShort'], $res['Price'], $res['ImgUrl'], $res['Subcategories_Name'], $res['Active']));
+            return (new Product($res['Id'], $res['Name'], $res['DescriptionLong'], $res['DescriptionShort'], $res['Price'], $res['ImgUrl'], $res['Subcategories_Id'], $res['Active']));
         }
     }
 }
