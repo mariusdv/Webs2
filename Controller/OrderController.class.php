@@ -24,7 +24,14 @@ class OrderController
 
                 if($value < 1)
                 {
-                    $cartArray = array_splice ( $cartArray , $i + 1, 1);
+                   for($j = 0; $j < count($cartArray); $j++)
+                    {
+                        if($key == $cartArray[$j]->Product)
+                        {
+                            unset($cartArray[$j]);
+                            $cartArray = array_values($cartArray);
+                        }
+                    }
                 }
                 else
                 {
