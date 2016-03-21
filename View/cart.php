@@ -1,7 +1,7 @@
 <div class="container">
 
     <div class="header">{$title}</div>
-    <form name="cart" ction="/Order" method="post">
+    <form name="cart" action="/Order" method="post">
         <table class="table table-bordered table-striped table-condensed cartTable bigCart">
             <tr>
                 <td></td>

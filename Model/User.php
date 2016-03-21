@@ -31,11 +31,15 @@ class User
         return false;
     }
 
+    public function validateAddress($addrID)
+    {
+        return Database::query_safe("SELECT count(*) AS 'count' FROM `address` WHERE `Id` = ? AND `Users_Email` = ?", array($addrID, $_SESSION["user"]->email))[0]['count'] == 1;
+    }
+
     public function getAddresses($username)
     {
         $username = strtolower(filter_var($username, FILTER_SANITIZE_EMAIL));
-        $res = Database::query_safe("SELECT * FROM `users` WHERE `Email` = ?", array($username));
-        return $res;
+        $res = Database::query_safe("SELECT * FROM `address` WHERE `Users_Email` = ?", array($username));        return $res;
     }
 
     public function validateUsername($username)

@@ -66,7 +66,7 @@
                                 <p>{$row->DescriptionShort}</p>
                             </div>
 
-                            <a class="btn toast-bottom-center" href="/admin/p=cat/product={$row->Id}">Edit Product</a>
+                            <a class="btn toast-bottom-center" href="/admin/p=cat/product={$row->Id}"><span class="glyphicons glyphicons-pencil"></span>Edit Product</a>
                         </div>
                     </div>
                 </div>
