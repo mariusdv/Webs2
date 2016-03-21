@@ -32,5 +32,11 @@ Alles valideert met PHP
 - Functies met een kleine letters (zoals in Java)
 
 
+TODO ASK JASPER:
+About - Pagina of footer? Welke content?
+Navigatiemenu via db - helemaal of alleen catalogus?
+Plaatjes groot en klein - 1 plaatje voor beide?
+
+
 
 Patrick Nobbe & Marius de Vogel

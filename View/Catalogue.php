@@ -79,6 +79,7 @@
         </div>
     </div>
 </div>
+{if !empty($added)}
 <script>
     $( document ).ready(function() {
         toastr.options = {
@@ -87,4 +88,4 @@
         toastr.info("Item has been successfully added to the cart!", "Pokemart");
     });
 </script>
-
+{/if}

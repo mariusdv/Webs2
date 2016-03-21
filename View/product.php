@@ -60,7 +60,8 @@
                     </blockquote>
                     {if {$stock}}
                     <form action="/catalogue/product={$product->Id}" method="post">
-                        <input type="hidden" name="item" value="{$row->Id}"/>
+                        <input type="hidden" name="item" value="{$product->Id}"/>
+                        <input type="hidden" name="name" value="{$product->Name}"/>
                         <button type="submit" class="btn btn-default addbutton">
                             <span type="submit" class="glyphicon glyphicon-shopping-cart cart"></span>
                             <span class="text" type="submit">Add to cart</span>
@@ -89,12 +90,13 @@
         </div>
     </div>
 </div>
+{if $added === true}
 <script>
-    $(document).ready(function () {
+    $( document ).ready(function() {
         toastr.options = {
             "positionClass": "toast-bottom-right"
         }
         toastr.info("Item has been successfully added to the cart!", "Pokemart");
     });
 </script>
-
+{/if}
