@@ -13,10 +13,12 @@
     <script src="../JS/toastr.min.js"></script>
 
 
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://bootswatch.com/paper/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="/CSS/shop-homepage.css">
     <link rel="stylesheet" type="text/css" href="/CSS/Style.css">
     <link rel="stylesheet" type="text/css" href="/CSS/toastr.min.css">
+
 
 
     {if isset($title)}
@@ -47,9 +49,7 @@
 
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-
             <ul class="nav navbar-nav navbar-left">
-                {if ! isset($admin)}
                 <li class="dropdown">
                     <a id="dLabel" role="menu" data-toggle="dropdown" data-target="#"
                        href="/page.html">
@@ -72,81 +72,64 @@
                     </ul>
 
                 </li>
-
-            {else}
-            <li><a href="/">Home</a></li>
-            <li><a href="/Admin/p=cat">Products</a></li>
-            <li><a href="#">Orders</a></li>
-            <li><a href="#">Categories</a></li>
-            {/if}
             </ul>
 
-            {if ! isset($admin)}
+
             <form class="navbar-form navbar-left" role="search" action="/Catalogue" method="get">
-                {else}
-                <form class="navbar-form navbar-left" role="search" action="/Admin/p=cat" method="get">
-                    {/if}
-                    <div class="form-group">
-                        <input name="search" id="search" type="text" class="form-control" placeholder="Search">
+                <div class="form-group">
+                    <input name="search" id="search" type="text" class="form-control" placeholder="Search">
+                </div>
+                <button type="submit" class="btn btn-default"><span class="glyphicon glyphicon-search search"/></button>
+            </form>
+
+            <ul class="nav navbar-nav navbar-right">
+
+                <li class="dropdown-cart">
+                    <a href="/Order" class="hidden-xs"><span class="glyphicon glyphicon-shopping-cart cart"></span>
+                        {$cartSize} </a>
+                    <div class="dropdown-cart-content">
+                        <table class="table table-bordered table-striped table-condensed cartTable">
+                            <tr>
+                                <td></td>
+                                <td>Name</td>
+                                <td>Amount</td>
+                                <td>Price</td>
+                            </tr>
+                            {foreach from=$cart item=row}
+                            <tr>
+                                <td><img src="{$row->Product->ImgUrl}" alt="{$row->Product->Name}"/></td>
+                                <td>{$row->Product->Name}</td>
+                                <td>{$row->Quantity}</td>
+                                <td>{$row->Product->Price}</td>
+                            </tr>
+                            {/foreach}
+                            <tr>
+                                <td colspan="3"> Total:</td>
+                                <td>{$totalPrice}</td>
+                            </tr>
+                        </table>
                     </div>
-                    <button type="submit" class="btn btn-default"><span class="glyphicon glyphicon-search search"/>
-                    </button>
-                </form>
-
-                <ul class="nav navbar-nav navbar-right">
-                    {if ! isset($admin)}
+                </li>
 
 
-                    <li class="dropdown-cart">
-                        <a href="/Order" class="hidden-xs"><span class="glyphicon glyphicon-shopping-cart cart"></span>
-                            {$cartSize} </a>
-                        <div class="dropdown-cart-content">
-                            <table class="table table-bordered table-striped table-condensed cartTable">
-                                <tr>
-                                    <td></td>
-                                    <td>Name</td>
-                                    <td>Amount</td>
-                                    <td>Price</td>
-                                </tr>
-                                {foreach from=$cart item=row}
-                                <tr>
-                                    <td><img src="{$row->Product->ImgUrl}" alt="{$row->Product->Name}"/></td>
-                                    <td>{$row->Product->Name}</td>
-                                    <td>{$row->Quantity}</td>
-                                    <td>{$row->Product->Price}</td>
-                                </tr>
-                                {/foreach}
-                                <tr>
-                                    <td colspan="3"> Total:</td>
-                                    <td>{$totalPrice}</td>
-                                </tr>
-                            </table>
-                        </div>
-                    </li>
+                {if isset($user)}
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                       aria-expanded="false">{$user->email}<span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="/account">Mijn profiel</a></li>
+                        <li role="separator" class="divider"></li>
+                        <li><a href="/account">Wishlist</a></li>
+                        <li><a href="/account">Bestellingen</a></li>
+                        <li role="separator" class="divider"></li>
+                        <li><a href="/account/action=logout">Log uit</a></li>
+                    </ul>
+                </li>
+                {else}
+                <li><a href="/account/action=login">Log in</a></li>
+                {/if}
 
-
-                    {if isset($user)}
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-                           aria-expanded="false">{$user->email}<span class="caret"></span></a>
-                        <ul class="dropdown-menu">
-                            <li><a href="/account">Mijn profiel</a></li>
-                            <li role="separator" class="divider"></li>
-                            <li><a href="/account">Wishlist</a></li>
-                            <li><a href="/account">Bestellingen</a></li>
-                            <li role="separator" class="divider"></li>
-                            <li><a href="/account/action=logout">Log uit</a></li>
-                        </ul>
-                    </li>
-                    {else}
-                    <li><a href="/account/action=login">Log in</a></li>
-                    {/if}
-                    {else}
-                    <!-- ADMIN -->
-                    <li><a href="/admin/p=logout">Admin log-out</a></li>
-                    {/if}
-
-                </ul>
+            </ul>
         </div><!-- /.navbar-collapse -->
     </div><!-- /.container-fluid -->
 </nav>

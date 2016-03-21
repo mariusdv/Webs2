@@ -1,3 +1,22 @@
+@font-face {
+    font-family: Pokemon;
+    src: url('/Resources/Fonts/PokemonGB.ttf');
+}
+
+blockquote {
+    margin-top: 5px;
+    font-family: Pokemon;
+    background-color: white;
+    border-style: ridge;
+    border-width: 6px;
+    max-height: 200px;
+    overflow-y: scroll;
+}
+
+p {
+    overflow: hidden;
+}
+
 body {
     background-color: white;
 }
@@ -198,6 +217,28 @@ body {
 
 .flat-blue {
     background-color: #3366CC;
+}
+
+.caption-full > h4 {
+    color: white;
+    background-color: #6699FF;
+    padding-top: 11.5px;
+    padding-bottom: 11.5px;
+    margin-top: 0px;
+    margin-bottom: 0px;
+}
+
+.pull-right {
+    margin-right: 15px;
+}
+
+.caption-full > h4 > a {
+    color: white;
+    margin-left: 15px;
+}
+
+.caption-full{
+
 }
 
 .navbar-brand {

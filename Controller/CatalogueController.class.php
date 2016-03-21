@@ -61,11 +61,11 @@ class CatalogueController
                 if (!filter_var($id, FILTER_VALIDATE_INT) === false) {
                     $product = $this->catalogue->getItem($id);
                     if (!Empty($product)) {
-                        $maincat = (new Category(null, null, null))->getMainCategory($product->Subcategory);
+                        $maincat = (new Category(null, null, null))->getMainCategory($product->getProductCategory());
                         $_SESSION["breadcrumbTrial"]->add($maincat, "/catalogue/cat=$maincat");
-                        $_SESSION["breadcrumbTrial"]->add("$product->Subcategory", "/catalogue/subcat=$product->Subcategory");
+                        $_SESSION["breadcrumbTrial"]->add($product->getProductCategory(), "/catalogue/subcat=".$product->getProductCategory());
                         $_SESSION["breadcrumbTrial"]->add($product->Name, "/catalogue/product=$product->Id");
-                        render("product.php", ["product" => $product, "success" => $this->success, "stock" => $this->catalogue->IsInStock($product->Id), "categories" => $this->catalogue->getCategories()]);
+                        render("product.php", ["product" => $product, "success" => $this->success, "stock" => $this->catalogue->IsInStock($product->Stockcount), "categories" => $this->catalogue->getCategories()]);
                         exit(0);
                     } else {
                         apologize("Could not find product " + $id);

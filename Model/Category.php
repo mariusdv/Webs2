@@ -10,13 +10,13 @@ class Category
 {
     public $Category;
     public $SubCategories;
-    public $Id;
+    public $FoldId;
 
-    public function __construct($Category, $Subcategories, $Id)
+    public function __construct($Category, $Subcategories, $FoldId)
     {
-        $this->Id = $Id;
         $this->Category = $Category;
         $this->SubCategories = $Subcategories;
+        $this->FoldId = $FoldId;
     }
 
     /** Get all categories + subsequent subcategories from database and return as an array of Category models. **/
@@ -24,9 +24,19 @@ class Category
     {
         $res = Database::query_safe("SELECT * FROM `subcategories` WHERE `Name` = ?", array($subcat));
         if ($res != false) {
-            $res = $res[0]['Categories_Name'];
+            $id = $res[0]['Categories_Id'];
         }
-        return $res;
+
+        $res = Database::query_safe("SELECT * FROM `categories` WHERE `Id` = ?", array($id));
+
+        return $res[0]['Name'];
+    }
+
+
+    /** Get the name of a subcategory by Id. **/
+    public function getSubcategory($id) {
+        $res = Database::query_safe("SELECT * FROM `subcategories` WHERE `Id` = ?", array($id));
+        return $res[0]['Name'];
     }
 
 }
