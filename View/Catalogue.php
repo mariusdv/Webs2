@@ -16,10 +16,10 @@
                 <div class="panel">
                     <div class="panel-heading">
                         <h4 class="panel-title">
-                            <a data-toggle="collapse" data-parent="#accordion" href="#collapse{$row->Id}">{$row->Category}</a>
+                            <a data-toggle="collapse" data-parent="#accordion" href="#collapse{$row->FoldId}">{$row->Category}</a>
                         </h4>
                     </div>
-                    <div id="collapse{$row->Id}" class="panel-collapse collapse">
+                    <div id="collapse{$row->FoldId}" class="panel-collapse collapse">
                         <div class="panel-body category">
                             <a href="/catalogue/cat={$row->Category}">
                                 <div class="subcategory">
@@ -76,23 +76,16 @@
                 {/foreach}
                 {/if}
             </div>
-
         </div>
-
     </div>
-
 </div>
-
-
-{if $success}
-{literal}
+{if !empty($added)}
 <script>
-    $(document).ready(function() {
+    $( document ).ready(function() {
         toastr.options = {
-            "positionClass": "toast-bottom-right",
+            "positionClass": "toast-bottom-right"
         }
-        toastr.success('$row-Name added to cart!');
+        toastr.info("Item has been successfully added to the cart!", "Pokemart");
     });
 </script>
-{/literal}
 {/if}

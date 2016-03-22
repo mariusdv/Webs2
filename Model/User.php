@@ -39,8 +39,7 @@ class User
     public function getAddresses($username)
     {
         $username = strtolower(filter_var($username, FILTER_SANITIZE_EMAIL));
-        $res = Database::query_safe("SELECT * FROM `address` WHERE `Users_Email` = ?", array($username));
-        return $res;
+        $res = Database::query_safe("SELECT * FROM `address` WHERE `Users_Email` = ?", array($username));        return $res;
     }
 
     public function validateUsername($username)
@@ -67,7 +66,7 @@ class User
         if ($res == null || $res === false) {
             return false;
         }
-        if (count($res) == 0)
+        if(count($res) == 0)
             return false;
 
         $res = $res[0];
@@ -230,7 +229,7 @@ class User
     public function validateActivateToken($token)
     {
         $res = Database::query_safe("SELECT * FROM `users` WHERE `ValidationHash` = ?", array($token));
-        $res = $res[0];
+        $res= $res[0];
         if ($res == null)
             return false;
 

@@ -8,9 +8,9 @@
 
 class Product
 {
-    public $Id, $Name, $DescriptionLong, $DescriptionShort, $Price, $ImgUrl, $SubcategoryId, $Active;
+    public $Id, $Name, $DescriptionLong, $DescriptionShort, $Price, $ImgUrl, $SubcategoryId, $Active, $Stockcount;
 
-    public function  __construct($Id, $Name, $DescriptionLong, $DescriptionShort, $Price, $ImgUrl, $SubcategoryId, $Active)
+    public function  __construct($Id, $Name, $DescriptionLong, $DescriptionShort, $Price, $ImgUrl, $SubcategoryId, $Active, $Stockcount)
     {
         $this->Id = $Id;
         $this->Name = $Name;
@@ -20,6 +20,7 @@ class Product
         $this->ImgUrl = $ImgUrl;
         $this->SubcategoryId = $SubcategoryId;
         $this->Active = $Active;
+        $this->Stockcount = $Stockcount;
     }
 
 

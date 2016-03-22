@@ -20,6 +20,15 @@ class CatalogueController
 
     public function run()
     {
+
+        $added = null;
+        if(!empty($_SESSION["add"]))
+        {
+            $added = true;
+            $_SESSION["add"] = null;
+        }
+
+
         $_SESSION["breadcrumbTrial"]->add("Catalogue", "/catalogue");
         // if post
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -32,7 +41,7 @@ class CatalogueController
                     exit(1);
                 }
                 else {
-                    $this->success = true;
+                   $_SESSION["add"] = true;
                 }
 
                 // Stops F5 -> want to submit again
@@ -51,10 +60,10 @@ class CatalogueController
                     exit(1);
                 }
                 if (count($rows) == 0) {
-                    render("catalogue.php", ["title" => "Search - " . $_GET["search"], "cat" => $this->cat]);
+                    render("catalogue.php", ["title" => "Search - " . $_GET["search"], "cat" => $this->cat, "added" => $added]);
                     exit(0);
                 }
-                render("catalogue.php", ["title" => "Search - " . $_GET["search"], "rows" => $rows, "cat" => $this->cat]);
+                render("catalogue.php", ["title" => "Search - " . $_GET["search"], "rows" => $rows, "cat" => $this->cat, "added" => $added]);
                 exit(0);
             } else if (!Empty($_GET["product"])) {
                 $id = $_GET["product"];
@@ -65,7 +74,7 @@ class CatalogueController
                         $_SESSION["breadcrumbTrial"]->add($maincat, "/catalogue/cat=$maincat");
                         $_SESSION["breadcrumbTrial"]->add($product->getProductCategory(), "/catalogue/subcat=".$product->getProductCategory());
                         $_SESSION["breadcrumbTrial"]->add($product->Name, "/catalogue/product=$product->Id");
-                        render("product.php", ["product" => $product, "success" => $this->success, "stock" => $this->catalogue->IsInStock($product->Id), "categories" => $this->catalogue->getCategories()]);
+                        render("product.php", ["product" => $product, "success" => $this->success, "stock" => $this->catalogue->IsInStock($product->Stockcount), "categories" => $this->catalogue->getCategories(), "added" => $added]);
                         exit(0);
                     } else {
                         apologize("Could not find product " + $id);
@@ -82,7 +91,7 @@ class CatalogueController
                     $this->cat = $_GET["cat"];
                     $rows = $this->catalogue->getEntrees($this->cat, false);
                     $_SESSION["breadcrumbTrial"]->add("$this->cat", "/catalogue/cat=$this->cat");
-                    render("catalogue.php", ["title" => $this->catalogue->getTitle($this->cat), "success" => $this->success,"rows" => $rows, "cat" => $this->cat, "categories" => $this->catalogue->getCategories()]);
+                    render("catalogue.php", ["title" => $this->catalogue->getTitle($this->cat), "success" => $this->success,"rows" => $rows, "cat" => $this->cat, "categories" => $this->catalogue->getCategories(), "added" => $added]);
                     exit(0);
                 } else if (!Empty($_GET["subcat"])) {
                     $this->cat = $_GET["subcat"];
@@ -90,11 +99,11 @@ class CatalogueController
                     $maincat = (new Category(null, null, null))->getMainCategory($this->cat);
                     $_SESSION["breadcrumbTrial"]->add($maincat, "/catalogue/cat=$maincat");
                     $_SESSION["breadcrumbTrial"]->add("$this->cat", "/catalogue/subcat=$this->cat");
-                    render("catalogue.php", ["title" => $this->catalogue->getTitle($this->cat), "success" => $this->success,"rows" => $rows, "cat" => $this->cat, "categories" => $this->catalogue->getCategories()]);
+                    render("catalogue.php", ["title" => $this->catalogue->getTitle($this->cat), "success" => $this->success,"rows" => $rows, "cat" => $this->cat, "categories" => $this->catalogue->getCategories(), "added" => $added]);
                     exit(0);
                 }
                 $rows = $this->catalogue->getAllEntrees();
-                render("catalogue.php", ["title" => $this->catalogue->getTitle($this->cat), "success" => $this->success,"rows" => $rows, "cat" => $this->cat, "categories" => $this->catalogue->getCategories()]);
+                render("catalogue.php", ["title" => $this->catalogue->getTitle($this->cat), "success" => $this->success,"rows" => $rows, "cat" => $this->cat, "categories" => $this->catalogue->getCategories(), "added" => $added]);
                 exit(0);
             }
 

@@ -9,20 +9,33 @@ TABEL:
 
 
 TODO
+Winkelwagen beheer = marius
+
 Productpagina = Patrick
 profiel beheren (adressen enzz) = Patrick
+Betalen = Marius
+Kenmerken = Marius
 CMS = Marius
+
+TODO
+Productpagina = Patrick
+profiel beheren (adressen enzz) = PAtrick
 Vergelijken = Patrick
 About pagina = Patrick
 Home = Patrick
-wishlist = Patrick
 TODO
 
 *---Security---*
 Alles valideert met PHP
 
 *---Style---*
-- Functies met een kleine letters
+- Functies met een kleine letters (zoals in Java)
+
+
+TODO ASK JASPER:
+About - Pagina of footer? Welke content?
+Navigatiemenu via db - helemaal of alleen catalogus?
+Plaatjes groot en klein - 1 plaatje voor beide?
 
 
 

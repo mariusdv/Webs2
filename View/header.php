@@ -13,6 +13,7 @@
     <script src="../JS/toastr.min.js"></script>
 
 
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://bootswatch.com/paper/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="/CSS/shop-homepage.css">
     <link rel="stylesheet" type="text/css" href="/CSS/Style.css">
@@ -72,20 +73,21 @@
                     </ul>
 
                 </li>
-
-            {else}
-            <li><a href="/">Home</a></li>
-            <li><a href="/Admin/p=cat">Products</a></li>
-            <li><a href="#">Orders</a></li>
-            <li><a href="#">Categories</a></li>
-            {/if}
+                {else}
+                <li><a href="/">Home</a></li>
+                <li><a href="/Admin/p=cat">Products</a></li>
+                <li><a href="#">Orders</a></li>
+                <li><a href="#">Categories</a></li>
+                {/if}
             </ul>
 
             {if ! isset($admin)}
+
             <form class="navbar-form navbar-left" role="search" action="/Catalogue" method="get">
                 {else}
                 <form class="navbar-form navbar-left" role="search" action="/Admin/p=cat" method="get">
                     {/if}
+
                     <div class="form-group">
                         <input name="search" id="search" type="text" class="form-control" placeholder="Search">
                     </div>
