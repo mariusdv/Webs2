@@ -22,7 +22,7 @@
                     <div id="collapse{$row->FoldId}" class="panel-collapse collapse">
                         <div class="panel-body category">
                             <a href="/catalogue/cat={$row->Category}">
-                                <div class="subcategory">
+                                <div class="subcategory all">
                                     All
                                 </div>
                             </a>
