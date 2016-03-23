@@ -21,6 +21,29 @@ body {
     background-color: white;
 }
 
+/* Header Image Background - Change the URL below to your image path (example: ../images/background.jpg) */
+
+.business-header {
+    background-size: 100% auto;
+    height: 320px;
+    background: url('/Resources/Images/banner.png') center center no-repeat scroll;
+    -webkit-background-size: 100% auto;
+    -moz-background-size: 100% auto;
+    -o-background-size: 100% auto;
+}
+
+/* Customize the text color and shadow color and to optimize text legibility. */
+
+.tagline {
+    text-shadow: 0 0 10px #000;
+    color: #fff;
+}
+
+.img-center {
+    margin: 0 auto;
+}
+
+
 #loginbox {
     margin-top: 30px;
 }
@@ -130,6 +153,40 @@ input[type="date"]:hover::before{
     vertical-align: middle;
     -webkit-filter: grayscale(0%) brightness(1);
     filter: grayscale(0%) brightness(1);
+}
+
+.about {
+    margin-left: 50px;
+    margin-right: 50px;
+    font-size: large;
+    color: #192967;
+}
+
+.errorHead {
+    text-align: center;
+}
+
+.error > img {
+    position: relative;
+}
+
+.error > a > img {
+    position: relative;
+}
+
+.error > i {
+    font-size: small;
+}
+
+.error {
+    margin-left: 20px;
+    margin-right: 20px;
+    font-size: large;
+    text-align: center;
+}
+
+.about > h4 {
+    color: #576EC5;
 }
 
 .flat-header {
@@ -397,7 +454,7 @@ a:hover {
 }
 
 .breadcrumb {
-    margin-bottom: 23px;
+    margin-bottom: 5px;
 }
 
 .navbar {

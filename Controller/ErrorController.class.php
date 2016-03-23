@@ -2,11 +2,10 @@
 
 class ErrorController
 {
-    public $message = "ERROR MESSGAGE!!!";
 
     public function render() {
-        render("error_view.php" , ["title" => "ErrorMessage",
-            "message" => $this->message ]);
+        render("error_view.php" , ["title" => "Oops!",
+            "link" => $this->message ]);
         exit(2);
     }
 

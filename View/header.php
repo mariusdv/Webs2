@@ -21,7 +21,7 @@
 
 
     {if isset($title)}
-    <title>Webshop: {htmlspecialchars($title)}</title>
+    <title>Webshop - {htmlspecialchars($title)}</title>
     {else}
     <title>Webshop</title>
     {/if}
@@ -51,6 +51,9 @@
 
             <ul class="nav navbar-nav navbar-left">
                 {if ! isset($admin)}
+                <li><a id="dLabel" role="menu" href="/">Home</a></li>
+                <li><a id="dLabel" role="menu" href="/about">About</a></li>
+
                 <li class="dropdown">
                     <a id="dLabel" role="menu" data-toggle="dropdown" data-target="#"
                        href="/page.html">

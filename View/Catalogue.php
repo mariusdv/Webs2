@@ -50,7 +50,7 @@
                 No items found.
                 {else}
                 {foreach from=$rows item=row}
-                <div class="col-xs-12 col-sm-12 col-lg-4 col-md-6">
+                <div class="col-xs-12 col-sm-12 col-lg-4 col-md-6" id="item{$row->Id}">
                     <div class="thumbnail">
                         <div class="imageWrapper">
                             <img src="{$row->ImgUrl}" alt="{$row->Name}">
@@ -62,7 +62,7 @@
                                 </h4>
                                 <p>{$row->DescriptionShort}</p>
                             </div>
-                            <form class="addToCartForm" action="/Catalogue/subcat={$cat}" method="post">
+                            <form class="addToCartForm" action="#item{$row->Id}" method="post">
                                 <input type="hidden" name="item" value="{$row->Id}"/>
                                 <input type="hidden" name="name" value="{$row->Name}"/>
                                 <button type="submit" class="btn btn-default addbutton flat-button flat-lightblue">

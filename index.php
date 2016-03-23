@@ -33,11 +33,15 @@ switch ($page) {
     case "order":
         (new OrderController())->run();
         break;
+    case "about":
+        $_SESSION["breadcrumbTrial"]->add("About", "/about");
+        render("about.php", ["title" => "About"]);
+        break;
     case "index.php":
         if (isset($_SESSION["admin"]))
             (new AdminController())->run();
         else
-            (new CatalogueController())->run();
+            render("home.php", ["title" => "Home"]);
         break;
     case "timesheet":
         (new TimeSheetController())->run();

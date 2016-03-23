@@ -85,7 +85,6 @@ class CatalogueController
                 if (Empty($_GET["cat"]) && Empty($_GET["subcat"])) {
                     $this->cat = "All";
                     $_SESSION["breadcrumbTrial"]->add("All", "/cat=#");
-
                 }
                 if (!Empty($_GET["cat"])) {
                     $this->cat = $_GET["cat"];
