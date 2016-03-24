@@ -252,6 +252,7 @@ input[type="date"]:hover::before {
 }
 .cart {
     font-size: large;
+    color: white;
 }
 .header {
     font-size: 35px;
@@ -298,7 +299,7 @@ input[type="date"]:hover::before {
     border-radius: 6px 0 6px 6px;
 }
 .smallcart {
-    color: black;
+    color: white;
     margin-right: 10px;
 }
 .smallcart:hover {

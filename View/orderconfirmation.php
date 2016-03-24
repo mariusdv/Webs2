@@ -1,6 +1,6 @@
 <div class="container">
     <h1>
-        Order conformation
+        Order confirmation
     </h1>
     <p>
         Your order has been succesfully received.
