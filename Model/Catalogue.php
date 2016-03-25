@@ -105,17 +105,17 @@ class Catalogue
             if (!$res2) {
             } else {
                 foreach ($res2 as $val2) {
-                    $subcategories[] = $val2['Name'];
+                    $subcategories[] = array($val2['Name'], rawurlencode($val2['Name']));
                 }
             }
-            $rows[] = new Category($val['Name'], $subcategories, $foldId);
+            $rows[] = new Category(array($val['Name'], rawurlencode($val['Name'])), $subcategories, $foldId);
             $foldId++;
         }
 
         return $rows;
     }
 
-    /** FUNCTION NOT FINISHED, NEEDS TO BE IMPLEMENTED */
+    /** Returns true if given stockcount is above 0, else returns false. */
     public
     function IsInStock($stockcount)
     {

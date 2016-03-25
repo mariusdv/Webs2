@@ -34,9 +34,8 @@
             {/if}
         </table>
     </form>
-    <td>
+
         <a href="/Order/action=order" class="btn btn-primary">Bestel</a>
-    </td>
 
 </div>
 

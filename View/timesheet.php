@@ -16,22 +16,22 @@
                                 </select>
                             </div>
                             <div class="form-group">
-                                <label for="task">Taak: </label>
+                                <label>Taak: </label>
                                 <input name="task" class="form-control input-sm" type="text"
                                        placeholder="Ik ben zo productief bezig...">
                             </div>
                             <div class="form-group">
-                                <label for="hours">Uren: </label>
+                                <label>Uren: </label>
                                 <input name="hours" class="form-control input-sm" type="number" min="0"
                                        placeholder="0">
                             </div>
-                            <div align="center">
+                            <div >
                                 <button type="submit" class="btn btn-primary">Opslaan</button>
                             </div>
                         </form>
                     </div>
                     <div class="panel-body">
-                        <div class="h4" align="center">
+                        <div class="h4">
                             <p>
                                 <strong>Totaal Marius:</strong> {$Marius}
                             </p>

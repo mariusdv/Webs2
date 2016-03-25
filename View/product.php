@@ -56,20 +56,21 @@
                         {/if}
                     </h4>
                     <blockquote>
-                        <p><i class="fa fa-quote-left"></i> {$product->DescriptionLong} <i class="fa fa-quote-right"></i></p>
+                        <p><i class="fa fa-quote-left"></i> {$product->DescriptionLong} <i
+                                class="fa fa-quote-right"></i></p>
                     </blockquote>
                     {if {$stock}}
                     <form action="/catalogue/product={$product->Id}" method="post">
                         <input type="hidden" name="item" value="{$product->Id}"/>
                         <input type="hidden" name="name" value="{$product->Name}"/>
                         <button type="submit" class="btn btn-default addbutton">
-                            <span type="submit" class="glyphicon glyphicon-shopping-cart cart"></span>
-                            <span class="text" type="submit">Add to cart</span>
+                            <span class="glyphicon glyphicon-shopping-cart cart"></span>
+                            <span class="text">Add to cart</span>
                         </button>
                     </form>
                     {/if}
                     <div class="addToWishlist">
-                        <p>
+
                         <form action="/catalogue/product={$product->Id}" method="post">
                             <input type="hidden" name="item" value="{$row->Id}"/>
                             {if !($stock)}
@@ -78,11 +79,11 @@
                             <span>Don't want to buy this <strong>{$product->Name}</strong> yet? Add it to your wishlist!</span>
                             {/if}
                             <button type="submit" class="btn btn-warning">
-                                <span type="submit" class="glyphicon glyphicon-list-alt"></span>
-                                <span class="text" type="submit">Add to wishlist</span>
+                                <span class="glyphicon glyphicon-list-alt"></span>
+                                <span class="text">Add to wishlist</span>
                             </button>
                         </form>
-                        </p>
+
                     </div>
                 </div>
             </div>
@@ -92,7 +93,7 @@
 </div>
 {if $added === true}
 <script>
-    $( document ).ready(function() {
+    $(document).ready(function () {
         toastr.options = {
             "positionClass": "toast-bottom-right"
         }

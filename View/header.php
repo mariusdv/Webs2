@@ -44,31 +44,31 @@
             <a class="navbar-toggle navbar-nav smallcart" href="/Order"><span
                     class="glyphicon glyphicon-shopping-cart cart"></span> {$cartSize} </a>
 
-            <a class="navbar-brand" href="/"><img src="/Resources/Images/logo.png"></a></div>
+            <a class="navbar-brand" href="/"><img src="/Resources/Images/logo.png" alt="logo"></a></div>
 
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 
             <ul class="nav navbar-nav navbar-left">
                 {if ! isset($admin)}
-                <li><a id="dLabel" role="menu" href="/">Home</a></li>
-                <li><a id="dLabel" role="menu" href="/about">About</a></li>
+                <li><a href="/">Home</a></li>
+                <li><a href="/about">About</a></li>
 
                 <li class="dropdown">
-                    <a id="dLabel" role="menu" data-toggle="dropdown" data-target="#"
+                    <a id="dLabel" data-toggle="dropdown" data-target="#"
                        href="/page.html">
                         Products<span class="caret"></span>
                     </a>
 
-                    <ul class="dropdown-menu multi-level" role="menu" aria-labelledby="dropdownMenu">
+                    <ul class="dropdown-menu multi-level">
                         {foreach from=$categories item=row}
                         <li class="dropdown-submenu">
-                            <a tabindex="-1">{$row->Category}</a>
+                            <a tabindex="-1">{$row->Category[0]}</a>
                             <ul class="dropdown-menu">
-                                <li><a tabindex="-1" href="/catalogue/cat={$row->Category}">All</a></li>
+                                <li><a tabindex="-1" href="/catalogue/cat={$row->Category[1]}">All</a></li>
                                 <li role="separator" class="divider small"></li>
                                 {foreach from=$row->SubCategories item=sub}
-                                <li><a tabindex="-1" href="/catalogue/subcat={$sub}">{$sub}</a></li>
+                                <li><a tabindex="-1" href="/catalogue/subcat={$sub[1]}">{$sub[0]}</a></li>
                                 {/foreach}
                             </ul>
                         </li>
@@ -94,7 +94,7 @@
                     <div class="form-group">
                         <input name="search" id="search" type="text" class="form-control" placeholder="Search">
                     </div>
-                    <button type="submit" class="btn btn-default"><span class="glyphicon glyphicon-search search"/>
+                    <button type="submit" class="btn btn-default"><span class="glyphicon glyphicon-search search"></span>
                     </button>
                 </form>
 

@@ -22,8 +22,7 @@ class CatalogueController
     {
 
         $added = null;
-        if(!empty($_SESSION["add"]))
-        {
+        if (!empty($_SESSION["add"])) {
             $added = true;
             $_SESSION["add"] = null;
         }
@@ -39,9 +38,8 @@ class CatalogueController
                 if (!$cart->AddCart($_POST["item"])) {
                     apologize("Artikel kan niet worden toegoegd aan winkelmandje.");
                     exit(1);
-                }
-                else {
-                   $_SESSION["add"] = true;
+                } else {
+                    $_SESSION["add"] = true;
                 }
 
                 // Stops F5 -> want to submit again
@@ -71,9 +69,9 @@ class CatalogueController
                     $product = $this->catalogue->getItem($id);
                     if (!Empty($product)) {
                         $maincat = (new Category(null, null, null))->getMainCategory($product->getProductCategory());
-                        $_SESSION["breadcrumbTrial"]->add($maincat, "/catalogue/cat=$maincat");
-                        $_SESSION["breadcrumbTrial"]->add($product->getProductCategory(), "/catalogue/subcat=".$product->getProductCategory());
-                        $_SESSION["breadcrumbTrial"]->add($product->Name, "/catalogue/product=$product->Id");
+                        $_SESSION["breadcrumbTrial"]->add($maincat, "/catalogue/cat=".rawurlencode($maincat));
+                        $_SESSION["breadcrumbTrial"]->add($product->getProductCategory(), "/catalogue/subcat=".rawurlencode($product->getProductCategory()));
+                        $_SESSION["breadcrumbTrial"]->add($product->Name, "/catalogue/product=".rawurlencode($product->Id));
                         render("product.php", ["product" => $product, "success" => $this->success, "stock" => $this->catalogue->IsInStock($product->Stockcount), "categories" => $this->catalogue->getCategories(), "added" => $added]);
                         exit(0);
                     } else {
@@ -89,25 +87,22 @@ class CatalogueController
                 if (!Empty($_GET["cat"])) {
                     $this->cat = $_GET["cat"];
                     $rows = $this->catalogue->getEntrees($this->cat, false);
-                    $_SESSION["breadcrumbTrial"]->add("$this->cat", "/catalogue/cat=$this->cat");
-                    render("catalogue.php", ["title" => $this->catalogue->getTitle($this->cat), "success" => $this->success,"rows" => $rows, "cat" => $this->cat, "categories" => $this->catalogue->getCategories(), "added" => $added]);
+                    $_SESSION["breadcrumbTrial"]->add("$this->cat", "/catalogue/cat=".rawurlencode($this->cat));
+                    render("catalogue.php", ["title" => $this->catalogue->getTitle($this->cat), "success" => $this->success, "rows" => $rows, "cat" => $this->cat, "categories" => $this->catalogue->getCategories(), "added" => $added]);
                     exit(0);
                 } else if (!Empty($_GET["subcat"])) {
                     $this->cat = $_GET["subcat"];
                     $rows = $this->catalogue->getEntrees($this->cat, true);
                     $maincat = (new Category(null, null, null))->getMainCategory($this->cat);
-                    $_SESSION["breadcrumbTrial"]->add($maincat, "/catalogue/cat=$maincat");
-                    $_SESSION["breadcrumbTrial"]->add("$this->cat", "/catalogue/subcat=$this->cat");
-                    render("catalogue.php", ["title" => $this->catalogue->getTitle($this->cat), "success" => $this->success,"rows" => $rows, "cat" => $this->cat, "categories" => $this->catalogue->getCategories(), "added" => $added]);
+                    $_SESSION["breadcrumbTrial"]->add($maincat, "/catalogue/cat=".rawurlencode($maincat));
+                    $_SESSION["breadcrumbTrial"]->add("$this->cat", rawurlencode("/catalogue/subcat=".rawurlencode($this->cat)));
+                    render("catalogue.php", ["title" => $this->catalogue->getTitle($this->cat), "success" => $this->success, "rows" => $rows, "cat" => $this->cat, "categories" => $this->catalogue->getCategories(), "added" => $added]);
                     exit(0);
                 }
                 $rows = $this->catalogue->getAllEntrees();
-                render("catalogue.php", ["title" => $this->catalogue->getTitle($this->cat), "success" => $this->success,"rows" => $rows, "cat" => $this->cat, "categories" => $this->catalogue->getCategories(), "added" => $added]);
+                render("catalogue.php", ["title" => $this->catalogue->getTitle($this->cat), "success" => $this->success, "rows" => $rows, "cat" => $this->cat, "categories" => $this->catalogue->getCategories(), "added" => $added]);
                 exit(0);
             }
-
         }
-
-
     }
 }

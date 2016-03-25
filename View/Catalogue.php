@@ -16,21 +16,21 @@
                 <div class="panel">
                     <div class="panel-heading">
                         <h4 class="panel-title">
-                            <a data-toggle="collapse" data-parent="#accordion" href="#collapse{$row->FoldId}">{$row->Category}</a>
+                            <a data-toggle="collapse" data-parent="#accordion" href="#collapse{$row->FoldId}">{$row->Category[0]}</a>
                         </h4>
                     </div>
                     <div id="collapse{$row->FoldId}" class="panel-collapse collapse">
                         <div class="panel-body category">
-                            <a href="/catalogue/cat={$row->Category}">
+                            <a href="/catalogue/cat={$row->Category[1]}">
                                 <div class="subcategory all">
                                     All
                                 </div>
                             </a>
                             <hr class="small">
                             {foreach from=$row->SubCategories item=subcat}
-                            <a href="/catalogue/subcat={$subcat}">
+                            <a href="/catalogue/subcat={$subcat[1]}">
                                 <div class="subcategory">
-                                    {$subcat}
+                                    {$subcat[0]}
                                 </div>
                             </a>
                             {/foreach}
@@ -66,8 +66,8 @@
                                 <input type="hidden" name="item" value="{$row->Id}"/>
                                 <input type="hidden" name="name" value="{$row->Name}"/>
                                 <button type="submit" class="btn btn-default addbutton flat-button flat-lightblue">
-                                    <span type="submit" class="glyphicon glyphicon-shopping-cart cart"></span>
-                                    <span class="text" type="submit">Add to cart</span>
+                                    <span class="glyphicon glyphicon-shopping-cart cart"></span>
+                                    <span class="text">Add to cart</span>
                                 </button>
                             </form>
                         </div>

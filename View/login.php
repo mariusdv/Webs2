@@ -4,7 +4,7 @@
 
         <div class="row">
             <div class="iconmelon">
-                <img style="height: auto; width: auto;" src="/Resources/Images/logo.png"/>
+                <img style="height: auto; width: auto;" src="/Resources/Images/logo.png" alt="logo"/>
             </div>
         </div>
 
@@ -33,14 +33,14 @@
                     <div class="form-group">
                         <!-- Button -->
                         <div class="col-sm-12 controls">
-                            <button type="submit" href="#" class="btn btn-primary pull-right"><i
+                            <button type="submit" class="btn btn-primary pull-right"><i
                                     class="glyphicon glyphicon-log-in"></i> Log in
                             </button>
                         </div>
                         <div class="col-sm-12">
                             <br>
-                            <a type="button" href="/Account/action=register">Register</a><br>
-                            <a type="button" href="/Account/action=recover">Recover Password</a>
+                            <a href="/Account/action=register">Register</a><br>
+                            <a href="/Account/action=recover">Recover Password</a>
                         </div>
                     </div>
                     {if isset($error)}

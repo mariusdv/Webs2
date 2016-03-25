@@ -17,8 +17,8 @@
         Land <input type="text" name="country"><br>
         <input type="submit">
     </form>
-    <a type="button" href="/Account">Log in</a>
-    <a type="button" href="/Account/action=Recover">Forgot</a>
+    <a href="/Account">Log in</a>
+    <a href="/Account/action=Recover">Forgot</a>
 
 </div>
 
