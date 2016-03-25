@@ -240,7 +240,7 @@ class Catalogue
     public function deleteCat($id)
     {
         if (DATABASE::query_safe("DELETE FROM `categories` WHERE `Id` = ?", array($id)) === false) {
-            apologize("There are still products using this category");
+            apologize("There are still products or subcategories using this category");
         }
     }
 

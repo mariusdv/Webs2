@@ -56,10 +56,6 @@ class AdminController
     public function catcrud()
     {
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
-            foreach ($_POST as $key => $value) {
-
-               echo "KEY: $key, VALUE: $value <br>";
-            }
 
             if(!empty($_POST["action"]))
             {
@@ -86,6 +82,8 @@ class AdminController
                         break;
                 }
             }
+            redirect("/Admin/p=category");
+            exit();
         }
         render("admin/cat_overview.php", ["categories" => $this->catalogue->getCategories()]);
         exit();
