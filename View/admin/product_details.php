@@ -28,7 +28,7 @@
                 {/if}
                 <fieldset class="form-group">
                     <label class="control-label">Select Image(JPG/PNG)</label>
-                    <input name="image" type="file"/>
+                    <input class="form-control" name="image" type="file"/>
                 </fieldset>
                 <fieldset class="form-group">
                     <label for="exampleInputEmail1">Name</label>

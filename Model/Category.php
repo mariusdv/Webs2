@@ -11,12 +11,14 @@ class Category
     public $Category;
     public $SubCategories;
     public $FoldId;
+    public $Id;
 
-    public function __construct($Category, $Subcategories, $FoldId)
+    public function __construct($Category, $Subcategories, $FoldId, $Id)
     {
         $this->Category = $Category;
         $this->SubCategories = $Subcategories;
         $this->FoldId = $FoldId;
+        $this->Id = $Id;
     }
 
     /** Get all categories + subsequent subcategories from database and return as an array of Category models. **/

@@ -378,6 +378,10 @@ input[type="date"]:hover::before {
 .header {
     font-size: 35px;
 }
+
+.black{
+    color: black;
+}
 .dropdown-submenu {
     position: relative;
 }
@@ -493,4 +497,8 @@ a:hover {
 }
 form {
     margin-bottom: 0px !important;
+}
+
+.sameline{
+    display: initial;
 }

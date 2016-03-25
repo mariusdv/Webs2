@@ -33,6 +33,9 @@ class AdminController
                 case "cat":
                     $this->cat();
                     break;
+                case "category":
+                    $this->catcrud();
+                    break;
                 case "newp":
                     $this->product();
                     break;
@@ -50,6 +53,43 @@ class AdminController
     }
 
 
+    public function catcrud()
+    {
+        if ($_SERVER["REQUEST_METHOD"] == "POST") {
+            foreach ($_POST as $key => $value) {
+
+               echo "KEY: $key, VALUE: $value <br>";
+            }
+
+            if(!empty($_POST["action"]))
+            {
+                switch(strtolower($_POST["action"]))
+                {
+                    case "newcat":
+                        // new cat
+                        $this->catalogue->newCat($_POST["name"]);
+                        break;
+                    case "renamecat":
+                        $this->catalogue->renameCat($_POST["id"],$_POST["name"] );
+                        break;
+                    case "deletecat":
+                        $this->catalogue->deleteCat($_POST["id"]);
+                        break;
+                    case "newsubcat":
+                        $this->catalogue->newSubCat($_POST["name"], $_POST["parent"]);
+                        break;
+                    case "renamesubcat":
+                        $this->catalogue->renameSubCat($_POST["name"], $_POST["id"]);
+                        break;
+                    case "deletesubcat":
+                        $this->catalogue->deleteSubCat($_POST["id"]);
+                        break;
+                }
+            }
+        }
+        render("admin/cat_overview.php", ["categories" => $this->catalogue->getCategories()]);
+        exit();
+    }
     public function product()
     {
 

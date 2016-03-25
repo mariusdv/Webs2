@@ -108,7 +108,7 @@ class Catalogue
                     $subcategories[] = array($val2['Name'], rawurlencode($val2['Name']), $val2['Id']);
                 }
             }
-            $rows[] = new Category(array($val['Name'], rawurlencode($val['Name'])), $subcategories, $foldId);
+            $rows[] = new Category(array($val['Name'], rawurlencode($val['Name'])), $subcategories, $foldId, $val['Id']);
             $foldId++;
         }
 
@@ -209,6 +209,69 @@ class Catalogue
         ) {
             echo "QUERY ERROR Catalogue-deleteItem";
             exit();
+        }
+    }
+
+    public function newCat($name)
+    {
+        $name = trim($name);
+
+        if (ctype_alpha(str_replace(' ', '', $name)) && !empty($name)) {
+            if (DATABASE::query_safe("select count(*) as c from `categories` where `Name` like ? ", array($name))[0]["c"] == 0)
+                DATABASE::query_safe("INSERT INTO `categories` (`Id`, `Name`) VALUES (NULL, ?)", array($name));
+        } else {
+            apologize("Name can only consist of spaces and alphabetical characters.");
+        }
+    }
+
+    public function newSubCat($name, $parent)
+    {
+        $name = trim($name);
+
+        if (ctype_alpha(str_replace(' ', '', $name)) && !empty($name)) {
+            if (DATABASE::query_safe("select count(*) as c from `subcategories` where `Name` like ? and Categories_Id like ?", array($name, $parent))[0]["c"] == 0)
+                DATABASE::query_safe("INSERT INTO `pokemart_nl_pokebas`.`subcategories` (`Id`, `Categories_Id`, `Name`) VALUES (NULL, ?, ?)", array($parent, $name));
+
+        } else {
+            apologize("Name can only consist of spaces and alphabetical characters.");
+        }
+    }
+
+    public function deleteCat($id)
+    {
+        if (DATABASE::query_safe("DELETE FROM `categories` WHERE `Id` = ?", array($id)) === false) {
+            apologize("There are still products using this category");
+        }
+    }
+
+    public function renameCat($id, $name)
+    {
+        $name = trim($name);
+
+        if (ctype_alpha(str_replace(' ', '', $name)) && !empty($name)) {
+            if (DATABASE::query_safe("select count(*) as c from `categories` where `Name` like ? ", array($name))[0]["c"] == 0)
+            DATABASE::query_safe("UPDATE `categories` SET `Name` = ? WHERE `categories`.`Id` = ?", array($name, $id));
+        } else {
+            apologize("Name can only consist of spaces and alphabetical characters.");
+        }
+    }
+
+    public function renameSubCat($name, $id)
+    {
+        $name = trim($name);
+
+        if (ctype_alpha(str_replace(' ', '', $name)) && !empty($name)) {
+            if (DATABASE::query_safe("select count(*) as c from `subcategories` where `Name` like ?", array($name))[0]["c"] == 0)
+                DATABASE::query_safe("UPDATE `subcategories` SET `Name` = ? WHERE `Id` = ?", array($name, $id));
+        } else {
+            apologize("Name can only consist of spaces and alphabetical characters.");
+        }
+    }
+
+    public function deleteSubCat($id)
+    {
+        if (DATABASE::query_safe("DELETE FROM `subcategories` WHERE `Id` = ?", array($id)) === false) {
+            apologize("There are still products using this category");
         }
     }
 }
