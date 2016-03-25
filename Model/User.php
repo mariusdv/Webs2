@@ -31,6 +31,11 @@ class User
         return false;
     }
 
+    public function addNewAddress($zip, $address, $city, $province, $country)
+    {
+        return Database::query_safe("INSERT INTO `pokemart_nl_pokebas`.`address` (`Zipcode`, `Address`, `City`, `Province`, `Country`, `Users_Email`) VALUES (?, ?, ?, ?, ?, ?)", array($zip, $address, $city, $province, $country, $_SESSION['user']->email));
+    }
+
     public function validateAddress($addrID)
     {
         return Database::query_safe("SELECT count(*) AS 'count' FROM `address` WHERE `Id` = ? AND `Users_Email` = ?", array($addrID, $_SESSION["user"]->email))[0]['count'] == 1;
@@ -67,11 +72,30 @@ class User
         if ($res == null || $res === false) {
             return false;
         }
-        if(count($res) == 0)
+        if (count($res) == 0)
             return false;
 
         $res = $res[0];
         return $res;
+    }
+
+    public function getAllOrders($username)
+    {
+        $results = array();
+        $username = strtolower(filter_var($username, FILTER_SANITIZE_EMAIL));
+        $orders = Database::query_safe("SELECT * FROM `orders` WHERE `Users_Email` = ?", array($username));
+        $orderCount = 0;
+        foreach ($orders as $order) {
+            $orderCount++;
+            $products = null;
+            $items = Database::query_safe("SELECT * FROM `items_has_orders` WHERE `Orders_Id` = ?", array($order['Id']));
+            foreach ($items as $item) {
+                $product = Database::query_safe("SELECT * FROM `items` WHERE `Id` = ?", array($item['Items_Id']));
+                $products[] = array(count => $item['Quantity'], price => $item['Price'], ImgUrl => $product['ImgUrl'], name => $product['Name']);
+            }
+            $results[] = array(index => $orderCount, $products);
+        }
+        return $results;
     }
 
     public function newPassword($username, $password)
@@ -230,7 +254,7 @@ class User
     public function validateActivateToken($token)
     {
         $res = Database::query_safe("SELECT * FROM `users` WHERE `ValidationHash` = ?", array($token));
-        $res= $res[0];
+        $res = $res[0];
         if ($res == null)
             return false;
 

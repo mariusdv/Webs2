@@ -2,49 +2,33 @@
     <div class="row profile">
         <div class="col-md-3">
             <div class="profile-sidebar">
-                <!-- SIDEBAR USERPIC -->
-                <div class="profile-userpic">
-                    <img src="http://keenthemes.com/preview/metronic/theme/assets/admin/pages/media/profile/profile_user.jpg" class="img-responsive" alt="">
-                </div>
-                <!-- END SIDEBAR USERPIC -->
                 <!-- SIDEBAR USER TITLE -->
                 <div class="profile-usertitle">
                     <div class="profile-usertitle-name">
-                        Marcus Doe
+                        {$user->name}
                     </div>
                     <div class="profile-usertitle-job">
-                        Developer
+                        {$user->email}
                     </div>
                 </div>
                 <!-- END SIDEBAR USER TITLE -->
-                <!-- SIDEBAR BUTTONS -->
-                <div class="profile-userbuttons">
-                    <button type="button" class="btn btn-success btn-sm">Follow</button>
-                    <button type="button" class="btn btn-danger btn-sm">Message</button>
-                </div>
-                <!-- END SIDEBAR BUTTONS -->
                 <!-- SIDEBAR MENU -->
                 <div class="profile-usermenu">
                     <ul class="nav">
                         <li class="active">
-                            <a href="#">
-                                <i class="glyphicon glyphicon-home"></i>
+                            <a href="/account">
+                                <i class="glyphicon glyphicon-user"></i>
                                 Overview </a>
                         </li>
                         <li>
-                            <a href="#">
-                                <i class="glyphicon glyphicon-user"></i>
-                                Account Settings </a>
+                            <a href="/account/tab=addresses">
+                                <i class="glyphicon glyphicon-tags"></i>
+                                Address Management </a>
                         </li>
                         <li>
-                            <a href="#" target="_blank">
-                                <i class="glyphicon glyphicon-ok"></i>
-                                Tasks </a>
-                        </li>
-                        <li>
-                            <a href="#">
-                                <i class="glyphicon glyphicon-flag"></i>
-                                Help </a>
+                            <a href="/account/tab=orders">
+                                <i class="glyphicon glyphicon-shopping-cart"></i>
+                                Orders </a>
                         </li>
                     </ul>
                 </div>
@@ -53,7 +37,28 @@
         </div>
         <div class="col-md-9">
             <div class="profile-content">
-                Some user related content goes here...
+                <div class="panel">
+                    <div class="panel-heading flat-lightblue">
+                        <h3 class="panel-title">Profile Information</h3>
+                    </div>
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class=" col-md-9 col-lg-9 ">
+                                <table class="table table-user-information">
+                                    <tbody>
+                                    <tr>
+                                        <td>Name:</td>
+                                        <td>{$user->name}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>E-Mail Address</td>
+                                        <td>{$user->email}</td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
             </div>
         </div>
     </div>

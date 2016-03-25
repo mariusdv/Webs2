@@ -253,7 +253,6 @@ class AccountController
                     render("register.php", ["title" => "register", "error" => "Mail send error"]);
                     exit(1);
                 }
-
             }
             render("register.php", ["title" => "register", "error" => $res]);
             exit(1);
@@ -269,12 +268,34 @@ class AccountController
 
     private function manage()
     {
-        if (!Empty($_SESSION["user"])) {
+        if ($_SERVER["REQUEST_METHOD"] == "POST") {
+            if (Empty($_POST["zipcode"])
+                || Empty($_POST["address"])
+                || Empty($_POST["city"])
+                || Empty($_POST["country"])
+                || Empty($_POST["state"])
+                || Empty($_POST["country"])
+            ) {
+                render("orderlist.php", ["error" => "Vul AUB alles in", "user" => $_SESSION["user"]]);
+                exit(1);
+            } else {
+                $_SESSION["user"]->addNewAddress($_POST["zipcode"], $_POST["address"], $_POST["city"], $_POST["country"], $_POST["state"], $_POST["country"]);
+                render("addressmanagement.php", ["user" => $_SESSION["user"]]);
+                exit(0);
+            }
+        }
+        if (Empty($_GET['tab'])) {
             render("profile.php", ["user" => $_SESSION["user"]]);
+        } else if ($_GET['tab'] == "addresses") {
+            render("addressmanagement.php", ["user" => $_SESSION["user"]]);
+        } else if ($_GET['tab'] == "orders") {
+            $orders = (new User())->getAllOrders($_SESSION["user"]->email);
+            print_r($orders[0][0][0]);
+            render("orderlist.php", ["orders" => $orders, "user" => $_SESSION["user"]]);
+        } else {
+            apologize("Could not find page " . $_GET['tab']);
         }
-        else {
-            redirect();
-        }
+
     }
 
     /**
