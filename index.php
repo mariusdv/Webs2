@@ -22,6 +22,10 @@ $page = strtolower(htmlspecialchars($_GET["page"]));
 $_SESSION["breadcrumbTrial"] = new BreadcrumbTrial();
 $_SESSION["breadcrumbTrial"]->add("Home", "/");
 
+if (!Empty($_SESSION["admin"])) {
+    (new AdminController())->run();
+    exit();
+}
 switch ($page) {
     // no parameters
     case "account":

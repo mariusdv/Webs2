@@ -2,8 +2,12 @@
 
     <div class="row flat-header">
         <div class="">
+            {if isset($product)}
             <div class="header">&nbsp;{$product->Name}
             <span class="titanic-1911"><a class="btn btn-danger" href="/admin/p=newp/remove={$product->Id}">Remove product</a>&nbsp;</span></div>
+            {else}
+            <div class="header">&nbsp;New Product</div>
+            {/if}
         </div>
         <div class="col-sm-9 col-lg-9">
             <div class="header">{$title}</div>
@@ -16,12 +20,16 @@
         <div class="col-md-9 col-md-offset-1">
             <form enctype="multipart/form-data" action="/admin/p=newp" method="POST">
                 <input name="Id" type="hidden" value="{$product->Id}"/>
+                {if isset($product)}
                 <div class="thumbnail clean">
                     <img class="img-responsive" src="{$product->ImgUrl}" alt="">
-                    <label class="control-label">Select Image(JPG/PNG)</label>
-                    <input name="image" type="file"/>
                 </div>
                 <br><br>
+                {/if}
+                <fieldset class="form-group">
+                    <label class="control-label">Select Image(JPG/PNG)</label>
+                    <input name="image" type="file"/>
+                </fieldset>
                 <fieldset class="form-group">
                     <label for="exampleInputEmail1">Name</label>
                     <input name="Name" class="descriptionShort form-control" type="text" value="{$product->Name}">
