@@ -41,9 +41,7 @@
 
             </div>
         </div>
-
         <div class="col-md-9">
-
             <div class="thumbnail clean">
                 <img class="img-responsive" src="{$product->ImgUrl}" alt="">
                 <div class="caption-full">
