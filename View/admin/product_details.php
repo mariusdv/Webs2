@@ -1,8 +1,9 @@
 <div class="container">
 
     <div class="row flat-header">
-        <div class="col-sm-3 col-lg-3 ">
-            <div class="header">Categories</div>
+        <div class="">
+            <div class="header">&nbsp;{$product->Name}
+            <span class="titanic-1911"><a class="btn btn-danger" href="/admin/p=newp/remove={$product->Id}">Remove product</a>&nbsp;</span></div>
         </div>
         <div class="col-sm-9 col-lg-9">
             <div class="header">{$title}</div>
@@ -10,60 +11,51 @@
     </div>
     <div class="row flat-lighterblue">
         <br>
-        <div class="col-sm-3 col-lg-3">
-            <div class="panel-group" id="accordion">
-                {foreach from=$categories item=row}
-                <div class="panel">
-                    <div class="panel-heading">
-                        <h4 class="panel-title">
-                            <a data-toggle="collapse" data-parent="#accordion" href="#collapse{$row->FoldId}">{$row->Category[0]}</a>
-                        </h4>
-                    </div>
-                    <div id="collapse{$row->FoldId}" class="panel-collapse collapse">
-                        <div class="panel-body category">
-                            <a href="/admin/p=cat/cat={$row->Category[1]}">
-                                <div class="subcategory all">
-                                    All
-                                </div>
-                            </a>
-                            <hr class="small">
-                            {foreach from=$row->SubCategories item=subcat}
-                            <a href="/admin/p=cat/subcat={$subcat[1]}">
-                                <div class="subcategory">
-                                    {$subcat[0]}
-                                </div>
-                            </a>
-                            {/foreach}
-                        </div>
-                    </div>
-                </div>
-                {/foreach}
 
-            </div>
-        </div>
 
-        <div class="col-md-9">
+        <div class="col-md-9 col-md-offset-1">
             <form enctype="multipart/form-data" action="/admin/p=newp" method="POST">
+                <input name="Id" type="hidden" value="{$product->Id}"/>
                 <div class="thumbnail clean">
                     <img class="img-responsive" src="{$product->ImgUrl}" alt="">
                     <label class="control-label">Select Image(JPG/PNG)</label>
-                    <input name="userfile" type="file"/>
+                    <input name="image" type="file"/>
                 </div>
+                <br><br>
                 <fieldset class="form-group">
                     <label for="exampleInputEmail1">Name</label>
-                    <input class="descriptionShort form-control" type="text" value="{$product->Name}">
+                    <input name="Name" class="descriptionShort form-control" type="text" value="{$product->Name}">
                 </fieldset>
                 <fieldset class="form-group">
                     <label for="exampleInputEmail1">Price</label>
-                    <input class="descriptionShort form-control" type="text" value="{$product->Price}">
+                    <input name="Price" class="descriptionShort form-control" type="text" value="{$product->Price}">
                 </fieldset>
                 <fieldset class="form-group">
                     <label for="exampleInputEmail1">Short Description</label>
-                    <input type="text" class="descriptionShort form-control" value="{$product->DescriptionShort}">
+                    <input name="DescriptionShort" type="text" class="descriptionShort form-control" value="{$product->DescriptionShort}">
                 </fieldset>
                 <fieldset class="form-group">
                     <label for="exampleInputEmail1">Long Description</label>
-                    <textarea class="descriptionArea">{$product->DescriptionLong}</textarea>
+                    <textarea name="DescriptionLong" class="descriptionArea">{$product->DescriptionLong}</textarea>
+                </fieldset>
+                <fieldset class="form-group">
+                    <fieldset class="form-group">
+                        <label for="exampleInputEmail1">Category</label>
+                        <select class="form-control" name="SubcategoryId">
+                            {foreach from=$categories item=row}
+                                <option value="" disabled>{$row->Category[0]}</option>
+                                {foreach from=$row->SubCategories item=subcat}
+                                {if $subcat[2] == {$product->SubcategoryId}}
+                                    <option selected value="{$subcat[2]}">&nbsp;&nbsp;&nbsp;&nbsp;{$subcat[0]}</option>
+                                {else}
+                                    <option value="{$subcat[2]}">&nbsp;&nbsp;&nbsp;&nbsp;{$subcat[0]}</option>
+                            {/if}
+                                {/foreach}
+                            {/foreach}
+
+                        </select>
+
+                    </fieldset>
                 </fieldset>
                 <input type="submit" value="Save Product" />
             </form>

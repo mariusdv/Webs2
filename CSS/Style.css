@@ -366,6 +366,10 @@ a:hover {
 .titanic {
     float: none;
 }
+
+.titanic-1911 {
+    float: right;
+}
 .breadcrumb {
     margin-bottom: 5px;
 }

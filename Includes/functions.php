@@ -60,7 +60,7 @@ function render($template, $values = [])
         // extract variables into local scope
         $smarty = new Smarty();
         $smarty->assign($values);
-
+        $smarty->escape_html = true;
         if (!empty($_SESSION["user"]))
             $smarty->assign("user", $_SESSION["user"]);
 

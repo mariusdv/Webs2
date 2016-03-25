@@ -3,8 +3,7 @@
         A Snorlax is blocking the path!
     </h1>
     <p class="error">
-        Oops! We unexpectedly encountered a Snorlax on the way. Either this page doesn't exist or we couldn't process
-        your request.
+        Oops! We unexpectedly encountered a Snorlax on the way. <br>{$link}<br>
         <img src="/Resources/Images/error.gif" alt="snorlax">
     </p>
     <br>

@@ -5,7 +5,9 @@
             <div class="header">Categories</div>
         </div>
         <div class="col-sm-9 col-lg-9">
-            <div class="header">{$title}</div>
+            <div class="header">{$title}
+                <span class="titanic-1911"><a class="btn btn-default" href="/admin/p=newp/remove={$product->Id}">New product</a>&nbsp;</span></div>
+
         </div>
     </div>
     <div class="row flat-lighterblue">

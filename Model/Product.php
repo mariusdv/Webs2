@@ -29,5 +29,5 @@ class Product
         $res = $c->getSubcategory($this->SubcategoryId);
         return $res;
     }
-    //
+
 }

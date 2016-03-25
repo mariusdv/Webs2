@@ -105,7 +105,7 @@ class Catalogue
             if (!$res2) {
             } else {
                 foreach ($res2 as $val2) {
-                    $subcategories[] = array($val2['Name'], rawurlencode($val2['Name']));
+                    $subcategories[] = array($val2['Name'], rawurlencode($val2['Name']), $val2['Id']);
                 }
             }
             $rows[] = new Category(array($val['Name'], rawurlencode($val['Name'])), $subcategories, $foldId);
@@ -135,6 +135,80 @@ class Catalogue
             return false;
         } else {
             return (new Product($res['Id'], $res['Name'], $res['DescriptionLong'], $res['DescriptionShort'], $res['Price'], $res['ImgUrl'], $res['Subcategories_Id'], $res['Active'], $res['Stockcount']));
+        }
+    }
+
+
+    /** Save product **/
+    public
+    function saveItem($product)
+    {
+
+
+        if ($product->Id == null) {
+
+            // Insert
+            $pdo = DATABASE::getPDO();
+            $pdo->beginTransaction();
+            DATABASE::transaction_action_safe($pdo,
+                "INSERT INTO `items`
+            (`Id`, `Subcategories_Id`, `Name`,
+            `DescriptionLong`, `DescriptionShort`,
+            `Price`, `ImgUrl`, `Active`, `Stockcount`)
+            VALUES (NULL, ?, ?, ?, ?, ?, ?, ?, ?)", array($product->SubcategoryId,
+                    $product->Name,
+                    $product->DescriptionLong,
+                    $product->DescriptionShort,
+                    $product->Price,
+                    $product->ImgUrl,
+                    $product->Active,
+                    $product->Stockcount));
+            $id = $pdo->lastInsertId();
+            $pdo->commit();
+
+            return $id;
+        } else {
+
+            // update
+            if (DATABASE::query_safe("UPDATE `items`
+            SET `Subcategories_Id` = ?,
+            `Name` = ?,
+            `DescriptionLong` = ?,
+            `DescriptionShort` = ?,
+            `Price` = ?,
+            `ImgUrl` = ?,
+            `Active` = ?,
+            `Stockcount` = ?
+            WHERE `Id` = ?",
+                    array($product->SubcategoryId,
+                        $product->Name,
+                        $product->DescriptionLong,
+                        $product->DescriptionShort,
+                        $product->Price,
+                        $product->ImgUrl,
+                        $product->Active,
+                        $product->Stockcount,
+                        $product->Id)) === false
+            ) {
+                echo "QUERY ERROR Catalogue-saveItem";
+                exit();
+            }
+
+
+        }
+    }
+
+    public function deleteItem($id)
+    {
+        if (DATABASE::query_safe("UPDATE `items`
+            SET
+            `Active` = ?,
+            Subcategories_Id = null
+            WHERE `Id` = ?",
+                array(false, $id)) === false
+        ) {
+            echo "QUERY ERROR Catalogue-deleteItem";
+            exit();
         }
     }
 }

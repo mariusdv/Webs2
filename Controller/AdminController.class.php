@@ -33,6 +33,9 @@ class AdminController
                 case "cat":
                     $this->cat();
                     break;
+                case "newp":
+                    $this->product();
+                    break;
                 default:
                     $this->guarrenteeAdmin("/");
                     render("admin/adminhome.php", ["title" => "Show - All"]);
@@ -46,6 +49,90 @@ class AdminController
 
     }
 
+
+    public function product()
+    {
+
+        $this->guarrenteeAdmin("/");
+        if ($_SERVER["REQUEST_METHOD"] == "POST") {
+
+            $_POST["Name"] = trim($_POST["Name"]);
+            $_POST["DescriptionLong"] = trim($_POST["DescriptionLong"]);
+            $_POST["DescriptionShort"] = trim($_POST["DescriptionShort"]);
+            $_POST["Price"] = trim($_POST["Price"]);
+            $_POST["SubcategoryId"] = trim($_POST["SubcategoryId"]);
+
+            if (empty ($_POST["Name"])
+                || empty ($_POST["DescriptionLong"])
+                || empty ($_POST["DescriptionShort"])
+                || empty($_POST["Price"])
+                || empty ($_POST["SubcategoryId"])
+            ) {
+                apologize("Not everything is filled in");
+            }
+
+            //  check double price
+            if (!is_numeric($_POST["Price"]) || $_POST["Price"] <= 0) {
+                apologize("Price should be a non-negative number");
+            }
+            // add/update product
+            $id = null;
+            if (!empty($_POST["Id"])) {
+
+                if ($this->catalogue->getItem($_POST["Id"]) === false)
+                    apologize("Product does not exist");
+
+                if (!empty($_FILES["image"]["name"])) {
+                    $filename = (new fileUpload())->upload($_FILES["image"], $_POST["Id"]);
+                } else {
+                    $filename = $this->catalogue->getItem($_POST["Id"])->ImgUrl;
+                }
+
+                $prod = new Product($_POST["Id"], $_POST["Name"], $_POST["DescriptionLong"], $_POST["DescriptionShort"], $_POST["Price"], $filename, $_POST["SubcategoryId"], true, 9001);
+                $this->catalogue->saveItem($prod);
+                $id = $_POST["Id"];
+            } else {
+                if (!empty($_FILES["image"]["name"])) {
+
+                    // create
+                    $prod = new Product(null, $_POST["Name"], $_POST["DescriptionLong"], $_POST["DescriptionShort"], $_POST["Price"], "Resources/Images/no_image.png", $_POST["SubcategoryId"], true, 9001);
+
+                    $id = $this->catalogue->saveItem($prod);
+                    $prod->Id = $id;
+
+
+                    // upload file with new ID
+                    $filename = (new fileUpload())->upload($_FILES["image"], $id);
+
+                    $prod->ImgUrl = $filename;
+
+                    // save again (to change image url)
+                    $this->catalogue->saveItem($prod);
+                } else {
+                    apologize("Not everything is filled in");
+                    exit();
+                }
+
+
+            }
+
+            // go to item
+            redirect("/admin/p=cat/product=$id");
+            exit(0);
+        }
+        else if(isset($_GET["remove"]))
+        {
+            if ($this->catalogue->getItem($_GET["remove"]) === false)
+                apologize("Product does not exist");
+            $this->catalogue->deleteItem($_GET["remove"]);
+
+            $this->cat();
+            exit(0);
+        }
+        render("admin/product_details.php", ["categories" => $this->catalogue->getCategories()]);
+        exit(0);
+
+    }
 
     public function cat()
     {
@@ -69,9 +156,9 @@ class AdminController
                 $product = $this->catalogue->getItem($id);
                 if (!Empty($product)) {
                     $maincat = (new Category(null, null, null))->getMainCategory($product->getProductCategory());
-                    $_SESSION["breadcrumbTrial"]->add($maincat, "/catalogue/cat=".rawurlencode($maincat));
-                    $_SESSION["breadcrumbTrial"]->add($product->getProductCategory(), "/catalogue/subcat=".rawurlencode($product->getProductCategory()));
-                    $_SESSION["breadcrumbTrial"]->add($product->Name, "/catalogue/product=".rawurlencode($product->Id));
+                    $_SESSION["breadcrumbTrial"]->add($maincat, "/admin/p=cat/cat=" . rawurlencode($maincat));
+                    $_SESSION["breadcrumbTrial"]->add($product->getProductCategory(), "/admin/p=cat/subcat=" . rawurlencode($product->getProductCategory()));
+                    $_SESSION["breadcrumbTrial"]->add($product->Name, "/admin/p=cat/product=" . rawurlencode($product->Id));
                     render("admin/product_details.php", ["product" => $product, "success" => $this->success, "stock" => $this->catalogue->IsInStock($product->Id), "categories" => $this->catalogue->getCategories()]);
                     exit(0);
                 } else {
@@ -101,7 +188,7 @@ class AdminController
                 exit(0);
             }
             $rows = $this->catalogue->getAllEntrees();
-            render("admin/products.php", ["title" => $this->catalogue->getTitle($this->cat), "success" => $this->success,"rows" => $rows, "cat" => $this->cat, "categories" => $this->catalogue->getCategories()]);
+            render("admin/products.php", ["title" => $this->catalogue->getTitle($this->cat), "success" => $this->success, "rows" => $rows, "cat" => $this->cat, "categories" => $this->catalogue->getCategories()]);
             exit(0);
         }
     }
