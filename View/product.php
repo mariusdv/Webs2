@@ -16,21 +16,21 @@
                 <div class="panel">
                     <div class="panel-heading">
                         <h4 class="panel-title">
-                            <a data-toggle="collapse" data-parent="#accordion" href="#collapse{$row->FoldId}">{$row->Category}</a>
+                            <a data-toggle="collapse" data-parent="#accordion" href="#collapse{$row->FoldId}">{$row->Category[0]}</a>
                         </h4>
                     </div>
                     <div id="collapse{$row->FoldId}" class="panel-collapse collapse">
                         <div class="panel-body category">
-                            <a href="/catalogue/cat={$row->Category}">
-                                <div class="subcategory">
+                            <a href="/catalogue/cat={$row->Category[1]}">
+                                <div class="subcategory all">
                                     All
                                 </div>
                             </a>
                             <hr class="small">
                             {foreach from=$row->SubCategories item=subcat}
-                            <a href="/catalogue/subcat={$subcat}">
+                            <a href="/catalogue/subcat={$subcat[1]}">
                                 <div class="subcategory">
-                                    {$subcat}
+                                    {$subcat[0]}
                                 </div>
                             </a>
                             {/foreach}

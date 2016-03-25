@@ -27,6 +27,8 @@ class AccountController
                 case "activate":
                     $this->activate();
                     break;
+                case "profile":
+                    $this->profile();
                 default:
                     $this->pagepicker();
                     break;
@@ -267,9 +269,12 @@ class AccountController
 
     private function manage()
     {
-        // todo: render user-manage screen
-        echo $_SESSION["user"]->email;
-        exit();
+        if (!Empty($_SESSION["user"])) {
+            render("profile.php", ["user" => $_SESSION["user"]]);
+        }
+        else {
+            redirect();
+        }
     }
 
     /**
