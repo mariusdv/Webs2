@@ -2,7 +2,7 @@
     font-family: Pokemon;
     src: url('/Resources/Fonts/PokemonGB.ttf');
 }
-blockquote {
+blockquote, textarea {
     margin-top: 5px;
     font-family: Pokemon;
     background-color: white;
@@ -10,6 +10,11 @@ blockquote {
     border-width: 6px;
     max-height: 200px;
     overflow-y: scroll;
+}
+
+.descriptionArea{
+    width: 100%;
+    height: 150px;
 }
 p {
     overflow: hidden;
