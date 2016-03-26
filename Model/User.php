@@ -89,11 +89,13 @@ class User
             $orderCount++;
             $products = null;
             $items = Database::query_safe("SELECT * FROM `items_has_orders` WHERE `Orders_Id` = ?", array($order['Id']));
+            $totalPrice = 0;
             foreach ($items as $item) {
                 $product = Database::query_safe("SELECT * FROM `items` WHERE `Id` = ?", array($item['Items_Id']));
-                $products[] = array(count => $item['Quantity'], price => $item['Price'], ImgUrl => $product['ImgUrl'], name => $product['Name']);
+                $products[] = array(count => $item['Quantity'], price => $item['Price'], ImgUrl => $product[0]['ImgUrl'], name => $product[0]['Name'], total => $item['Price'] * $item['Quantity']);
+                $totalPrice += $item['Price'] * $item['Quantity'];
             }
-            $results[] = array(index => $orderCount, $products);
+            $results[] = array(index => $orderCount, totalPrice => $totalPrice, $products);
         }
         return $results;
     }

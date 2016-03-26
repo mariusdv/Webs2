@@ -46,9 +46,9 @@
                             <div class="col-md-12 col-lg-12">
                                 {foreach from=$user->getAddresses($user->email) item=add}
                                 <div class="panel-group">
-                                    <div class="panel panel-default">
+                                    <div class="panel">
                                         <div class="panel-heading">
-                                            <h4 class="panel-title address">
+                                            <h4 class="panel-title">
                                                 <a data-toggle="collapse"
                                                    href="#collapse{$add['Id']}">{$add['Zipcode']}, {$add['Address']},
                                                     {$add['City']}, {$add['Province']}, {$add['Country']}</a>

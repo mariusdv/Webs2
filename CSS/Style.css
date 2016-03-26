@@ -315,7 +315,7 @@ input[type="date"]:hover::before {
 .panel-group .panel {
     background-color: #6699FF;
     border-radius: 0px !important;
-    color: white;
+    color: white !important;
 }
 
 .address {

@@ -48,33 +48,39 @@
                             <div class=" col-md-12 col-lg-12 ">
                                 <div class="panel-group">
                                     <div class="panel">
-                                        <div class="panel-heading flat-blue">
+                                        <div class="panel-heading">
                                             <h4 class="panel-title address">
                                                 <a data-toggle="collapse"
                                                    href="#collapse{$order['index']}" style="color: white;"><i
-                                                        class="glyphicon glyphicon-plus"></i> Order {$order['index']}</a>
+                                                        class="glyphicon glyphicon-gift"></i> Order
+                                                    {$order['index']}</a>
                                             </h4>
                                         </div>
                                         <div id="collapse{$order['index']}" class="panel-collapse collapse">
                                             <ul class="list-group">
-                                                <table class="table table-user-information orderinfo">
+                                                <table class="table table-user-information cartTable orderinfo">
                                                     <tbody>
                                                     <tr>
                                                         <td></td>
                                                         <td><strong>Product</strong></td>
                                                         <td><strong>Quantity</strong></td>
                                                         <td><strong>Price</strong></td>
-
+                                                        <td><strong>Total</strong></td>
                                                     </tr>
-                                                    {foreach from=$order item=product}
+                                                    {foreach from=$order[0] item=product}
                                                     <tr>
-                                                        <td></td>
-                                                        <td>{$product[0]['name']}</td>
-                                                        <td></td>
-                                                        <td></td>
+                                                        <td><img src="{$product['ImgUrl']}" alt="{$product['name']}">
+                                                        </td>
+                                                        <td>{$product['name']}</td>
+                                                        <td>{$product['count']}</td>
+                                                        <td>${$product['price']}</td>
+                                                        <td>${$product['total']}</td>
                                                     </tr>
                                                     {/foreach}
                                                     </tbody>
+                                                    <td><strong>Total Price:</strong></td>
+                                                    <td><strong>${$order['totalPrice']}</strong></td>
+
                                                 </table>
                                             </ul>
                                         </div>

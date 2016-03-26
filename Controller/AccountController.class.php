@@ -290,7 +290,6 @@ class AccountController
             render("addressmanagement.php", ["user" => $_SESSION["user"]]);
         } else if ($_GET['tab'] == "orders") {
             $orders = (new User())->getAllOrders($_SESSION["user"]->email);
-            print_r($orders[0][0][0]);
             render("orderlist.php", ["orders" => $orders, "user" => $_SESSION["user"]]);
         } else {
             apologize("Could not find page " . $_GET['tab']);
