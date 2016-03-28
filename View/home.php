@@ -43,9 +43,7 @@
                 <img class="img-responsive img-center" src="/Resources/Images/Berries/rawstberry.png" alt="Rawstberry">
                 <h2>Easter Berries!</h2>
             </a>
-            <p>The images are set to be circular and responsive. Fusce dapibus, tellus ac cursus commodo, tortor mauris
-                condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis
-                euismod. Donec sed odio dui.</p>
+            <p>As a special easter event we are having a huge sale on our Berries department. Go check it out before the bunnies run away with them!</p>
         </div>
         <div class="col-sm-4">
             <a href="/catalogue/subcat=Evolution%20Items">
@@ -53,9 +51,7 @@
                      alt="Deep Sea Scale">
                 <h2>(R)evolutionary!</h2>
             </a>
-            <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris
-                condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis
-                euismod. Donec sed odio dui.</p>
+            <p>Our brand new Evolution Stones are capable of evolving even the most stubborn Pokemon! Ever wanted to make your Pokemon stronger but didn't feel like training them? Take a look at these stones for some effortless improvement!</p>
         </div>
 
     </div>

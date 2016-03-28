@@ -18,12 +18,14 @@
     <link rel="stylesheet" type="text/css" href="/CSS/shop-homepage.css">
     <link rel="stylesheet" type="text/css" href="/CSS/Style.css">
     <link rel="stylesheet" type="text/css" href="/CSS/toastr.min.css">
+    <link rel="shortcut icon" href="/Resources/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="/Resources/favicon.ico" type="image/x-icon">
 
 
     {if isset($title)}
-    <title>Webshop - {htmlspecialchars($title)}</title>
+    <title>Pokemart - {htmlspecialchars($title)}</title>
     {else}
-    <title>Webshop</title>
+    <title>Pokemart</title>
     {/if}
 
 

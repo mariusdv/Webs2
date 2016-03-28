@@ -18,6 +18,11 @@ blockquote, textarea {
     height: 150px;
 }
 
+.subcategory:hover {
+    background-color: #95a8d0 !important;
+    color: white !important;
+}
+
 p {
     overflow: hidden;
 }
@@ -27,7 +32,7 @@ body {
 }
 
 .small {
-    width: 15%;
+    width: 100%;
 }
 
 .comparison {

@@ -38,7 +38,7 @@ class Product
             $username = strtolower(filter_var($_SESSION["user"]->email, FILTER_SANITIZE_EMAIL));
 
             $res = Database::query_safe("SELECT COUNT(*) FROM `wishlist` WHERE `Users_Email` = ? AND `Items_Id` = ?", array($username, $this->Id));
-            if ($res !== false) {
+            if ($res != false) {
                 return true;
             }
         }
