@@ -44,12 +44,12 @@ class AdminController
                     $this->product();
                     break;
                 default:
-                    $this->catcrud();
+                    $this->cat();
                     break;
             }
             exit(0);
         }
-        $this->catcrud();
+        $this->cat();
         exit(0);
 
     }
