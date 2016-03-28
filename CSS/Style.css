@@ -594,6 +594,14 @@ a:hover {
     padding: 0px;
 }
 
+
+.bidoof {
+    height: 80px;
+    width: auto;
+    opacity: 0.6;
+    margin-bottom: 20px;
+}
+
 .small {
     margin: 0px !important;
 }

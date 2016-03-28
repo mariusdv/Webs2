@@ -93,7 +93,6 @@
         </table>
     </div>
 </div>
-</div>
 {if $added === true}
 <script>
     $(document).ready(function () {

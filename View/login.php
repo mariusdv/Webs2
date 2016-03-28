@@ -14,7 +14,14 @@
             </div>
 
             <div class="panel-body">
-
+                {if isset($error)}
+                <div class="alert alert-danger" role="alert"><strong>Error!</strong> {htmlspecialchars($error)}
+                </div>
+                {/if}
+                {if isset($success)}
+                <div class="alert alert-success" role="alert"><strong>Success!</strong> {htmlspecialchars($success)}
+                </div>
+                {/if}
                 <form action="/Account" name="form" id="form" class="form-horizontal" enctype="multipart/form-data"
                       method="POST">
 
@@ -43,10 +50,6 @@
                             <a href="/Account/action=recover">Recover Password</a>
                         </div>
                     </div>
-                    {if isset($error)}
-                    <div class="alert alert-danger" role="alert"><strong>Error!</strong> {htmlspecialchars($error)}
-                    </div>
-                    {/if}
                 </form>
 
             </div>
