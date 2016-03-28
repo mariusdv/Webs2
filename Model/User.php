@@ -83,7 +83,7 @@ class User
     {
         $results = array();
         $username = strtolower(filter_var($username, FILTER_SANITIZE_EMAIL));
-        $orders = Database::query_safe("SELECT * FROM `orders` WHERE `Users_Email` = ?", array($username));
+        $orders = Database::query_safe("SELECT * FROM `orders` WHERE `Users_Email` = ? AND `active` = TRUE", array($username));
         $orderCount = 0;
         foreach ($orders as $order) {
             $orderCount++;
@@ -98,6 +98,32 @@ class User
             $results[] = array(index => $orderCount, totalPrice => $totalPrice, $products);
         }
         return $results;
+    }
+
+    public function getOrders()
+    {
+        $results = array();
+        $orders = Database::query("SELECT * FROM `orders` WHERE `active` = TRUE ORDER BY `id` DESC");
+        $orderCount = count($orders);
+        foreach ($orders as $order) {
+
+            $products = null;
+            $items = Database::query_safe("SELECT * FROM `items_has_orders` WHERE `Orders_Id` = ? ", array($order['Id']));
+            $totalPrice = 0;
+            foreach ($items as $item) {
+                $product = Database::query_safe("SELECT * FROM `items` WHERE `Id` = ?", array($item['Items_Id']));
+                $products[] = array(count => $item['Quantity'], id => $product[0]['Id'], price => $item['Price'], ImgUrl => $product[0]['ImgUrl'], name => $product[0]['Name'], total => $item['Price'] * $item['Quantity']);
+                $totalPrice += $item['Price'] * $item['Quantity'];
+            }
+            $results[] = array(index => $orderCount, totalPrice => $totalPrice, $products, user => $order["Users_Email"], id => $order["Id"]);
+            $orderCount--;
+        }
+        return $results;
+    }
+
+    public function removeOrder($id)
+    {
+        Database::query_safe("UPDATE `orders` SET `active` = FALSE WHERE `Id` = ? ", array($id));
     }
 
     public function getAllWishlistProducts($username)

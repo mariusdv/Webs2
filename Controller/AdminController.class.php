@@ -25,6 +25,7 @@ class AdminController
     public function run()
     {
 
+        $this->guarrenteeAdmin("/");
         if (isset($_GET["p"])) {
             switch (strtolower($_GET["p"])) {
                 case "logout":
@@ -36,23 +37,34 @@ class AdminController
                 case "category":
                     $this->catcrud();
                     break;
+                case "orders":
+                    $this->orders();
+                    break;
                 case "newp":
                     $this->product();
                     break;
                 default:
-                    $this->guarrenteeAdmin("/");
-                    render("admin/adminhome.php", ["title" => "Show - All"]);
+                    $this->catcrud();
                     break;
             }
             exit(0);
         }
-        $this->guarrenteeAdmin("/");
-        render("admin/adminhome.php", ["title" => "Show - All"]);
+        $this->catcrud();
         exit(0);
 
     }
 
 
+    public function orders()
+    {
+        if(!empty($_GET["remove"]))
+        {
+            (new User())->removeOrder($_GET["remove"]);
+        }
+        $orders = (new User())->getOrders();
+        render("admin/orders.php", ["orders" => $orders]);
+        exit();
+    }
     public function catcrud()
     {
         if ($_SERVER["REQUEST_METHOD"] == "POST") {

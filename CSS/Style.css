@@ -644,3 +644,12 @@ form {
 .sameline {
     display: initial;
 }
+
+.panel-title > a, .panel-title > small, .panel-title > .small, .panel-title > small > a, .panel-title > .small > a {
+    color: white;
+}
+
+.white {
+    color: white;
+}
+
