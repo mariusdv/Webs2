@@ -92,7 +92,7 @@
                     {/if}
 
                     <div class="form-group">
-                        <input name="search" id="search" type="text" class="form-control" placeholder="Search">
+                        <input name="search" id="search" type="text" class="form-control" placeholder=" Search products">
                     </div>
                     <button type="submit" class="btn btn-default"><span
                             class="glyphicon glyphicon-search search"></span>
