@@ -57,6 +57,7 @@ class AdminController
 
     public function orders()
     {
+        $_SESSION["breadcrumbTrial"]->add("Orders", "/admin/p=orders");
         if(!empty($_GET["remove"]))
         {
             (new User())->removeOrder($_GET["remove"]);
@@ -67,6 +68,7 @@ class AdminController
     }
     public function catcrud()
     {
+        $_SESSION["breadcrumbTrial"]->add("Categories", "/admin/p=category");
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
             if(!empty($_POST["action"]))
