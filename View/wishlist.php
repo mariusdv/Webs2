@@ -61,7 +61,7 @@
                                     {foreach from=$products item=product}
                                     <tr>
                                         <td><img src="{$product->ImgUrl}"></td>
-                                        <td><a href="/account/product={$product->Id}">{$product->Name}</a></td>
+                                        <td><a href="/catalogue/product={$product->Id}">{$product->Name}</a></td>
                                         <td>{$product->Price}</td>
                                         <td>
                                             <form action="/catalogue/product={$product->Id}" method="post">

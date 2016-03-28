@@ -48,7 +48,12 @@
                     </div>
                     <div class="panel-body">
                         <div class="row">
+
                             <div class="col-md-12 col-lg-12">
+                                {if isset($error)}
+                                <div class="alert alert-danger" role="alert"><strong>Error!</strong> {htmlspecialchars($error)}
+                                </div>
+                                {/if}
                                 {foreach from=$user->getAddresses($user->email) item=add}
                                 <div class="panel-group">
                                     <div class="panel">

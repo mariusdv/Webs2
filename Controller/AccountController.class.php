@@ -199,7 +199,8 @@ class AccountController
         exit();
     }
 
-    private function recoverSuccess($mess) {
+    private function recoverSuccess($mess)
+    {
         render("recover.php", ["title" => "Log in", "success" => $mess, "username" => htmlspecialchars($_POST["username"])]);
         exit();
     }
@@ -245,6 +246,17 @@ class AccountController
             $arr["province"] = $_POST["province"];
             $arr["city"] = $_POST["city"];
 
+            $test = $arr;
+            unset($test["password"]);
+            foreach ($test as $string) {
+                if (preg_match('/[\'^£$%&*()}{@#~?><>,|=_+¬-]/', $string)) {
+                    // one or more of the 'special characters' found in $string
+                    render("register.php", ["title" => "register", "error" => "Please do not use any special characters when filling out fields other than password."]);
+                    exit(1);
+                }
+            }
+
+
             $userModel = new User();
             $res = $userModel->tryRegister($arr);
             if ($res === true) {
@@ -271,7 +283,8 @@ class AccountController
         }
     }
 
-    private function manage()
+    private
+    function manage()
     {
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
             if (Empty($_POST["zipcode"])
@@ -279,9 +292,23 @@ class AccountController
                 || Empty($_POST["city"])
                 || Empty($_POST["country"])
                 || Empty($_POST["state"])
-                || Empty($_POST["country"])
             ) {
             } else {
+
+                $arr = array();
+                $arr[] = $_POST["address"];
+                $arr[] = $_POST["zipcode"];
+                $arr[] = $_POST["country"];
+                $arr[] = $_POST["state"];
+                $arr[] = $_POST["city"];
+                foreach ($arr as $string) {
+                    if (preg_match('/[\'^£$%&*()}{@#~?><>,|=_+¬-]/', $string)) {
+                        // one or more of the 'special characters' found in $string
+                        render("addressmanagement.php", ["user" => $_SESSION["user"], "error" => "Please do not use any special characters when submitting a new address."]);
+                        exit(1);
+                    }
+                }
+
                 $_SESSION["user"]->addNewAddress($_POST["zipcode"], $_POST["address"], $_POST["city"], $_POST["country"], $_POST["state"], $_POST["country"]);
                 render("addressmanagement.php", ["user" => $_SESSION["user"]]);
                 exit(0);
