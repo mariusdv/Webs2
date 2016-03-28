@@ -115,6 +115,7 @@ class Catalogue
         return $rows;
     }
 
+    /** DEPRECATED */
     /** Returns true if given stockcount is above 0, else returns false. */
     public
     function IsInStock($stockcount)
@@ -250,7 +251,7 @@ class Catalogue
 
         if (ctype_alpha(str_replace(' ', '', $name)) && !empty($name)) {
             if (DATABASE::query_safe("select count(*) as c from `categories` where `Name` like ? ", array($name))[0]["c"] == 0)
-            DATABASE::query_safe("UPDATE `categories` SET `Name` = ? WHERE `categories`.`Id` = ?", array($name, $id));
+                DATABASE::query_safe("UPDATE `categories` SET `Name` = ? WHERE `categories`.`Id` = ?", array($name, $id));
         } else {
             apologize("Name can only consist of spaces and alphabetical characters.");
         }

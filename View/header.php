@@ -94,13 +94,15 @@
                     <div class="form-group">
                         <input name="search" id="search" type="text" class="form-control" placeholder="Search">
                     </div>
-                    <button type="submit" class="btn btn-default"><span class="glyphicon glyphicon-search search"></span>
+                    <button type="submit" class="btn btn-default"><span
+                            class="glyphicon glyphicon-search search"></span>
                     </button>
                 </form>
 
                 <ul class="nav navbar-nav navbar-right">
                     {if ! isset($admin)}
 
+                    <li><a href="{$comparisonLink}">Comparison ({$compareCount})</a></li>
 
                     <li class="dropdown-cart">
                         <a href="/Order" class="hidden-xs"><span class="glyphicon glyphicon-shopping-cart cart"></span>
@@ -137,8 +139,8 @@
                         <ul class="dropdown-menu">
                             <li><a href="/account">Mijn profiel</a></li>
                             <li role="separator" class="divider"></li>
-                            <li><a href="/account">Wishlist</a></li>
-                            <li><a href="/account">Bestellingen</a></li>
+                            <li><a href="/account/tab=wishlist">Wishlist</a></li>
+                            <li><a href="/account/tab=orders">Bestellingen</a></li>
                             <li role="separator" class="divider"></li>
                             <li><a href="/account/action=logout">Log uit</a></li>
                         </ul>

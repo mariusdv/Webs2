@@ -276,33 +276,49 @@ class AccountController
                 || Empty($_POST["state"])
                 || Empty($_POST["country"])
             ) {
-                render("orderlist.php", ["error" => "Vul AUB alles in", "user" => $_SESSION["user"]]);
-                exit(1);
             } else {
                 $_SESSION["user"]->addNewAddress($_POST["zipcode"], $_POST["address"], $_POST["city"], $_POST["country"], $_POST["state"], $_POST["country"]);
                 render("addressmanagement.php", ["user" => $_SESSION["user"]]);
                 exit(0);
             }
         }
+
         if (Empty($_GET['tab'])) {
             render("profile.php", ["user" => $_SESSION["user"]]);
-        } else if ($_GET['tab'] == "addresses") {
-            render("addressmanagement.php", ["user" => $_SESSION["user"]]);
-        } else if ($_GET['tab'] == "orders") {
-            $orders = (new User())->getAllOrders($_SESSION["user"]->email);
-            render("orderlist.php", ["orders" => $orders, "user" => $_SESSION["user"]]);
-        } else {
-            apologize("Could not find page " . $_GET['tab']);
-        }
+        } else
+            if ($_GET['tab'] == "addresses") {
+                render("addressmanagement.php", ["user" => $_SESSION["user"]]);
+            } else if ($_GET['tab'] == "orders") {
+                $orders = (new User())->getAllOrders($_SESSION["user"]->email);
+                render("orderlist.php", ["orders" => $orders, "user" => $_SESSION["user"]]);
+            } else if ($_GET['tab'] == "wishlist") {
+                if ($_SERVER["REQUEST_METHOD"] == "POST") {
+                    if (Empty($_POST["productId"])) {
+                        render("wishlist.php", ["error" => "Vul AUB alles in", "user" => $_SESSION["user"]]);
+                        exit(1);
+                    } else {
+                        $_SESSION["user"]->removeFromWishlist($_SESSION["user"]->email, $_POST["productId"]);
+                        $products = (new User())->getAllWishlistProducts($_SESSION["user"]->email);
+                        render("wishlist.php", ["user" => $_SESSION["user"], "products" => $products]);
+                        exit(0);
+                    }
+                }
+                $products = (new User())->getAllWishlistProducts($_SESSION["user"]->email);
+                render("wishlist.php", ["user" => $_SESSION["user"], "products" => $products]);
+            } else {
+                apologize("Could not find page " . $_GET['tab']);
+            }
 
     }
+
 
     /**
      * Logs out current user, if any.  Based on Example #1 at
      * http://us.php.net/manual/en/function.session-destroy.php.
      */
 
-    private function logout()
+    private
+    function logout()
     {
 
         $cart = new Cart();

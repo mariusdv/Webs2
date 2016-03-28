@@ -30,6 +30,11 @@
                                 <i class="glyphicon glyphicon-shopping-cart"></i>
                                 Orders </a>
                         </li>
+                        <li>
+                            <a href="/account/tab=wishlist">
+                                <i class="glyphicon glyphicon-gift"></i>
+                                Wishlist </a>
+                        </li>
                     </ul>
                 </div>
                 <!-- END MENU -->
@@ -52,7 +57,7 @@
                                             <h4 class="panel-title address">
                                                 <a data-toggle="collapse"
                                                    href="#collapse{$order['index']}" style="color: white;"><i
-                                                        class="glyphicon glyphicon-gift"></i> Order
+                                                        class="glyphicon glyphicon-ok"></i> Order
                                                     {$order['index']}</a>
                                             </h4>
                                         </div>
@@ -71,7 +76,8 @@
                                                     <tr>
                                                         <td><img src="{$product['ImgUrl']}" alt="{$product['name']}">
                                                         </td>
-                                                        <td>{$product['name']}</td>
+                                                        <td><a href="/catalogue/product={$product['id']}">{$product['name']}</a>
+                                                        </td>
                                                         <td>{$product['count']}</td>
                                                         <td>${$product['price']}</td>
                                                         <td>${$product['total']}</td>

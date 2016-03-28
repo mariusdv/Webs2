@@ -23,6 +23,14 @@ class Product
         $this->Stockcount = $Stockcount;
     }
 
+    public function IsInStock() {
+        if ($this->Stockcount > 0) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
 
     public function getProductCategory() {
         $c = new Category(null, null, null);

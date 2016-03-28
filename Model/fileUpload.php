@@ -12,13 +12,11 @@ class fileUpload
     public function upload($file, $name)
     {
 
-
-
         $path_parts = pathinfo($file["name"]);
         $imageFileType = $path_parts['extension'];
 
         $target_dir = "Resources/Images/";
-        $target_file = $target_dir . $name . "." .$imageFileType;
+        $target_file = $target_dir . $name . "." . $imageFileType;
 
         // Check if image file is a actual image or fake image
         if (isset($_POST["submit"])) {

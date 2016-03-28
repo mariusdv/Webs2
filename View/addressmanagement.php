@@ -30,6 +30,11 @@
                                 <i class="glyphicon glyphicon-shopping-cart"></i>
                                 Orders </a>
                         </li>
+                        <li>
+                            <a href="/account/tab=wishlist">
+                                <i class="glyphicon glyphicon-gift"></i>
+                                Wishlist </a>
+                        </li>
                     </ul>
                 </div>
                 <!-- END MENU -->

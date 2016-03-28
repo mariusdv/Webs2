@@ -72,8 +72,13 @@ function render($template, $values = [])
         //
 
 
-        if (!empty($_SESSION["user"]))
+        if (!Empty($_SESSION["user"]))
             $smarty->assign("user", $_SESSION["user"]);
+
+
+        $chart = new ComparisonChart();
+        $smarty->assign("comparisonLink", $chart->getHref());
+        $smarty->assign("compareCount", count($_SESSION["comparison"]));
 
         $cart = new Cart();
         $cart->ItemCount();

@@ -92,12 +92,42 @@ class User
             $totalPrice = 0;
             foreach ($items as $item) {
                 $product = Database::query_safe("SELECT * FROM `items` WHERE `Id` = ?", array($item['Items_Id']));
-                $products[] = array(count => $item['Quantity'], price => $item['Price'], ImgUrl => $product[0]['ImgUrl'], name => $product[0]['Name'], total => $item['Price'] * $item['Quantity']);
+                $products[] = array(count => $item['Quantity'], id => $product[0]['Id'], price => $item['Price'], ImgUrl => $product[0]['ImgUrl'], name => $product[0]['Name'], total => $item['Price'] * $item['Quantity']);
                 $totalPrice += $item['Price'] * $item['Quantity'];
             }
             $results[] = array(index => $orderCount, totalPrice => $totalPrice, $products);
         }
         return $results;
+    }
+
+    public function getAllWishlistProducts($username)
+    {
+        $username = strtolower(filter_var($username, FILTER_SANITIZE_EMAIL));
+        $entries = Database::query_safe("SELECT * FROM `wishlist` WHERE `Users_Email` = ?", array($username));
+        foreach ($entries as $item) {
+            $result[] = (new Catalogue)->getItem($item['Items_Id']);
+        }
+        return $result;
+    }
+
+    public function addToWishlist($username, $productId)
+    {
+        $username = strtolower(filter_var($username, FILTER_SANITIZE_EMAIL));
+
+        $count = Database::query_safe("SELECT COUNT(*) FROM `wishlist` WHERE `Users_Email` = ?", array($username));
+        $count = $count[0]['COUNT(*)'];
+
+        if ($count > 9) {
+            return false;
+        }
+
+        return Database::query_safe("INSERT INTO `wishlist` (`Items_Id`, `Users_Email`) VALUES (?, ?)", array($productId, $username));
+    }
+
+    public function removeFromWishlist($username, $productId)
+    {
+        $username = strtolower(filter_var($username, FILTER_SANITIZE_EMAIL));
+        return Database::query_safe("DELETE FROM `wishlist` WHERE `Items_Id` = ? AND `Users_Email` = ?", array($productId, $username));
     }
 
     public function newPassword($username, $password)
@@ -112,7 +142,7 @@ class User
 
             // save password
             $hashed = password_hash($password, PASSWORD_DEFAULT);
-            if (Database::query_safe("UPDATE `users` SET `Password` = ?  WHERE `Email` = ?", array($hashed, $username))  === false) {
+            if (Database::query_safe("UPDATE `users` SET `Password` = ?  WHERE `Email` = ?", array($hashed, $username)) === false) {
                 echo "Query error: \"UPDATE `users` SET `Password` = '$hashed'  WHERE `Email` = '$username'\"";
                 exit();
             }
@@ -175,7 +205,7 @@ class User
         $this->token = bin2hex(openssl_random_pseudo_bytes(16));
 
         if (Database::query_safe("INSERT INTO `users` (`Email`, `Password`, `Name`, `Surname`, `RecoveryHash`, `RecoveryDate`, `ValidationHash`) VALUES (?, ?, ?,?, NULL, NULL, ?)"
-            , array($array["username"], $hashed, $array["name"], $array["surname"], $this->token))  === false
+                , array($array["username"], $hashed, $array["name"], $array["surname"], $this->token)) === false
         ) {
             echo "Query error:\"INSERT INTO `users` (`Email`, `Password`, `Name`, `Surname`, `RecoveryHash`, `RecoveryDate`, `ValidationHash`)
             VALUES (" . $array["username"] . ", " . $hashed . ", " . $array["name"] . ", " . $array["surname"] . ", NULL, NULL, '$this->token')\"";
@@ -183,7 +213,7 @@ class User
         }
 
         if (Database::query_safe("INSERT INTO `address` (`Id`, `Zipcode`, `Address`, `City`, `Province`, `Country`, `Users_Email`) VALUES (NULL, ?, ?, ?,?, ?, ?)",
-            array($array["postalcode"], $array["address"], $array["city"], $array["province"], $array["country"], $array["username"]))  === false
+                array($array["postalcode"], $array["address"], $array["city"], $array["province"], $array["country"], $array["username"])) === false
         ) {
             echo "Query error: ADDRESS ADD";
             exit();
@@ -219,7 +249,7 @@ class User
     {
         if ($this->validateUsername($username)) {
             $username = strtolower(filter_var($username, FILTER_SANITIZE_EMAIL));
-            if (Database::query_safe("UPDATE `users` SET `RecoveryHash` = NULL, `RecoveryDate` = NULL WHERE `Email` = ?", array($username))  === false) {
+            if (Database::query_safe("UPDATE `users` SET `RecoveryHash` = NULL, `RecoveryDate` = NULL WHERE `Email` = ?", array($username)) === false) {
                 echo "Query error: \"UPDATE `users` SET `RecoveryHash` = NULL, `RecoveryDate` = NULL WHERE `Email` = '$username'";
                 exit();
             }
@@ -261,7 +291,7 @@ class User
             return false;
 
         // Clear
-        if (Database::query_safe("UPDATE `users` SET `ValidationHash` = NULL WHERE `Email` = ?", array($res["Email"]))  === false) {
+        if (Database::query_safe("UPDATE `users` SET `ValidationHash` = NULL WHERE `Email` = ?", array($res["Email"])) === false) {
             echo "Query error: UPDATE `users` SET `ValidationHash` = NULL WHERE `Email` = " . $res["Email"];
             exit();
         }

@@ -43,6 +43,17 @@
         </div>
         <div class="col-md-9">
             <div class="thumbnail clean">
+                <div class="compare">
+                    <form action="/catalogue/product={$product->Id}" method="post">
+                        <input type="hidden" name="comparisonId" value="{$product->Id}"/>
+
+                        <button type="submit" class="btn btn-default">
+                            <span class="glyphicon glyphicon"></span>
+                            <span class="text">Compare</span>
+                        </button>
+                    </form>
+                    <br>
+                </div>
                 <img class="img-responsive" src="{$product->ImgUrl}" alt="">
                 <div class="caption-full">
                     <h4 class="pull-right">${$product->Price}</h4>
@@ -53,6 +64,7 @@
                         <span class="label label-success">In Stock!</span>
                         {/if}
                     </h4>
+
                     <blockquote>
                         <p><i class="fa fa-quote-left"></i> {$product->DescriptionLong} <i
                                 class="fa fa-quote-right"></i></p>
@@ -61,27 +73,26 @@
                     <form action="/catalogue/product={$product->Id}" method="post">
                         <input type="hidden" name="item" value="{$product->Id}"/>
                         <input type="hidden" name="name" value="{$product->Name}"/>
-                        <button type="submit" class="btn btn-default addbutton">
-                            <span class="glyphicon glyphicon-shopping-cart cart"></span>
+                        <button type="submit" class="btn btn-default flat-lightblue addbutton">
+                            <span class="glyphicon glyphicon-shopping-cart"></span>
                             <span class="text">Add to cart</span>
                         </button>
                     </form>
                     {/if}
                     <div class="addToWishlist">
-
                         <form action="/catalogue/product={$product->Id}" method="post">
-                            <input type="hidden" name="item" value="{$row->Id}"/>
+                            <input type="hidden" name="id" value="{$product->Id}"/>
                             {if !($stock)}
                             <span>This <strong>{$product->Name}</strong> is currently not in stock. Add it to your wishlist instead!</span>
                             {else}
                             <span>Don't want to buy this <strong>{$product->Name}</strong> yet? Add it to your wishlist!</span>
                             {/if}
-                            <button type="submit" class="btn btn-warning">
-                                <span class="glyphicon glyphicon-list-alt"></span>
+                            <button type="submit" class="btn btn-success">
+                                <span class="glyphicon glyphicon-gift"></span>
                                 <span class="text">Add to wishlist</span>
                             </button>
                         </form>
-
+                        <br>
                     </div>
                 </div>
             </div>
