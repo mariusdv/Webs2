@@ -294,7 +294,7 @@ class AdminController
     private function loginError($err)
     {
 
-        render("login.php", ["title" => "Log in", "error" => $err, "username" => htmlspecialchars($_POST["username"])]);
+        render("admin/adminLogin.php", ["title" => "Log in", "error" => $err, "username" => htmlspecialchars($_POST["username"])]);
         exit();
 
     }
