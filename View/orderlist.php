@@ -62,33 +62,37 @@
                                             </h4>
                                         </div>
                                         <div id="collapse{$order['index']}" class="panel-collapse collapse">
-                                            <ul class="list-group">
-                                                <table class="table table-user-information cartTable orderinfo">
-                                                    <tbody>
-                                                    <tr>
-                                                        <td></td>
-                                                        <td><strong>Product</strong></td>
-                                                        <td><strong>Quantity</strong></td>
-                                                        <td><strong>Price</strong></td>
-                                                        <td><strong>Total</strong></td>
-                                                    </tr>
-                                                    {foreach from=$order[0] item=product}
-                                                    <tr>
-                                                        <td><img src="{$product['ImgUrl']}" alt="{$product['name']}">
-                                                        </td>
-                                                        <td><a href="/catalogue/product={$product['id']}">{$product['name']}</a>
-                                                        </td>
-                                                        <td>{$product['count']}</td>
-                                                        <td>${$product['price']}</td>
-                                                        <td>${$product['total']}</td>
-                                                    </tr>
-                                                    {/foreach}
-                                                    </tbody>
+                                            <table class="table table-user-information cartTable orderinfo">
+                                                <tbody>
+                                                <tr>
+                                                    <th></th>
+                                                    <td><strong>Product</strong></td>
+                                                    <td><strong>Quantity</strong></td>
+                                                    <td><strong>Price</strong></td>
+                                                    <td><strong>Total</strong></td>
+                                                </tr>
+                                                {foreach from=$order[0] item=product}
+                                                <tr>
+                                                    <td><img src="{$product['ImgUrl']}" alt="{$product['name']}">
+                                                    </td>
+                                                    <td>
+                                                        <a href="/catalogue/product={$product['id']}">{$product['name']}</a>
+                                                    </td>
+                                                    <td>{$product['count']}</td>
+                                                    <td>${$product['price']}</td>
+                                                    <td>${$product['total']}</td>
+                                                </tr>
+                                                {/foreach}
+                                                </tbody>
+                                                <tr>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
                                                     <td><strong>Total Price:</strong></td>
                                                     <td><strong>${$order['totalPrice']}</strong></td>
+                                                </tr>
 
-                                                </table>
-                                            </ul>
+                                            </table>
                                         </div>
                                     </div>
                                 </div>
@@ -105,3 +109,4 @@
             </div>
         </div>
     </div>
+</div>

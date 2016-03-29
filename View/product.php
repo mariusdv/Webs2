@@ -79,6 +79,7 @@
                         </button>
                     </form>
                     {/if}
+                    {if !$product->IsPartOfWishlist()}
                     <div class="addToWishlist">
                         <form action="/catalogue/product={$product->Id}" method="post">
                             <input type="hidden" name="id" value="{$product->Id}"/>
@@ -94,6 +95,14 @@
                         </form>
                         <br>
                     </div>
+                    {else}
+
+                        <div class="addToWishlist">
+                            <h5 style="color: green;">Item is already part of your wishlist!</h5>
+                        </div>
+
+                    {/if}
+
                 </div>
             </div>
 

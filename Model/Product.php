@@ -32,6 +32,20 @@ class Product
         }
     }
 
+    public function IsPartOfWishlist() {
+        $res = false;
+        if (!Empty($_SESSION["user"])) {
+            $username = strtolower(filter_var($_SESSION["user"]->email, FILTER_SANITIZE_EMAIL));
+
+            $res = Database::query_safe("SELECT COUNT(*) FROM `wishlist` WHERE `Users_Email` = ? AND `Items_Id` = ?", array($username, $this->Id));
+            if ($res != false) {
+                return true;
+            }
+        }
+
+        return $res;
+    }
+
     public function getProductCategory() {
         $c = new Category(null, null, null);
         $res = $c->getSubcategory($this->SubcategoryId);

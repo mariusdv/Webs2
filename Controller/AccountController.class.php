@@ -10,6 +10,8 @@ class AccountController
 {
     public function run()
     {
+        $_SESSION["breadcrumbTrial"]->disable();
+
         if (Empty($_GET["action"])) {
             $this->pagepicker();
         } else {
@@ -83,17 +85,17 @@ class AccountController
                 }
                 // check passwords
                 if (Empty($_POST["password1"]) || Empty($_POST["password2"])) {
-                    render("newPassword.php", ["error" => "Niet alles ingevuld", "title" => "nieuw wachtwoord", "username" => $username, "token" => $_POST["token"]]);
+                    render("newPassword.php", ["error" => "Please fill in every field before submitting.", "title" => "Password Recovery", "username" => $username, "token" => $_POST["token"]]);
                     exit(1);
                 }
                 if ($_POST["password1"] != $_POST["password2"]) {
-                    render("newPassword.php", ["error" => "Wachtwoorden komen niet overeen.", "title" => "nieuw wachtwoord", "username" => $username, "token" => $_POST["token"]]);
+                    render("newPassword.php", ["error" => "Passwords do not match.", "title" => "Password Recovery", "username" => $username, "token" => $_POST["token"]]);
                     exit(1);
                 }
 
                 // save password
                 if (!$userModel->newPassword($_POST["username"], $_POST["password1"])) {
-                    render("newPassword.php", ["error" => "Wachtwoord moet minimaal 8 tekens lang, een hoofdletter, een kleine letter, een nummer en een speciaal teken bevatten.", "title" => "nieuw wachtwoord", "username" => $username, "token" => $_POST["token"]]);
+                    render("newPassword.php", ["error" => "Password must contain atleast 8 characters, an uppercase letter, a lowercase letter and a special character (!@#$%^&*).", "title" => "Password Recovery", "username" => $username, "token" => $_POST["token"]]);
                     exit(1);
                 }
                 // reset hash & date
@@ -106,30 +108,30 @@ class AccountController
                 // new recovery creation
                 $userModel = new User();
                 if (!$userModel->validateUsername($_POST["username"])) {
-                    $this->recoverError("Invalid username");
+                    $this->recoverError("Invalid e-mail address, please try again.");
                 }
                 if ($userModel->newHash($_POST["username"])) {
                     $mailer = new Email();
                     if ($userModel->setRecoveryMail($mailer, $_POST["username"])) {
                         $mailer->sendMail();
-                        $this->recoverError("Email send.");
+                        $this->recoverSuccess("An activation e-mail has been sent to your e-mail address.");
 
                     } else {
-                        $this->recoverError("Email send error.");
+                        $this->recoverError("An error occured while trying to send an activation e-mail. Please try again later.");
                     }
 
                 }
-                $this->recoverError("deze gebruiker heeft afgelopen 24 uur al een recovery aangevraagd.");
+                $this->recoverError("This user has already requested a password recovery in the past 24 hours. Please try again later.");
             }
         } else if (!Empty($_GET["token"])) {
 
             $username = $this->checkRecoveryToken($_GET["token"]);
-            render("newPassword.php", ["title" => "nieuw wachtwoord", "username" => $username, "token" => $_GET["token"]]);
+            render("newPassword.php", ["title" => "Password Recovery", "username" => $username, "token" => $_GET["token"]]);
             exit(1);
 
         }
         // new recovery
-        render("recover.php", ["title" => "Log in", "username" => ""]);
+        render("recover.php", ["title" => "Login", "username" => ""]);
 
     }
 
@@ -141,7 +143,7 @@ class AccountController
         $username = $userModel->validateToken($token);
         if ($username === false) {
             $userModel->logRecovery();
-            apologize("niet geldige token.");
+            apologize("Invalid token.");
         }
         return $username;
     }
@@ -153,7 +155,7 @@ class AccountController
         // validate email-link
         $username = $userModel->validateActivateToken($token);
         if ($username === false) {
-            apologize("niet geldige token.");
+            apologize("Invalid token.");
 
         }
         return $username;
@@ -162,7 +164,7 @@ class AccountController
     private function canRecover($userModel)
     {
         if (!$userModel->CanRecover()) {
-            apologize("Er is afgelopen 24 uur te veel (verkeerde) activiteit van dit IP adress gekomen. Wacht 24 uur voordat u opnieuw een recovery probeert.");
+            apologize("We have received numerous suspicious requests from this IP address. The account is unable to recover the password for the next 24 hours.");
         }
     }
 
@@ -182,10 +184,10 @@ class AccountController
                     redirect("/");
                     exit();
                 }
-                $this->loginError("gebruikersnaam/wachtwoord combinatie is niet geldig");
+                $this->loginError("Username and/or password do not match.");
 
             }
-            $this->loginError("Niet alle gegevens zijn ingevuld");
+            $this->loginError("Please fill in all fields before submitting.");
         } else {
             render("login.php", ["title" => "Log in", "username" => ""]);
         }
@@ -194,6 +196,11 @@ class AccountController
     private function loginError($mess)
     {
         render("login.php", ["title" => "Log in", "error" => $mess, "username" => htmlspecialchars($_POST["username"])]);
+        exit();
+    }
+
+    private function recoverSuccess($mess) {
+        render("recover.php", ["title" => "Log in", "success" => $mess, "username" => htmlspecialchars($_POST["username"])]);
         exit();
     }
 
@@ -217,13 +224,13 @@ class AccountController
                 || Empty($_POST["province"])
                 || Empty($_POST["city"])
             ) {
-                render("register.php", ["title" => "register", "error" => "Vul AUB alles in"]);
+                render("register.php", ["title" => "register", "error" => "Please fill in every field before submitting."]);
                 exit(1);
             }
 
             // Validate stuff
             if ($_POST["password1"] != $_POST["password2"]) {
-                render("register.php", ["title" => "register", "error" => "wachtwoorden komen niet overeen."]);
+                render("register.php", ["title" => "register", "error" => "Passwords do not match."]);
                 exit(1);
             }
 
@@ -244,11 +251,11 @@ class AccountController
                 $mailer = new Email();
                 if ($userModel->setActivateMail($mailer, $arr["username"])) {
                     $mailer->sendMail();
-                    render("register.php", ["title" => "register", "error" => "Mail send."]);
+                    render("register.php", ["title" => "register", "success" => "An activation e-mail has been sent to your e-mail address."]);
                     exit(1);
 
                 } else {
-                    render("register.php", ["title" => "register", "error" => "Mail send error"]);
+                    render("register.php", ["title" => "register", "error" => "An error occured while trying to send an activation e-mail. Please try again later."]);
                     exit(1);
                 }
             }
@@ -292,7 +299,7 @@ class AccountController
             } else if ($_GET['tab'] == "wishlist") {
                 if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     if (Empty($_POST["productId"])) {
-                        render("wishlist.php", ["error" => "Vul AUB alles in", "user" => $_SESSION["user"]]);
+                        render("wishlist.php", ["error" => "Please fill in every field before submitting.", "user" => $_SESSION["user"]]);
                         exit(1);
                     } else {
                         $_SESSION["user"]->removeFromWishlist($_SESSION["user"]->email, $_POST["productId"]);

@@ -1,6 +1,6 @@
 <div class="container">
     <div class="col-sm-12">
-        <h2>Bestellen</h2>
+        <h2>Order</h2>
         <form method="post" action="action=submit">
             <div class="col-sm-12">
                 <table class="table table-bordered table-striped table-condensed cartTable bigCart">
@@ -61,7 +61,7 @@
                     </div>
                 </div>
             </div>
-            <input type="submit" class="btn btn-primary  toast-bottom-center" value="Bestellen">
+            <input type="submit" class="btn btn-primary  toast-bottom-center" value="Order">
 
         </form>
     </div>

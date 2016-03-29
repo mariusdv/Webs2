@@ -12,17 +12,16 @@
     <hr>
     <div class="row">
         <div class="col-sm-8">
-            <h2>Take a look at our catalogue!</h2>
-            <p>Our catalogue is comprised of a wide array of products that will aid you on your quest to catch them all!
-                Click the button below or hover over the 'Product' tag at the top of our page to navigate to the
-                catalogue.</p>
-            <p>Navigate by using the categories listed to the side of the catalogue. Looking for Pokeballs to catch more
-                Pokemon? Looking for some TM's and HM's to learn some new moves? We have everything listed neatly by
-                category so that our customers can find what they are looking for easily!</p>
+            <h2>Happy Easter!</h2>
+            <p>Pokemart.nl wishes each and everyone of you a happy Easter and we wish you the best of luck in catching them all!
+            To celebrate this holiday we are currently having a sale on our Berries department, why don't you go check it out?!</p>
             <p>
                 <a class="btn btn-default flat-button flat-lightblue btn-lg" href="/catalogue">To the
                     catalogue &raquo;</a>
             </p>
+        </div>
+        <div class="col-sm-4">
+            <img src="/Resources/Images/happyeaster.gif" alt="Happy Easter!">
         </div>
     </div>
     <!-- /.row -->
@@ -44,9 +43,7 @@
                 <img class="img-responsive img-center" src="/Resources/Images/Berries/rawstberry.png" alt="Rawstberry">
                 <h2>Easter Berries!</h2>
             </a>
-            <p>The images are set to be circular and responsive. Fusce dapibus, tellus ac cursus commodo, tortor mauris
-                condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis
-                euismod. Donec sed odio dui.</p>
+            <p>As a special easter event we are having a huge sale on our Berries department. Go check it out before the bunnies run away with them!</p>
         </div>
         <div class="col-sm-4">
             <a href="/catalogue/subcat=Evolution%20Items">
@@ -54,9 +51,7 @@
                      alt="Deep Sea Scale">
                 <h2>(R)evolutionary!</h2>
             </a>
-            <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris
-                condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis
-                euismod. Donec sed odio dui.</p>
+            <p>Our brand new Evolution Stones are capable of evolving even the most stubborn Pokemon! Ever wanted to make your Pokemon stronger but didn't feel like training them? Take a look at these stones for some effortless improvement!</p>
         </div>
 
     </div>

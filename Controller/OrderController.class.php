@@ -6,6 +6,7 @@ class OrderController
 
     public function run()
     {
+        $_SESSION["breadcrumbTrial"]->disable();
 
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
@@ -69,7 +70,7 @@ class OrderController
             $cart = new Cart();
             if($cart->save($_POST["delivery"], $_POST["payment"]))
             {
-                render("orderconformation.php", []);
+                render("orderconfirmation.php", []);
                 exit(0);
             }
             apologize("Error saving cart.");
@@ -79,7 +80,7 @@ class OrderController
     }
     public function showCart()
     {
-        render("cart.php", ["title" => "Mijn Winkelmandje",
+        render("cart.php", ["title" => "My Cart",
             "message" => $this->message]);
     }
 
@@ -90,7 +91,7 @@ class OrderController
         $cart = new Cart();
         if($cart->ItemCount() != 0)
         {
-            render("order.php", ["title" => "Mijn Winkelmandje",
+            render("order.php", ["title" => "My Cart",
                 "user" => $_SESSION["user"]]);
             exit(0);
         }

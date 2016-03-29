@@ -61,7 +61,6 @@ class CatalogueController
             } else if (!Empty($_POST["index"]) || is_numeric($_POST["index"])) {
                 if ((new ComparisonChart())->removeItem($_POST["index"])) {
                     $newLink = (new ComparisonChart())->getHref();
-                    apologize('test');
                     // Stops F5 -> want to submit again
                     header("HTTP/1.1 303 See Other");
                     header("Location: http://" . $_SERVER['HTTP_HOST'] . $newLink);

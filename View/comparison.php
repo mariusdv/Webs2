@@ -57,6 +57,7 @@
                     </form>
                 </td>
                 {else}
+                {if !$product->IsPartOfWishlist()}
                 <td>
                     <form action="{$link}" method="post">
                         <input type="hidden" name="itemToAdd" value="{$product->Id}"/>
@@ -66,6 +67,11 @@
                         </button>
                     </form>
                 </td>
+                {else}
+                <td>
+                    <h5 style="color: green;">Item is already part of your wishlist!</h5>
+                </td>
+                {/if}
                 {/if}
                 {/foreach}
             </tr>
@@ -86,7 +92,6 @@
             </tbody>
         </table>
     </div>
-</div>
 </div>
 {if $added === true}
 <script>

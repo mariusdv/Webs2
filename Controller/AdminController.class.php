@@ -24,7 +24,7 @@ class AdminController
 
     public function run()
     {
-
+        $_SESSION["breadcrumbTrial"]->disable();
         $this->guarrenteeAdmin("/");
         if (isset($_GET["p"])) {
             switch (strtolower($_GET["p"])) {

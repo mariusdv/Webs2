@@ -67,22 +67,45 @@
                                         <div class="panel-heading">
                                             <h4 class="panel-title address">
                                                 <a data-toggle="collapse"
-                                                   href="#collapseNew" style="color: white;"><i class="glyphicon glyphicon-plus"></i> Add new address</a>
+                                                   href="#collapseNew" style="color: white;"><i
+                                                        class="glyphicon glyphicon-plus"></i> Add new address</a>
                                             </h4>
                                         </div>
                                         <div id="collapseNew" class="panel-collapse collapse">
-                                            <ul class="list-group">
-                                                <form action="/account" name="form" id="form" class="form-horizontal"
-                                                      enctype="multipart/form-data"
-                                                      method="POST">
-                                                    <li class="list-group-item address"><input id="zipcode" type="text" class="form-control" name="zipcode" placeholder="Zipcode"></li>
-                                                    <li class="list-group-item address"><input id="address" type="text" class="form-control" name="address" placeholder="Address"></li>
-                                                    <li class="list-group-item address"><input id="city" type="text" class="form-control" name="city" placeholder="City"></li>
-                                                    <li class="list-group-item address"><input id="state" type="text" class="form-control" name="state" placeholder="State"></li>
-                                                    <li class="list-group-item address"><input id="country" type="text" class="form-control" name="country" placeholder="Country"></li>
-                                                    <li class="list-group-item address"><button class="btn btn-success" type="submit">Submit</button></li>
-                                                </form>
-                                            </ul>
+                                            <form action="/account" name="form" id="form" class="form-horizontal"
+                                                  enctype="multipart/form-data"
+                                                  method="POST">
+                                                <ul class="list-group">
+
+                                                    <li class="list-group-item address"><input id="zipcode" type="text"
+                                                                                               class="form-control"
+                                                                                               name="zipcode"
+                                                                                               placeholder="Zipcode">
+                                                    </li>
+                                                    <li class="list-group-item address"><input id="address" type="text"
+                                                                                               class="form-control"
+                                                                                               name="address"
+                                                                                               placeholder="Address">
+                                                    </li>
+                                                    <li class="list-group-item address"><input id="city" type="text"
+                                                                                               class="form-control"
+                                                                                               name="city"
+                                                                                               placeholder="City"></li>
+                                                    <li class="list-group-item address"><input id="state" type="text"
+                                                                                               class="form-control"
+                                                                                               name="state"
+                                                                                               placeholder="State"></li>
+                                                    <li class="list-group-item address"><input id="country" type="text"
+                                                                                               class="form-control"
+                                                                                               name="country"
+                                                                                               placeholder="Country">
+                                                    </li>
+                                                    <li class="list-group-item address">
+                                                        <button class="btn btn-success" type="submit">Submit</button>
+                                                    </li>
+                                                </ul>
+
+                                            </form>
                                         </div>
                                     </div>
                                 </div>
@@ -94,3 +117,4 @@
             </div>
         </div>
     </div>
+</div>
