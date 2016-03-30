@@ -248,6 +248,8 @@ class AccountController
 
             $test = $arr;
             unset($test["password"]);
+            unset($test["username"]);
+            $test = array_values($test);
             foreach ($test as $string) {
                 if (preg_match('/[\'^£$%&*()}{@#~?><>,|=_+¬-]/', $string)) {
                     // one or more of the 'special characters' found in $string
